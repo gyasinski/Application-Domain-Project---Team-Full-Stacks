@@ -1,0 +1,54 @@
+html * {
+	font-family: "Calibri", sans-serif;
+}
+
+body {
+	background-color: #FEF5ED;
+}
+
+h1 {
+	color: #99A799;
+}
+
+p {
+	color: #FEF5ED;
+}
+
+p2 {
+	color: #FEF5ED;
+	font-size: 30px;
+	font-weight: 700;
+}
+
+a {
+	color: #FEF5ED;
+}
+
+.shape{
+	background-color: #ADC2A9;
+}
+
+label {
+	color: #FEF5ED;
+	font-size: 30px;
+	font-weight: 700;
+}
+
+input[type=submit] {
+	background: #99A799;
+	color: #FEF5ED;
+	font-size: 25px;
+	font-weight: 700;
+	height: 60px;
+	width: 125px;
+	border: none;
+	border-radius: 10px;
+	transition-duration: 0.4s;
+}
+
+input[type=submit]:hover {
+	background: #FEF5ED;
+	color: #99A799;
+	border: none;
+}
+
