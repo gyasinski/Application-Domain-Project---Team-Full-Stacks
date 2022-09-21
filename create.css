@@ -1,0 +1,26 @@
+.shape {
+	height: 500px;
+	width: 800px;
+	border-radius: 30px;
+	margin: auto;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+div {
+	text-align: center;
+	padding: 10px;
+}
+
+label {
+	width: 300px;
+	display: inline-block;
+	text-align: left;
+}
+
+input[type=text] {
+	margin-left: 30px;
+}
+
+input[type=date] {
+	margin-left: 30px;
+}
