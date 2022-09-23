@@ -4,7 +4,6 @@
 	border-radius: 30px;
 	margin: auto;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-	
 }
 
 .logo {
@@ -14,7 +13,6 @@
 	display: inline-block;
 	
 }
-
 
 div {
 	text-align: center;
@@ -32,8 +30,17 @@ input[type=text] {
 }
 
 input[type=submit] {
-	height: 100px !important;
-	width: 300px !important;
-	margin: 10px;
+	background: #D3E4CD !important;
+	color: #99A799 !important;
+	font-size: 25px;
+	font-weight: 700;
+	height: 60px;
+	width: 125px;
+	border: none;
+	border-radius: 10px;
+	transition-duration: 0.4s;
 }
+
+
+
 
