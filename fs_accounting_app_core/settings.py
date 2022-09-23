@@ -75,7 +75,15 @@ WSGI_APPLICATION = 'fs_accounting_app_core.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {}
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'accounts',
+        'USER': 'admin',
+        'PASSWORD': 'teamfour',
+        'HOST': 'fullstacks-db.crf96lltty5s.us-east-1.rds.amazonaws.com',
+        'PORT': 3306
+
+    }
 }
 
 
@@ -119,3 +127,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AUTH_USER_MODEL = 'users.User'
