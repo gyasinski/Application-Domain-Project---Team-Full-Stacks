@@ -1,8 +1,10 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-    <link rel="stylesheet" href="login.css">
-    <link rel="stylesheet" href="colorscheme.css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
     <meta charset="UTF-8">
     <title>Full-Stacks: Login</title>
 </head>
@@ -11,10 +13,10 @@
 
     <div class="shape">
         <div>
-            <form>
-                <label for="user">Username: </label><input type="text" id="user">
+            <form action="/users/send-data/" method="post">{% csrf_token %}
+                <label for="user">Username: </label><input type="text" id="user", name="user_name">
                 </br></br>
-                <label for="pass">Password: </label><input type="password" id="pass">
+                <label for="pass">Password: </label><input type="password" id="pass", name="user_password">
                 </br></br></br>
                 <input type="submit" value="Submit">
             </form>
