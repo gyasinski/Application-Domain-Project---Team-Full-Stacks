@@ -4,6 +4,15 @@
 	border-radius: 30px;
 	margin: auto;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	
+}
+
+.logo {
+    
+	width: 350px;
+	padding-left: 29%;
+	display: inline-block;
+	
 }
 
 div {
@@ -21,13 +30,9 @@ input[type=text] {
 	margin-left: 30px;
 }
 
-input[type=date] {
-	margin-left: 30px;
-	
+input[type=submit] {
+	height: 100px !important;
+	width: 300px !important;
+	margin: 10px;
 }
 
-input[id=back_login] {
-	position: relative;
-	right: 175px;
-	up: 100px;
-}

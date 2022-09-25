@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css}">
+    <link rel="stylesheet" href="{% static 'css/view_users.css}">
+    <meta charset="UTF-8">
+    <title>Full-Stacks: View All Users</title>
+</head>
+<body>
+    <h1> < $ > Full-Stacks</h1>
+
+    <div class="shape">
+        <input type="button" value="Go Back">
+        <input type="button" value="Add Row" onclick="createTableRow()">
+    </div>
+
+    <table id="view_all_users" width="1200px">
+        <tr>
+            <th>Username</th>
+            <th>User ID</th>
+            <th>Role</th>
+            <th>Options</th>
+        </tr>
+    </table>
+    <script>
+        var table = document.getElementById("view_all_users");
+
+        // Modify these variable to change what goes into the table
+        var user = "eguererro0922";
+        var id = "08124459";
+        var role = "Accountant";
+
+        // ******This is pseudocode for how I think you could populate the table
+        // ******Im not sure how input would come in from a Django table.
+        // inputstream.open();
+        // inputstream.nextLine();
+        // for(int i = 0; i < inputstream.length(); i++) {
+        //      user = inputstream.user;
+        //      id = inputstream.id;
+        //      role = inputstream.role;
+        //      createTableRow();
+        //      inputstream.nextLine();
+        // }
+
+        // Creates one row and populates with variables user, id, and role
+        function createTableRow() {
+            var row = table.insertRow();
+            var cell = row.insertCell();
+            cell.innerHTML = user;
+            cell = row.insertCell();
+            cell.innerHTML = id;
+            cell = row.insertCell();
+            cell.innerHTML = role;
+            cell = row.insertCell();
+
+            var btn = document.createElement('input');
+            btn.type = "button";
+            btn.className = "edit_btn";
+            btn.value = "Edit";
+            // btn.onclick =
+            cell.appendChild(btn);
+
+            var btn = document.createElement('input');
+            btn.type = "button";
+            btn.className = "active_btn";
+            btn.value = "Active Status";
+            // btn.onclick =
+            cell.appendChild(btn);
+
+            var btn = document.createElement('input');
+            btn.type = "button";
+            btn.className = "suspend_btn";
+            btn.value = "Suspend";
+            // btn.onclick =
+            cell.appendChild(btn);
+
+            var btn = document.createElement('input');
+            btn.type = "button";
+            btn.className = "email_btn";
+            btn.value = "E-Mail";
+            // btn.onclick =
+            cell.appendChild(btn);
+
+        }
+    </script>
+</body>
+</html>

@@ -52,3 +52,44 @@ input[type=submit]:hover {
 	border: none;
 }
 
+input[type=button]:hover {
+	background: #FEF5ED;
+	color: #99A799;
+	border: none;
+}
+
+input[type=button] {
+	background: #99A799;
+	color: #FEF5ED;
+	font-size: 20px;
+	font-weight: 600;
+	height: 40px;
+	width: 150px;
+	border: none;
+	border-radius: 10px;
+	transition-duration: 0.4s;
+}
+
+table {
+	border-spacing: 0;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+td {
+	color: #99A799;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+th {
+	background-color: #ADC2A9;
+	color: #FEF5ED;
+	font-size: 30px;
+	font-weight: 700;
+	
+}
+
+tr:nth-child(even) {
+	background-color: #EAE3DC;
+}
+
