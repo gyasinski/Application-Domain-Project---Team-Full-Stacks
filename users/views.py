@@ -29,18 +29,16 @@ def fp_get_creds(request):
         print('User not found!')
     else:
         print('User ' + curr_user.get_username() + ' found!')
+        send_mail(
+        'FullStacks Accounting Password',
+        'Hello ' + curr_user.get_first_name() + '!' + ' This email is intended to help you remember your FullStacks Accounting Software password. If you did not request your password, please ignore this email and contact customer service. Otherwise, please see your current password below for future logins. \n Current Password: ' + curr_user.get_password(),
+        'from@example.com',
+        [email],
+        fail_silently=False,
+     )
 
+        return render(request,'forgotPassword.html')
 
-    send_mail(
-    'FullStacks Accounting Password',
-    'Hello ' + curr_user.get_first_name() + '!' + ' This email is intended to help you remember your FullStacks Accounting Software password. If you did not request your password, please ignore this email and contact customer service. Otherwise, please see your current password below for future logins. \n Current Password: ' + curr_user.get_password(),
-    'from@example.com',
-    [email],
-    fail_silently=False,
-)
-    context = {"curr_user":curr_user}
-
-    return render(request,'forgotPassword.html',context)
 
 def generate_pin():
     length = 4
