@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -37,7 +38,7 @@ def fp_get_creds(request):
         fail_silently=False,
      )
 
-        return render(request,'forgotPassword.html')
+        return render(request,'resetPassword.html')
 
 
 def generate_pin():
@@ -65,3 +66,23 @@ def verify_user_exists_via_email(username, email):
         print('User not found!')
         pass
 
+
+def reset_current_password(request):
+    return HttpResponse('Complete')
+
+def verify_password(password):
+    if len(password) < 8:
+        print('not long enough!')
+    if any(char.isdigit() for char in password) == False:
+        print('Needs a number!')
+    if password[0].isalpha() == False:
+        print('First character must be a letter!')
+    if any(char.isalpha() for char in password) == False:
+        print('Needs a letter!')
+
+    special_characters = "!@#$%^&*()-+?_=,<>/"
+
+    if any(c in special_characters for c in password):
+        print('yes!')
+    else:
+        print('Must contain special characters!')
