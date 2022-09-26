@@ -19,8 +19,26 @@ from django.contrib.auth import get_user_model
 def render_login_page(request):
     return render(request, 'main.html')
 
+def render_create_page(request):
+    return render(request, 'create.html')
+
 def render_forgot_password_page(request):
     return render(request, 'forgotPassword.html')
+
+def render_admin_page(request):
+    return render(request, 'adminMenu.html')
+
+def render_accountant_page(request):
+    return render(request, 'accountantMenu.html')
+
+def render_manager_page(request):
+    return render(request, 'managerMenu.html')
+
+def render_viewusers_page(request):
+    return render(request, 'view_users.html')
+
+def render_setpass_page(request):
+    return render(request, 'resetPassword.html')
 
 def fp_get_creds(request):
     username = request.POST.get('curr_username')

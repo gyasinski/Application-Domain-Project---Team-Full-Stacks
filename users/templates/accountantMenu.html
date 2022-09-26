@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/accountantMenu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <meta charset="UTF-8">
+    <title>Full-Stacks: Accountant Menu</title>
+</head>
+<body>
+    <img src= "{% static 'images/slogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+    <div class="shape">
+        </br>
+        <p2>Welcome, Accountant</p2>
+        <p> This is a placeholder page for the accountant main menu. </p>
+        <form action="/users/">
+            <input type="submit" value="Logout">
+        </form>
+    </div>
+</body>
+</html>
