@@ -83,6 +83,13 @@ class User(AbstractBaseUser):
 
     def get_password(self):
         return self.password
+    
+    def has_mgr_perms(self):
+        return self.is_mgr
+
+    def has_acct_perms(self):
+        return self.is_accountant
+
 
 
     def __str__(self):

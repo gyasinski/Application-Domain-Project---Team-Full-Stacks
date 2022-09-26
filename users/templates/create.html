@@ -1,8 +1,10 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="colorscheme.css">
-    <link rel="stylesheet" href="create.css">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/create.css' %}">
     <meta charset="UTF-8">
     <title>Full-Stacks: Create New User</title>
 </head>
@@ -10,21 +12,22 @@
     <h1> < $ > Full-Stacks</h1>
 
     <div class="shape">
-        <form action="main.html">
+        <form>{% csrf_token %}
             <input type="submit" value="Go Back" id="back_login">
-            <label>Create New User</label>
+            <label>Account Request Form</label>
         </form>
-        <form>
+        <form action="/users/new_user_request/submit/" method="post">{% csrf_token %}
             </br>
-            <label for="fname">First Name: </label><input type="text" id="fname"></br>
-            <label for="lname">Last Name: </label><input type="text" id="lname"></br>
-            <label for="adr">Address: </label><input type="text" id="adr"></br>
-            <label for="apt_num">Apartment # / Suite: </label><input type="text" id="apt_num"></br>
-            <label for="city">City: </label><input type="text" id="city"></br>
-            <label for="state">State: </label><input type="text" id="state"></br>
-            <label for="zip">ZIP code: </label><input type="text" id="zip"></br>
-            <label for="country">Country: </label><input type="text" id="country"></br>
-            <label for="dob">Date of Birth: </label><input type="date" id="dob"></br>
+            <label for="fname">First Name: </label><input type="text" id="fname" name="first_name"></br>
+            <label for="lname">Last Name: </label><input type="text" id="lname" name="last_name"></br>
+            <label for="adr">Address: </label><input type="text" id="adr" name="address"></br>
+            <label for="apt_num">Apartment # / Suite: </label><input type="text" id="apt_num" name="apartment"></br>
+            <label for="city">City: </label><input type="text" id="city" name="city"></br>
+            <label for="state">State: </label><input type="text" id="state" name="state"></br>
+            <label for="zip">ZIP code: </label><input type="text" id="zip" name="zip_code"></br>
+            <label for="country">Country: </label><input type="text" id="country" name="country"></br>
+            <label for="dob">Date of Birth: </label><input type="date" id="dob" name="date_of_birth"></br>
+            <label for="admin">Username of Admin: </label><input type="text" id="admin" name="admin_user"></br>
             </br>
             <input type="submit" value="Submit">
         </form>

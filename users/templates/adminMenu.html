@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{% static 'css/colorscheme.css}">
-    <link rel="stylesheet" href="{% static 'css/adminMenu.css}">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/adminMenu.css' %}">
     <meta charset="UTF-8">
     <title>Full-Stacks: Admin Menu</title>
 </head>
@@ -14,11 +14,16 @@
         
     <div class="shape">
         </br> </br> </br> </br>
-        <input type="submit" value="View All Users">
+        <form action="/users/administrator/view_all_users/" method="get">{% csrf_token %}
+            <input type="submit" value="View All Users">
+        </form>
         </br>
-        <input type="submit" value="Create New User">
-        </br>
-        <input type="submit" value="Options">
+        <form action="/users/administrator/create_user/" method="get">{% csrf_token %}
+            <input type="submit" value="Create New User">
+        </form>
+        <form action="/users/administrator/logout_user/" method="get">{% csrf_token %}
+            <input type="submit" value="Logout">
+        </form>
 
     </div>
 </body>
