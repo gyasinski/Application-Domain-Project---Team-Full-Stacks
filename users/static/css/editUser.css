@@ -6,14 +6,6 @@
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-.logo {
-    
-	width: 350px;
-	padding-left: 29%;
-	display: inline-block;
-	
-}
-
 div {
 	text-align: center;
 	padding: 10px;
@@ -32,16 +24,16 @@ input[type=text] {
 input[type=update] {
 	background: #D3E4CD;
 	color: #99A799;
-    font-size: 25px;
+    	font-size: 25px;
 	font-weight: 700;
 	height: 60px;
 	width: 125px;
 	border: none;
 	border-radius: 10px;
 	transition-duration: 0.4s;
-    text-align: center;
-    position: relative;
-    margin: 10px;
+    	text-align: center;
+    	position: relative;
+    	margin: 10px;
 }
 
 input[type=update]:hover {

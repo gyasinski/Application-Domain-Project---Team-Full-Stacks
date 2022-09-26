@@ -28,13 +28,17 @@ def render_create_page(request):
     return render(request, 'create.html')
 
 def render_setpass_page(request):
-    return render(request, 'create.html')
+    return render(request, 'resetPassword.html')
 
 def render_admin_page(request):
     return render(request, 'adminMenu.html')
 
-def render_view_users_page(request):
-    return render(request, 'view_users.html')
+def render_viewusers_page(request):
+    users = User.objects.all()
+    return render(request, 'view_users.html', {'users': users})
+
+def render_edituser_page(request):
+    return render(request, 'adminEditUser.html')
 
 def render_accountant_page(request):
     return render(request, 'accountantMenu.html')

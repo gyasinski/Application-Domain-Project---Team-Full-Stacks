@@ -12,7 +12,8 @@ urlpatterns = [
     path('administrator/create_user/', views.render_create_page),
     path('new_user_request/', views.render_create_page),
     path('new_user_request/submit/', views.submit_request_for_new_account),
-    path('administrator/view_all_users/', views.render_view_users_page),
+    path('administrator/view_all_users/', views.render_viewusers_page),
+    path('administrator/edit_user/', views.render_edituser_page),
     path('accountant/', views.render_accountant_page),
     path('manager/', views.render_manager_page),
 ]

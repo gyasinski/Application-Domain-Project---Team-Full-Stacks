@@ -9,15 +9,21 @@
     <title>Full-Stacks: Admin Menu</title>
 </head>
 <body>
-            
-    <img src= "slogo.png" class="logo" alt =" < $ > Full-Stacks">
+<img src= "{% static 'images/slogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+
+    <div class="profile_tab">
+        <div class="circle" id="profile_pic">
+             <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+        </div>
+        <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
+    </div>
         
     <div class="shape">
-        </br> </br> </br> </br>
+        <p2> Welcome, Administrator</p2>
+        </br> </br>
         <form action="/users/administrator/view_all_users/" method="get">{% csrf_token %}
             <input type="submit" value="View All Users">
         </form>
-        </br>
         <form action="/users/administrator/create_user/" method="get">{% csrf_token %}
             <input type="submit" value="Create New User">
         </form>
