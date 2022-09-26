@@ -71,6 +71,18 @@ class User(AbstractBaseUser):
 
     def has_perm(self, perm, obj=None):
         return self.is_admin
+    
+    def get_username(self):
+        return self.username
+    
+    def get_email(self):
+        return self.email
+
+    def get_first_name(self):
+        return self.first_name
+
+    def get_password(self):
+        return self.password
 
 
     def __str__(self):
