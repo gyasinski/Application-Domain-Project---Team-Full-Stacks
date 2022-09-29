@@ -20,6 +20,12 @@ p2 {
 	font-weight: 700;
 }
 
+p3 {
+    color: #99A799;
+    font-size: 30px;
+	font-weight: 700;
+}
+
 a {
 	color: #FEF5ED;
 }
@@ -61,6 +67,42 @@ label {
 	color: #FEF5ED;
 	font-size: 30px;
 	font-weight: 700;
+}
+
+input[type=text] {
+    background-color: #FEF5ED;
+    border: 2px solid #99A799;
+    border-radius: 4px;
+    color: #99A799;
+    font-weight: 700;
+}
+
+input[type=password] {
+    background-color: #FEF5ED;
+    border: 2px solid #99A799;
+    border-radius: 4px;
+    color: #99A799;
+}
+
+textarea {
+    background-color: #FEF5ED;
+    border: 2px solid #99A799;
+    border-radius: 4px;
+    color: #99A799;
+}
+
+select {
+    background-color: #FEF5ED;
+    border: 2px solid #99A799;
+    border-radius: 4px;
+    color: #99A799;
+}
+
+input[type=date] {
+    background-color: #FEF5ED;
+    border: 2px solid #99A799;
+    border-radius: 4px;
+    color: #99A799;
 }
 
 input[type=submit] {

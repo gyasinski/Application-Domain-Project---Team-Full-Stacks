@@ -1,0 +1,32 @@
+.shape {
+	height: 625px;
+	width: 800px;
+	border-radius: 30px;
+	margin: auto;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	text-align: center;
+	padding: 10px;
+}
+
+.input_label {
+	width: 150px;
+	text-align: left;
+	display: inline-block;
+}
+
+input[type=date] {
+	margin-right: 20px;
+}
+
+#emailsubject {
+    width: 500px;
+}
+
+#emailbody {
+    width: 502px;
+    height: 250px;
+    vertical-align: text-top;
+    margin-left: -3px;
+    resize: none;
+}
+

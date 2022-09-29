@@ -25,6 +25,10 @@ input[type=submit] {
 	font-weight: 600;
 }
 
+#back {
+    margin-left: 20px;
+}
+
 form {
 	display: inline-block;
 }

@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/emailUser.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <meta charset="UTF-8">
+    <title>Full-Stacks: E-mail User</title>
+</head>
+<body>
+    <img src= "{% static 'images/slogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+
+    <div class="profile_tab">
+        <div class="circle" id="profile_pic">
+             <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+        </div>
+        <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
+    </div>
+
+    <div class="shape">
+        <form>
+            </br>
+            <p2>Email User</p2>
+            </br>
+            <p2>To: </p2>
+            <p3>--Username--</p3></br>
+            </br>
+            <label for="emailsubject" class="input_label">Subject: </label><input type="text" id="emailsubject" name="email_subject"></br>
+            </br>
+            <label for="emailbody" class="input_label">Body: </label>
+            <textarea id="emailbody" name="email_body"></textarea></br>
+        </br></br>
+            <input type="submit" value="Send">
+        </form>
+        </br>
+        <form action="/users/administrator/view_all_users">
+            <input type="submit" value="Cancel">
+        </form>
+    </div>
+</body>
+</html>

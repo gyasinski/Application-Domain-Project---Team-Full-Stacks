@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{% static 'css/suspendUser.css' %}">
     <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
-    <link rel="stylesheet" href="{% static 'css/editUser.css' %}">
     <meta charset="UTF-8">
-    <title>Full-Stacks: Admin Edit User</title>
+    <title>Full-Stacks: Suspend User</title>
 </head>
 <body>
     <img src= "{% static 'images/slogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
@@ -21,20 +21,14 @@
     <div class="shape">
         <form>
             </br></br>
-            <p2>Edit User</p2>
+            <p2>Suspend User</p2>
             </br></br>
             <p3>--Username--</p3></br>
             </br>
-            <label for="fname" class="edit_user_label">First Name: </label><input type="text" id="fname"></br>
-            <label for="lname" class="edit_user_label">Last Name: </label><input type="text" id="lname"></br>
-            <label for="email" class="edit_user_label">Email: </label><input type="text" id="email"></br>
-            <label for="role" class="edit_user_label">Role:</label>
-            <select name="role" id="role">
-            <option value="regular user">Accountant</option>
-            <option value="manager">Manager</option>
-            </select>
-            </br></br></br>
-            <input type="submit" value="Update">
+            <label for="suspendstart" class="input_label">Start Date: </label><input type="date" id="suspendstart" name="start_of_suspension"></br>
+            <label for="suspendend" class="input_label">End Date: </label><input type="date" id="suspendend" name="end_of_suspension"></br>
+            </br></br>
+            <input type="submit" value="Suspend">
         </form>
         </br>
         <form action="/users/administrator/view_all_users">

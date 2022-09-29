@@ -40,6 +40,12 @@ def render_viewusers_page(request):
 def render_edituser_page(request):
     return render(request, 'adminEditUser.html')
 
+def render_suspenduser_page(request):
+    return render(request, 'adminSuspendUser.html')
+
+def render_emailuser_page(request):
+    return render(request, 'adminEmailUser.html')
+
 def render_accountant_page(request):
     return render(request, 'accountantMenu.html')
 
