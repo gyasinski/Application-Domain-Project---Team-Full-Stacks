@@ -14,7 +14,7 @@
     <div class="shape">
         <form action="/users/">{% csrf_token %}
             <input type="submit" value="Go Back" id="back_login">
-            <label>Account Request Form</label>
+            <label class="header_label">Account Request Form</label>
         </form>
         <form action="/users/new_user_request/submit/" method="post">{% csrf_token %}
             </br>
