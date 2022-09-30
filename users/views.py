@@ -57,7 +57,8 @@ def fp_get_creds(request):
     email = request.POST.get('curr_email')
     curr_user = verify_user_exists_via_email(username,email)
     if curr_user is None:
-        return None
+        messages.error(request, 'Incorrect username.')
+        return redirect('/users/forgot-password')
     else:
         print('User ' + curr_user.get_username() + ' found!')
         send_mail(
@@ -85,6 +86,10 @@ def login_user(request):
     login_password = request.POST.get('user_password')
     backend_instance = UserBackend
     current_user = backend_instance.authenticate(backend_instance, login_username, login_password)
+    if current_user is None:
+        messages.error(request, 'Incorrect username or password.')
+        return redirect('/users')
+
     if current_user.has_perm(perm):
         response = redirect('/users/administrator')
         return response
