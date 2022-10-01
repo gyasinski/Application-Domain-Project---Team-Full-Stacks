@@ -10,6 +10,8 @@ COPY Pipfile Pipfile.lock ./
 
 RUN pip install django
 
+RUN pip install pymysql
+
 RUN pip install mysqlclient
 
 RUN pip install pipenv && pipenv install
