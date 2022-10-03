@@ -1,3 +1,4 @@
+from random import choices
 from tkinter.font import NORMAL
 from django.db import models
 from users.models import User
@@ -8,6 +9,7 @@ from users.models import User
 class Account(models.Model):
     account_id = models.IntegerField(primary_key=True, unique=True)
     account_name = models.CharField(max_length=30, unique=True)
+
     CREDIT = 'Credit'
     DEBIT = 'Debit'
     NORMAL_SIDE = [
@@ -18,8 +20,28 @@ class Account(models.Model):
         max_length = 6,
         choices = NORMAL_SIDE,
     )
+
     account_desc = models.TextField(max_length=200)
-    account_category = models.CharField(max_length=15)
+
+    ASSET = 'Asset'
+    LIABILITY = 'Liability'
+    EXPENSES = 'Expenses'
+    EQUITY = 'Equity'
+    REVENUE = 'Revenue'
+    ACCT_CATEGORY = [
+        (ASSET, 'Asset'),
+        (LIABILITY, 'Liability'),
+        (EXPENSES, 'Expenses'),
+        (EQUITY, 'Equity'),
+        (REVENUE, 'Revenue'),
+    ]
+
+    account_category = models.CharField(
+        max_length=9,
+        choices=ACCT_CATEGORY,
+    )
+
+
     account_sub_category = models.CharField(max_length=20)
     initial_balance = models.DecimalField(max_digits=19, decimal_places=10)
     debit_amount = models.DecimalField(max_digits=19, decimal_places=10)
@@ -28,6 +50,7 @@ class Account(models.Model):
     dt_acct_creation = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey('users.user',on_delete=models.CASCADE)
     account_comment = models.TextField(max_length=200)
+    
     INCOME_STATEMENT = 'IS'
     BALANCE_SHEET = 'BS'
     RETAINED_EARNINGS_STATEMENT = 'RES'
@@ -40,6 +63,31 @@ class Account(models.Model):
         max_length=3,
         choices=STATEMENT,
     )
+
+    CASH = 'Cash'
+    MARKET_SECURITIES = 'Marketable Securities'
+    ACCOUNTS_REC = 'Accounts Recievable'
+    INVENTORY = 'Inventory'
+    FIXED_ASSETS = 'Fixed Assets'
+    GOODWILL = 'Goodwill'
+
+    ORDER_OF_LIQUIDITY = [
+        (CASH, 'Cash'),
+        (MARKET_SECURITIES, 'Market Securities'),
+        (ACCOUNTS_REC, 'Accounts Recievable'),
+        (INVENTORY, 'Inventory'),
+        (FIXED_ASSETS, 'Fixed Assets'),
+        (GOODWILL, 'Goodwill'),
+    ]
+
+    order = models.CharField(
+        max_length = 21,
+        choices = ORDER_OF_LIQUIDITY,
+    )
+
+
+
+
     is_active = models.BooleanField(default=True)
 
 

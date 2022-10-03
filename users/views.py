@@ -2,10 +2,9 @@ from math import perm
 from urllib import request
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.contrib import messages
 
 from users.models import User
-from users.backend import UserBackend
+from django.contrib.auth import authenticate, login
 
 from django.core.mail import send_mail
 import random
@@ -89,11 +88,12 @@ def generate_pin():
 def login_user(request):
     login_username = request.POST.get('user_name')
     login_password = request.POST.get('user_password')
-    backend_instance = UserBackend
-    current_user = backend_instance.authenticate(backend_instance, login_username, login_password)
+
+    current_user = authenticate(request, username=login_username, password=login_password)
+    if current_user is not None:
+        login(request,current_user)
     if current_user.has_perm(perm):
-        response = redirect('/users/administrator')
-        return response
+        return render(request, 'adminMenu.html')
     elif current_user.is_accountant:
         response = redirect('/users/accountant')
         return response

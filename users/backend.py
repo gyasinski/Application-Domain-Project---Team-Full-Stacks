@@ -1,19 +1,18 @@
-from django.contrib.auth.backends import BaseBackend
+from django.contrib.auth.backends import ModelBackend
 from users.models import User
-from django.contrib.auth import get_user_model
 
-class UserBackend(BaseBackend):
-    def authenticate(self, username, password):
-        UserModel = get_user_model()
+class UserBackend(ModelBackend):
+    def authenticate(self, request, username=None, password=None):
         try:
-            user = UserModel.objects.get(username=username, password=password)
+            user = User.objects.get(username=username)
+            user.check_password(password)
             return user
         except User.DoesNotExist:
             print('User not found!')
             pass
     def get_user(self, username):
-        UserModel = get_user_model()
         try:
-            return UserModel.objects.get(username=username)
+            user = User.objects.get(pk=username)
+            return user
         except User.DoesNotExist:
             return None
