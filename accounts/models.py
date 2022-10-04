@@ -60,7 +60,7 @@ class Account(models.Model):
         (RETAINED_EARNINGS_STATEMENT, 'Retained Earnings Statement'),
     ]
     statement_type = models.CharField(
-        max_length=3,
+        max_length=27,
         choices=STATEMENT,
     )
 
