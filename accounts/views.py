@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from accounts.models import Account
 import random
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 import datetime
+from django.contrib import messages
+
 
 
 
@@ -15,16 +17,19 @@ from django.http import HttpResponse
 def render_create_chart_accts_page(request):
     return render(request, 'coa_main.html')
 
+def render_delete_chart_accounts(request):
+    return render(request, 'delete_coa.html')
+
 
 def create_chart_of_accounts(request):
     
     acct_id = generate_account_id()
     if acct_id == -1:
-        print('error!')
-    else:
-        print(acct_id)
+        messages.error(request, 'Error: Could not generate unique account ID for this Chart of Accounts. Please try again.')
+        return render(request,'coa_main.html')
 
-    new_account = Account(
+    try:
+        new_account = Account  (
         account_id = acct_id,
         account_name = request.POST.get('acct_name'),
         credit_or_debit = request.POST.get('credit_or_debit'),
@@ -42,18 +47,22 @@ def create_chart_of_accounts(request):
         user_id = request.user,
         dt_acct_creation = datetime.datetime.now()
     )
+        new_account.save()
 
-    new_account.save()
+    except:
+        messages.error(request, 'Error: Could not save this Chart of Accounts. Please try again.')
+        return render(request,'coa_main.html')
+    
 
-
-
-    return HttpResponse('Hello world!')
+    messages.success(request, 'Chart of Accounts with account ID: ' + str(acct_id) + ' successfully created.')
+    return render(request,'coa_main.html')
 
 
 def generate_account_id():
+    acct_id = -2
     retry_count = 0
     retry = True
-    acct_id = random.randint(0,10000000)
+    acct_id = random.randint(1000,9999)
 
     while(retry):
         try:
@@ -66,3 +75,24 @@ def generate_account_id():
 
     acct_id = -1
     return acct_id
+
+
+def delete_chart_of_accounts(request):
+    account_id = request.POST.get('account_id')
+
+    try:
+        Account.objects.get(account_id=account_id)
+    except:
+        messages.error(request, 'Error: Could find Chart of Accounts with account ID: ' + account_id + '.' + ' Please verify account ID and try again.')
+        return render(request,'delete_coa.html')
+    
+    Account.objects.filter(account_id=account_id).delete()
+    messages.success(request, 'Chart of Accounts with account ID: ' + account_id + ' successfully deleted.')
+    return render(request,'delete_coa.html')
+
+
+
+
+
+
+

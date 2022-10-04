@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href=""> <!--Need to add CSS stuff-->
+    <link rel="stylesheet" href="">
+    <meta charset="UTF-8">
+    <title>Full-Stacks: CoA Deletion</title>
+</head>
+
+
+<body>
+
+    <form action="/charts_accounts/delete_page/delete/" method="post">{% csrf_token %}
+        <label for="username">Please enter the account ID of the Chart of Accounts to be deleted: </label><input type="text" id="delete" name="account_id"></br>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if messages %}
+     <ul class="messages">
+        {% for message in messages %}
+        <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+</body>

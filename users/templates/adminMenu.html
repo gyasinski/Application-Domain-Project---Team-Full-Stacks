@@ -28,7 +28,10 @@
             <input type="submit" value="Create New User">
         </form>
         <form action="/charts_accounts/" method="get">{% csrf_token %}
-            <input type="submit" value="Create Chart of Accounts">
+            <input type="submit" value="Create a Chart of Accounts">
+        </form>
+        <form action="/charts_accounts/delete_page/" method="get">{% csrf_token %}
+            <input type="submit" value="Delete a Chart of Accounts">
         </form>
         <form action="/users/administrator/logout_user/" method="get">{% csrf_token %}
             <input type="submit" value="Logout">
