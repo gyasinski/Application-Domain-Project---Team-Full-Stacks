@@ -18,6 +18,12 @@ from django.contrib.auth import get_user_model
 
 from django.shortcuts import redirect
 
+#############################
+from datetime import datetime
+from django.shortcuts import render
+import calendar 
+from calendar import HTMLCalendar
+
 
 
 
@@ -51,6 +57,11 @@ def render_login_page(request):
 
 def render_forgot_password_page(request):
     return render(request, 'forgotPassword.html')
+
+def render_viewaccounts_page(request):
+    c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,1)
+    return render(request, 'viewAccounts.html', {'c': c}) 
+
 
 def fp_get_creds(request):
     username = request.POST.get('curr_username')
@@ -167,5 +178,13 @@ def submit_request_for_new_account(request):
     
     
     
+    #calendar
     
+def render_calendar_popup(request):
+
+    c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,1)
+
+    return render(request,'viewAccounts.html'), {
+        "c": c,
+    }
     

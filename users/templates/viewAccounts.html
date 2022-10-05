@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/adminMenu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navigationbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/view_accounts.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <title>Full-Stacks: Admin Menu</title>
+</head>
+<body>
+    
+    <div class="navbar">
+        <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+    <div class="profile_tab">
+        <div class="circle" id="profile_pic">
+             <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+        </div>
+        <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
+    </div>
+    </div>
+
+    <!--- Calendar--> 
+    {{ c | safe }}
+    
+    
+   
+
+
+</br></br></br></br></br></br>
+<div class="shape">
+</br></br></br>
+<input type="text" placeholder="Search..">
+
+</div>
+<table id = "view_all_accounts" width="1200px">
+    <tr>
+      <th>Number</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Subtype</th>
+      <th>Balance</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+
+    <!---Populate the table here :)---->
+    <tr>
+        <td>1010</td>
+        <td>Cash On Hand</td>
+        <td>Asset</td>
+        <td>Current Asset</td>
+        <td>$0.00</td>
+        <td>Activated</td>
+        <td>
+        <button class="btn"><i class="fa fa-edit"></i></button>
+        <button class="btn"><i class="fa fa-trash"></i></button></td>
+      </tr>   
+</table>
+
+
+</body>
+</html>

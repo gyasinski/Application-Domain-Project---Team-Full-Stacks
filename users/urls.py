@@ -16,4 +16,6 @@ urlpatterns = [
     path('administrator/edit_user/', views.render_edituser_page),
     path('accountant/', views.render_accountant_page),
     path('manager/', views.render_manager_page),
+    path('view_accounts/', views.render_viewaccounts_page),
+
 ]

@@ -5,19 +5,23 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
     <link rel="stylesheet" href="{% static 'css/adminMenu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navigationbar.css' %}">
     <meta charset="UTF-8">
     <title>Full-Stacks: Admin Menu</title>
 </head>
 <body>
-<img src= "{% static 'images/slogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
-
+    
+    <div class="navbar">
+        <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
     <div class="profile_tab">
         <div class="circle" id="profile_pic">
              <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
         </div>
         <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
     </div>
+    </div>
         
+</br></br></br>
     <div class="shape">
         <p2> Welcome, Administrator</p2>
         </br> </br>
@@ -28,8 +32,12 @@
             <input type="submit" value="Create New User">
         </form>
         <form action="/users/administrator/logout_user/" method="get">{% csrf_token %}
+            <input type="submit" value="Accounts">
+        </form>
+        <form action="/users/administrator/logout_user/" method="get">{% csrf_token %}
             <input type="submit" value="Logout">
         </form>
+
 
     </div>
 </body>
