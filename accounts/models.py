@@ -1,3 +1,4 @@
+from enum import unique
 from random import choices
 from tkinter.font import NORMAL
 from django.db import models
@@ -89,6 +90,17 @@ class Account(models.Model):
 
 
     is_active = models.BooleanField(default=True)
+
+
+
+
+class Account_Event_log(models.Model):
+    event_id = models.IntegerField(unique=True, primary_key=True)
+    user_source_id = models.ForeignKey('users.user', on_delete=models.CASCADE) #Shouldnt be able to edit this, so no deletion
+    account_source_id = models.IntegerField()
+    action_description = models.CharField(max_length=100)
+
+
 
 
 

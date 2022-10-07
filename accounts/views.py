@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from accounts.models import Account
+from accounts.models import Account, Account_Event_log
 import random
 from django.http import HttpResponse, HttpResponseRedirect
 import datetime
@@ -48,6 +48,7 @@ def create_chart_of_accounts(request):
         dt_acct_creation = datetime.datetime.now()
     )
         new_account.save()
+        create_event_log(request,acct_id,'CREATE CHART OF ACCOUNTS')
 
     except:
         messages.error(request, 'Error: Could not save this Chart of Accounts. Please try again.')
@@ -87,8 +88,49 @@ def delete_chart_of_accounts(request):
         return render(request,'delete_coa.html')
     
     Account.objects.filter(account_id=account_id).delete()
+    create_event_log(request,account_id,'DELETE CHART OF ACCOUNTS')
     messages.success(request, 'Chart of Accounts with account ID: ' + account_id + ' successfully deleted.')
     return render(request,'delete_coa.html')
+
+
+
+def generate_event_log_id():
+    acct_id = -2
+    retry_count = 0
+    retry = True
+    acct_id = random.randint(10000,99999)
+
+    while(retry):
+        try:
+            if Account_Event_log.objects.get(account_id=acct_id):
+                retry_count += 1
+                if retry_count == 10:
+                    retry = False
+        except:
+            return acct_id
+
+    acct_id = -1
+    return acct_id
+
+
+
+
+
+def create_event_log(request, account_id, event_desc):
+    event_log_id = generate_event_log_id()
+    
+    try:
+        new_event_log = Account_Event_log (
+            event_id = event_log_id,
+            user_source_id = request.user,
+            account_source_id = account_id,
+            action_description = event_desc
+        )
+        new_event_log.save()
+        messages.success(request, 'New ' + event_desc + ' Event Created: ' + str(event_log_id))
+    except:
+        messages.error(request, 'Error: Could not save this event log. Please try again.')
+    
 
 
 
