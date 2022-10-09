@@ -14,6 +14,8 @@ RUN pip install pymysql
 
 RUN pip install mysqlclient
 
+RUN pip install Pillow
+
 RUN pip install pipenv && pipenv install
 
 COPY . . 
