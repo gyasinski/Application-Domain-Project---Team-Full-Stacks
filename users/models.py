@@ -48,21 +48,19 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     employee_id             = models.IntegerField(primary_key=True, unique=True)
-    user_role               = models.CharField(max_length=50)
     email                   = models.EmailField(verbose_name="email", max_length=50, null=True)
     username                = models.CharField(max_length=50, unique=True)
     first_name              = models.CharField(max_length=50)
     last_name               = models.CharField(max_length=50)
     password                = models.CharField(max_length=50)
-    password_init_dt        = models.DateTimeField(auto_now_add=True)
+    password_date_time      = models.DateTimeField(auto_now_add=True)
     date_of_birth           = models.DateField(null=True)
     is_active               = models.BooleanField(default=True)
     is_admin                = models.BooleanField(default=False)
     is_mgr                  = models.BooleanField(default=False)
     is_accountant           = models.BooleanField(default=False)
-    is_staff                = models.BooleanField(default=False)
     is_superuser            = models.BooleanField(default=False)
-    # profile_image           = models.ImageField(max_length=255, upload_to=, null=True, blank=True, default=) TO DO: Add image functionality
+    profile_image           = models.ImageField(null=True, blank=True, upload_to="images/")
 
     objects = UserManager()
 
@@ -94,3 +92,18 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.username
+
+
+class RequestedUser(models.Model):
+    request_id = models.IntegerField(unique=True, primary_key=True)
+    req_first_name = models.CharField(max_length=50)
+    req_last_name = models.CharField(max_length=50)
+    req_email = models.EmailField(verbose_name="email", max_length=50, null=True)
+    req_address = models.CharField(max_length=50)
+    req_apartment_or_suite_num = models.CharField(max_length=50)
+    req_city = models.CharField(max_length=50)
+    req_state = models.CharField(max_length=50)
+    req_zip_code = models.CharField(max_length=50)
+    req_country = models.CharField(max_length=50)
+    req_dob = models.DateField()
+    req_profile_image = models.ImageField(null=True, blank=True, upload_to="images/")
