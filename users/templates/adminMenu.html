@@ -28,8 +28,8 @@
         <form action="/users/administrator/view_all_users/" method="get">{% csrf_token %}
             <input type="submit" value="View All Users">
         </form>
-        <form action="/users/administrator/create_user/" method="get">{% csrf_token %}
-            <input type="submit" value="Create New User">
+        <form action="/users/administrator/unapproved_users/" method="get">{% csrf_token %}
+            <input type="submit" value="Approve a New User">
         </form>
         <form action="/charts_accounts/" method="get">{% csrf_token %}
             <input type="submit" value="Create a Chart of Accounts">

@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <meta charset="UTF-8">
+    <title>Full-Stacks: Admin Menu: Unapproved Users</title>
+</head>
+<body>
+    <h1>Hello, Administrator {{current_admin}}</h1>
+
+    <table id="view_unapproved_users" width="1800px">
+        <tr>
+            <th>Request ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Apartment Suite</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip Code</th>
+            <th>Country</th>
+            <th>Date of Birth</th>
+            <th>Approve or Reject</th>
+        </tr>
+
+        {% for unapproved_user in unapproved_users %}
+            <tr>
+                <td>{{unapproved_user.request_id}}</td>
+                <td>{{unapproved_user.req_first_name}}</td>
+                <td>{{unapproved_user.req_last_name}}</td>
+                <td>{{unapproved_user.req_email}}</td>
+                <td>{{unapproved_user.req_address}}</td>
+                <td>{{unapproved_user.req_apartment_or_suite_num}}</td>
+                <td>{{unapproved_user.req_city}}</td>
+                <td>{{unapproved_user.req_state}}</td>
+                <td>{{unapproved_user.req_zip_code}}</td>
+                <td>{{unapproved_user.req_country}}</td>
+                <td>{{unapproved_user.req_dob}}</td>
+                <td>
+                    <form action="/users/administrator/unapproved_users/approve_signal/" method="post">{% csrf_token %}
+                        <input type="hidden" name="request_id" value={{unapproved_user.request_id}}>
+                        <input type="submit" value="Approve">
+                    </form>
+                    <form action="/users/administrator/unapproved_users/reject_signal/" method="post">{% csrf_token %}
+                        <input type="hidden" name="request_id" value={{unapproved_user.request_id}}>
+                        <input type="submit" value="Reject">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    
+    {% if messages %}
+    <ul class="messages">
+       {% for message in messages %}
+       <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+       {% endfor %}
+   </ul>
+   {% endif %}
+
+</body>
