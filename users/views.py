@@ -3,7 +3,7 @@ from urllib import request
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from users.models import User
+from users.models import RequestedUser, User
 from django.contrib.auth import authenticate, login
 
 from django.core.mail import send_mail
@@ -23,6 +23,7 @@ from django.shortcuts import render
 import calendar 
 from calendar import HTMLCalendar
 
+from django.contrib import messages
 
 
 
@@ -63,6 +64,11 @@ def render_login_page(request):
 def render_forgot_password_page(request):
     return render(request, 'forgotPassword.html')
 
+def render_unapproved_users_page(request):
+    unapproved_users = RequestedUser.objects.all()
+    current_admin = request.user
+    return render(request, 'unapprovedUsers.html', {'unapproved_users': unapproved_users, 'current_admin':current_admin})
+
 def render_viewaccounts_page(request):
     c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,1)
     return render(request, 'viewAccounts.html', {'c': c}) 
@@ -85,15 +91,6 @@ def fp_get_creds(request):
      )
         response = redirect('/users/forgot-password')
         return response
-
-
-def generate_pin():
-    length = 4
-    chars = string.ascii_lowercase
-    pin = ''.join(random.choice(chars) for i in range(length))
-    print(pin)
-    return pin
-
 
 
 def login_user(request):
@@ -151,6 +148,7 @@ def submit_request_for_new_account(request):
     first_name = request.POST.get('first_name')
     last_name = request.POST.get('last_name')
     address = request.POST.get('address')
+    email = request.POST.get('email_addr')
     apartment_num = request.POST.get('apartment')
     city = request.POST.get('city')
     state = request.POST.get('state')
@@ -158,6 +156,29 @@ def submit_request_for_new_account(request):
     country = request.POST.get('country')
     dob = request.POST.get('date_of_birth')
     admin_user = request.POST.get('admin_user')
+
+
+    try:
+        req_id = generate_request_id()
+        requested_user = RequestedUser (
+            request_id = req_id,
+            req_first_name = first_name,
+            req_last_name = last_name,
+            req_email = email,
+            req_address = address,
+            req_apartment_or_suite_num = apartment_num,
+            req_city = city,
+            req_state = state,
+            req_zip_code = zip_code,
+            req_country = country,
+            req_dob = dob,
+        )
+
+        requested_user.save()
+    except:
+        messages.error(request, 'Error, could not send request at this time, Please try again later.')
+
+    messages.success(request, 'Success! Request sent with Request ID: ' + str(req_id) + ' Please attempt a login after your account is created.')
 
 
     UserModel = get_user_model()
@@ -193,4 +214,100 @@ def render_calendar_popup(request):
     return render(request,'viewAccounts.html'), {
         "c": c,
     }
+
+def generate_request_id():
+    request_id = -2
+    retry_count = 0
+    retry = True
+    request_id = random.randint(2000,2200)
+
+    while(retry):
+        try:
+            if RequestedUser.objects.get(request_id=request_id):
+                retry_count += 1
+                if retry_count == 10:
+                    retry = False
+        except:
+            return request_id
+
+    request_id = -1
+    return request_id
+
+def generate_employee_id():
+    employee_id = -2
+    retry_count = 0
+    retry = True
+    employee_id = random.randint(1,1001)
+
+    while(retry):
+        try:
+            if User.objects.get(employee_id=employee_id):
+                retry_count += 1
+                if retry_count == 10:
+                    retry = False
+        except:
+            return employee_id
+
+    employee_id = -1
+    return employee_id
+
     
+    
+def generate_employee_username(fn_initial,ln):
+
+    current_date = datetime.now()
+    current_year = (str(current_date.year)[2:])
+    current_month = str(current_date.month)
+
+    new_username = fn_initial + ln + current_month + current_year
+    return new_username
+
+
+
+
+
+
+
+
+def approved_user(request):
+    try:
+        request_id = request.POST.get('request_id')
+        req_user = RequestedUser.objects.get(request_id=request_id)
+        new_employee_id = generate_employee_id()
+        employee_first_initial = req_user.req_first_name
+        new_employee_username = generate_employee_username(employee_first_initial[0],req_user.req_last_name)
+        new_user = User (
+            employee_id = new_employee_id,
+            email = req_user.req_email,
+            username = new_employee_username,
+            first_name = req_user.req_first_name,
+            last_name = req_user.req_last_name,
+            password = 'CHANGEME', #generate here maybe?
+            password_date_time = datetime.now(),
+            date_of_birth = req_user.req_dob,
+            is_active = True,
+            is_admin = False,
+            is_mgr = False,
+            is_accountant = True, #default
+            is_superuser = False,
+            #profile_image = ?
+        )
+        new_user.save()
+        RequestedUser.objects.filter(request_id=request_id).delete()
+    except:
+         messages.error(request, 'Error: Could not approve this user. Please try again later.')
+         return HttpResponseRedirect('/users/administrator/unapproved_users/')
+    
+    messages.success(request, 'User successfully approved.')
+    return HttpResponseRedirect('/users/administrator/unapproved_users/')
+
+def reject_user(request):
+    try: 
+        request_id = request.POST.get('request_id')
+        RequestedUser.objects.filter(request_id=request_id).delete()
+    except:
+        messages.error(request, 'Error: Could not reject this user. Please try again later.')
+        return HttpResponseRedirect('/users/administrator/unapproved_users/')
+    
+    messages.success(request, 'User successfully rejected.')
+    return HttpResponseRedirect('/users/administrator/unapproved_users/')
