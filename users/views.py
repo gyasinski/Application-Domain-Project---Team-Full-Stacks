@@ -299,8 +299,8 @@ def login_user(request):
     login_password = request.POST.get('user_password')
 
     current_user = authenticate(request, username=login_username, password=login_password)
-    current_user.update_suspension()
     if current_user is not None:
+        current_user.update_suspension()
         if current_user.get_suspended_status():
             print("User is still currently suspended")
             response = redirect('/users/')
@@ -308,12 +308,16 @@ def login_user(request):
         else:
             login(request, current_user)
 
-    if current_user.has_perm(perm):
-        response = redirect('/users/administrator')
-    elif current_user.get_role() == 'Accountant':
-        response = redirect('/users/accountant')
+    if current_user is not None:
+        if current_user.has_perm(perm):
+            response = redirect('/users/administrator')
+        elif current_user.get_role() == 'Accountant':
+            response = redirect('/users/accountant')
+        else:
+            response = redirect('/users/manager')
     else:
-        response = redirect('/users/manager')
+        # TODO: display login error message if logic flows through here
+        response = redirect('/users/')
 
     return response
 
