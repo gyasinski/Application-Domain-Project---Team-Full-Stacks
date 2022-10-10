@@ -60,7 +60,7 @@ class User(AbstractBaseUser):
     is_mgr                  = models.BooleanField(default=False)
     is_accountant           = models.BooleanField(default=False)
     is_superuser            = models.BooleanField(default=False)
-    profile_image           = models.ImageField(null=True, blank=True, upload_to="images/")
+    profile_image           = models.ImageField(null=True, blank=True)
 
     objects = UserManager()
 
@@ -106,4 +106,4 @@ class RequestedUser(models.Model):
     req_zip_code = models.CharField(max_length=50)
     req_country = models.CharField(max_length=50)
     req_dob = models.DateField()
-    req_profile_image = models.ImageField(null=True, blank=True, upload_to="images/")
+    req_profile_image = models.ImageField(null=True, blank=True)

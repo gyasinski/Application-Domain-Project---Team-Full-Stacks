@@ -1,4 +1,5 @@
 from math import perm
+import profile
 from urllib import request
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -24,6 +25,9 @@ import calendar
 from calendar import HTMLCalendar
 
 from django.contrib import messages
+
+
+from django.core.files.storage import FileSystemStorage
 
 
 
@@ -156,9 +160,12 @@ def submit_request_for_new_account(request):
     country = request.POST.get('country')
     dob = request.POST.get('date_of_birth')
     admin_user = request.POST.get('admin_user')
+    fss = FileSystemStorage()
+    profile_image_file = fss.save(request.FILES['p_image'].name, request.FILES['p_image'])
+    profile_image_url = fss.url(profile_image_file)
 
 
-    try:
+    try: 
         req_id = generate_request_id()
         requested_user = RequestedUser (
             request_id = req_id,
@@ -172,13 +179,15 @@ def submit_request_for_new_account(request):
             req_zip_code = zip_code,
             req_country = country,
             req_dob = dob,
+            req_profile_image = profile_image_url
         )
+
 
         requested_user.save()
     except:
         messages.error(request, 'Error, could not send request at this time, Please try again later.')
 
-    messages.success(request, 'Success! Request sent with Request ID: ' + str(req_id) + ' Please attempt a login after your account is created.')
+    messages.success(request, 'Success! Request sent with Request ID: ' + str(req_id) + '. Please attempt a login after your account is created.')
 
 
     UserModel = get_user_model()
@@ -290,7 +299,7 @@ def approved_user(request):
             is_mgr = False,
             is_accountant = True, #default
             is_superuser = False,
-            #profile_image = ?
+            profile_image = req_user.req_profile_image
         )
         new_user.save()
         RequestedUser.objects.filter(request_id=request_id).delete()
