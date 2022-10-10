@@ -202,10 +202,15 @@ def submit_request_for_new_account(request):
         print('User has requested the approval of a Full Stacks Accounting Member without appropriate permissions. Please try again.')
 
     return HttpResponse('/users!')
-    
-    
-    
-    #calendar
+
+def toggle_active_status(request, pk):
+    user = User.objects.get(employee_id=pk)
+    user.activate()
+    user.save()
+    response = redirect('/users/administrator/view_all_users/')
+    return response
+
+#calendar
     
 def render_calendar_popup(request):
 

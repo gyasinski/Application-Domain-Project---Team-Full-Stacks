@@ -42,8 +42,9 @@
                     <form action="/users/administrator/edit_user/">
                         <input type="submit" value="Edit">
                     </form>
-                    <form>
-                        <input type="submit" value="Active Status">
+                    <form action="/users/administrator/activate_user/{{user.employee_id}}/" method="post" id="activateForm">
+                        {% csrf_token %}
+                        <input type="submit" value="Active: {{user.is_active}}">
                     </form>
                     <form action="/users/administrator/suspend_user/">
                         <input type="submit" value="Suspend">

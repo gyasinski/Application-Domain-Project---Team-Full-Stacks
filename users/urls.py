@@ -14,6 +14,7 @@ urlpatterns = [
     path('administrator/unapproved_users/reject_signal/', views.reject_user),
     path('administrator/view_all_users/', views.render_viewusers_page),
     path('administrator/edit_user/', views.render_edituser_page),
+    path('administrator/activate_user/<str:pk>/', views.toggle_active_status),
     path('administrator/suspend_user/', views.render_suspenduser_page),
     path('administrator/email_user/', views.render_emailuser_page),
     path('administrator/logout_user/', views.logout_user),

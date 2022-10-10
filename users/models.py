@@ -88,6 +88,12 @@ class User(AbstractBaseUser):
     def has_acct_perms(self):
         return self.is_accountant
 
+    def activate(self):
+        if self.is_active:
+            self.is_active = False
+        elif not self.is_active:
+            self.is_active = True
+
 
 
     def __str__(self):
