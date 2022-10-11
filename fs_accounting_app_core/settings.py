@@ -85,6 +85,14 @@ DATABASES = {
         'HOST': 'fullstacks-db.crf96lltty5s.us-east-1.rds.amazonaws.com',
         'PORT': 3306
 
+    },
+    'new': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'full_stack_dev',
+        'USER': 'full_stacks_admin',
+        'PASSWORD': 'TeamFour!',
+        'HOST': 'full-stacks-dev-database.mysql.database.azure.com',
+        'PORT': 3306,
     }
 }
 

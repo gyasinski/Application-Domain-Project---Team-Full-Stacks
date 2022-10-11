@@ -16,6 +16,8 @@ RUN pip install mysqlclient
 
 RUN pip install Pillow
 
+RUN pip install pyodbc django-pyodbc-azure
+
 RUN pip install pipenv && pipenv install
 
 COPY . . 
