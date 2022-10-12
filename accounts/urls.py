@@ -9,6 +9,7 @@ urlpatterns = [
     path('delete_page/', views.render_delete_chart_accounts),
     path('post_account/', views.create_chart_of_accounts),
     path('delete_page/delete/', views.delete_chart_of_accounts),
+    path('administrator/edit_account/', views.render_edit_chart_accounts),
 ]
 
 

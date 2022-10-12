@@ -6,11 +6,6 @@ import datetime
 from django.contrib import messages
 
 
-
-
-
-
-
 from django.http import HttpResponse
 # Create your views here.
 
@@ -20,6 +15,8 @@ def render_create_chart_accts_page(request):
 def render_delete_chart_accounts(request):
     return render(request, 'delete_coa.html')
 
+def render_edit_chart_accounts(request):
+    return render(request, 'edit_coa.html')
 
 def create_chart_of_accounts(request):
     
