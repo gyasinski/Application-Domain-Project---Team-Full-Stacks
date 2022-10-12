@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href=""> <!---- adding css stuff?-->
+    <link rel="stylesheet" href=""> <!---- adding css stuff here too-->
+    <meta charset="UTF-8">
+
+    <title>Full-Stacks: Edit CoA</title>
+</head>
+
+
+<body>
+    <img src= "{% static 'images/slogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+
+    <div class="profile_tab">
+        <div class="circle" id="profile_pic">
+             <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+        </div>
+        <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
+    </div>
+
+    <div class="shape">
+        <form>
+
+            </br></br>
+            <p2>Edit Account</p2>
+            </br></br>
+            <p3> Username </p3></br>
+            </br>
+
+            <label for="account_id" class="edit_account_label">Account id: </label><input type="text" id="account_id"></br>
+            <label for="account_name" class="edit_account_label">Account Name: </label><input type="text" id="account_name"></br>
+            <label for="account_desc" class="edit_account_label">Account Description:</label><input type="text" id="account_desc"></br>
+            <label for="account_category" class="edit_account_label">Account Category: </label><input type="text" id="account_category"></br>
+            <label for="account_subcategory" class="edit_account_label">Account Subcategory: </label><input type="text" id="account_subcategory"></br>
+
+        
+            </br></br></br>
+            <input type="submit" value="Update">
+        </form>
+        </br>
+        <form action="/users/administrator/view_all_accounts">
+
+            <input type="submit" value="Cancel">
+        </form>
+        
+    </div>
+</body>
+</html>
