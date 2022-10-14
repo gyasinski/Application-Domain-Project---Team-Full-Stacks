@@ -76,23 +76,18 @@ WSGI_APPLICATION = 'fs_accounting_app_core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'accounts',
-        'USER': 'admin',
-        'PASSWORD': 'teamfour',
-        'HOST': 'fullstacks-db.crf96lltty5s.us-east-1.rds.amazonaws.com',
-        'PORT': 3306
-
-    },
-    'new': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'full_stack_dev',
         'USER': 'full_stacks_admin',
         'PASSWORD': 'TeamFour!',
         'HOST': 'full-stacks-dev-database.mysql.database.azure.com',
         'PORT': 3306,
+        'OPTIONS': {
+            'ssl': {'ca': os.path.join(os.path.dirname(__file__), 'DigiCertGlobalRootCA.crt.pem')}
+            }
     }
 }
 
@@ -131,7 +126,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 

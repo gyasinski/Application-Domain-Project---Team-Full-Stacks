@@ -1,6 +1,4 @@
 from math import perm
-import profile
-from urllib import request
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -9,7 +7,6 @@ from django.contrib.auth import authenticate, login
 
 from django.core.mail import send_mail
 import random
-import string
 
 from django.http import HttpResponseRedirect
 
@@ -160,9 +157,12 @@ def submit_request_for_new_account(request):
     country = request.POST.get('country')
     dob = request.POST.get('date_of_birth')
     admin_user = request.POST.get('admin_user')
-    fss = FileSystemStorage()
-    profile_image_file = fss.save(request.FILES['p_image'].name, request.FILES['p_image'])
-    profile_image_url = fss.url(profile_image_file)
+    try:
+        fss = FileSystemStorage()
+        profile_image_file = fss.save(request.FILES['p_image'].name, request.FILES['p_image'])
+        profile_image_url = fss.url(profile_image_file)
+    except:
+        profile_image_url = 'None'
 
 
     try: 
@@ -307,7 +307,8 @@ def approved_user(request):
          messages.error(request, 'Error: Could not approve this user. Please try again later.')
          return HttpResponseRedirect('/users/administrator/unapproved_users/')
     
-    messages.success(request, 'User successfully approved.')
+    success_string = 'User ' + new_employee_username + ' successfully approved.'
+    messages.success(request, success_string)
     return HttpResponseRedirect('/users/administrator/unapproved_users/')
 
 def reject_user(request):
