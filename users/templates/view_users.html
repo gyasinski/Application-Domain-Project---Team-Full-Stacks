@@ -15,7 +15,7 @@
         <div class="circle" id="profile_pic">
              <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
         </div>
-        <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
+        <label for="profile_pic" class="profile_pic_label"> {{current_admin}} </label>
     </div>
 
     <div class="shape">
@@ -39,7 +39,7 @@
                 <td>{{user.employee_id}}</td>
                 <td>{{user.user_role}}</td>
                 <td>
-                    <form action="/users/administrator/edit_user/">
+                    <form action="/users/administrator/edit_user/{{user.employee_id}}/">
                         <input type="submit" value="Edit">
                     </form>
                     <form action="/users/administrator/activate_user/{{user.employee_id}}/" method="post" id="activateForm">

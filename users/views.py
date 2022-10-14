@@ -41,10 +41,13 @@ def render_admin_page(request):
 
 def render_viewusers_page(request):
     users = User.objects.all()
-    return render(request, 'view_users.html', {'users': users})
+    current_admin = request.user
+    return render(request, 'view_users.html', {'users': users, 'current_admin': current_admin})
 
-def render_edituser_page(request):
-    return render(request, 'adminEditUser.html')
+def render_edituser_page(request, pk):
+    user = User.objects.get(employee_id=pk)
+    current_admin = request.user
+    return render(request, 'adminEditUser.html', {'user': user, 'current_admin': current_admin})
 
 def render_suspenduser_page(request):
     return render(request, 'adminSuspendUser.html')
@@ -53,7 +56,8 @@ def render_emailuser_page(request):
     return render(request, 'adminEmailUser.html')
 
 def render_accountant_page(request):
-    return render(request, 'accountantMenu.html')
+    current_admin = request.user
+    return render(request, 'accountantMenu.html', {'current_admin': current_admin})
 
 def render_manager_page(request):
     return render(request, 'managerMenu.html')
@@ -207,6 +211,19 @@ def toggle_active_status(request, pk):
     user = User.objects.get(employee_id=pk)
     user.activate()
     user.save()
+    response = redirect('/users/administrator/view_all_users/')
+    return response
+
+def edit_user(request, pk):
+    user = User.objects.get(employee_id=pk)
+
+    user.first_name = request.GET.get('fname')
+    user.last_name = request.GET.get('lname')
+    user.email = request.GET.get('email')
+    user.set_role(request.GET.get('role'))
+
+    user.save()
+
     response = redirect('/users/administrator/view_all_users/')
     return response
 

@@ -69,7 +69,36 @@ class User(AbstractBaseUser):
 
     def has_perm(self, perm, obj=None):
         return self.is_admin
-    
+
+    def has_mgr_perms(self):
+        return self.is_mgr
+
+    def has_acct_perms(self):
+        return self.is_accountant
+
+    def get_role(self):
+        if self.is_admin:
+            return 'Administrator'
+        elif self.is_mgr:
+            return 'Manager'
+        else:
+            return 'Accountant'
+
+    def set_role(self, r):
+        self.is_admin = False
+        self.is_mgr = False
+        self.is_accountant = False
+
+        if r == 'administrator':
+            self.is_admin = True
+        elif r == 'manager':
+            self.is_mgr = True
+        elif r == 'accountant':
+            self.is_accountant = True
+        else:
+            print("Unexpected set role value. Defaulting account role to accountant.")
+            self.is_accountant = True
+
     def get_username(self):
         return self.username
     
@@ -81,12 +110,6 @@ class User(AbstractBaseUser):
 
     def get_password(self):
         return self.password
-    
-    def has_mgr_perms(self):
-        return self.is_mgr
-
-    def has_acct_perms(self):
-        return self.is_accountant
 
     def activate(self):
         if self.is_active:
