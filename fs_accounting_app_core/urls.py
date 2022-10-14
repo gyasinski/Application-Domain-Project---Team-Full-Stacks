@@ -23,3 +23,4 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('charts_accounts/', include('accounts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
