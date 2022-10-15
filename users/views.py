@@ -23,6 +23,9 @@ from calendar import HTMLCalendar
 
 from django.contrib import messages
 
+import string
+import secrets
+
 
 from django.core.files.storage import FileSystemStorage
 
@@ -290,13 +293,18 @@ def approved_user(request):
         new_employee_id = generate_employee_id()
         employee_first_initial = req_user.req_first_name
         new_employee_username = generate_employee_username(employee_first_initial[0],req_user.req_last_name)
+        new_password = generate_random_password()
+        
+
+
+
         new_user = User (
             employee_id = new_employee_id,
             email = req_user.req_email,
             username = new_employee_username,
             first_name = req_user.req_first_name,
             last_name = req_user.req_last_name,
-            password = 'CHANGEME', #generate here maybe?
+            password = new_password,
             password_date_time = datetime.now(),
             date_of_birth = req_user.req_dob,
             is_active = True,
@@ -308,9 +316,9 @@ def approved_user(request):
         )
         new_user.save()
         RequestedUser.objects.filter(request_id=request_id).delete()
-    except:
-         messages.error(request, 'Error: Could not approve this user. Please try again later.')
-         return HttpResponseRedirect('/users/administrator/unapproved_users/')
+    except: 
+        messages.error(request, 'Error: Could not approve this user. Please try again later.')
+        return HttpResponseRedirect('/users/administrator/unapproved_users/')
     
     success_string = 'User ' + new_employee_username + ' successfully approved.'
     messages.success(request, success_string)
@@ -326,3 +334,19 @@ def reject_user(request):
     
     messages.success(request, 'User successfully rejected.')
     return HttpResponseRedirect('/users/administrator/unapproved_users/')
+
+
+
+def generate_random_password():
+    generated_password_length = 8
+    special_characters = "!@#$%^&*()-+?_=,<>/"
+    generated_password = ''
+    generated_password = random.choice(string.ascii_lowercase)
+    generated_password += random.choice(string.digits)
+    generated_password += random.choice(special_characters)
+    char = 3
+    for char in range(generated_password_length-3):
+        generated_password += secrets.choice(string.digits + special_characters + string.ascii_lowercase)
+
+
+    return generated_password
