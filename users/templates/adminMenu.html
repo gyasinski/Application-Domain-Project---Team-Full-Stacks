@@ -40,6 +40,9 @@
         <form action="/charts_accounts/administrator/edit_account/" method="get">{% csrf_token %}
             <input type="submit" value="View or Edit Accounts">
         </form>
+        <form action="/users/administrator/view_expired_passwords/" method="get">{% csrf_token %}
+            <input type="submit" value="View Expired Passwords">
+        </form>
         <form action="/users/administrator/logout_user/" method="get">{% csrf_token %}
             <input type="submit" value="Logout">
         </form>

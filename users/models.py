@@ -94,6 +94,9 @@ class User(AbstractBaseUser):
         elif not self.is_active:
             self.is_active = True
 
+    def get_pass_dt(self):
+        return self.password_date_time
+
 
 
     def __str__(self):

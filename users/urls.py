@@ -9,6 +9,7 @@ urlpatterns = [
     path('set-password/', views.render_setpass_page),
     path('administrator/', views.render_admin_page),
     path('administrator/create_user/', views.render_create_page),
+    path('administrator/view_expired_passwords/', views.render_expired_passwords_page),
     path('administrator/unapproved_users/', views.render_unapproved_users_page),
     path('administrator/unapproved_users/approve_signal/', views.approved_user),
     path('administrator/unapproved_users/reject_signal/', views.reject_user),

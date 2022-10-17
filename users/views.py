@@ -16,7 +16,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 
 #############################
-from datetime import datetime
+from datetime import datetime, timezone
 from django.shortcuts import render
 import calendar 
 from calendar import HTMLCalendar
@@ -30,7 +30,7 @@ import secrets
 from django.core.files.storage import FileSystemStorage
 
 
-
+PASSWORD_EXPIRY_THIRTY_DAYS = 30
 
 # Create your views here.
 
@@ -77,6 +77,18 @@ def render_viewaccounts_page(request):
     c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,1)
     return render(request, 'viewAccounts.html', {'c': c}) 
 
+def render_expired_passwords_page(request):
+    current_date_time = datetime.now(timezone.utc)
+    current_admin = request.user
+    expired_pass_users = []
+    users = User.objects.all()
+    for user in users:
+        time_elapsed_since_password_update = current_date_time - user.get_pass_dt()
+        if time_elapsed_since_password_update.days >= PASSWORD_EXPIRY_THIRTY_DAYS:
+            expired_pass_users.append(user)
+    
+    print(expired_pass_users)
+    return render(request, 'viewExpiredPasswords.html', {'current_admin':current_admin, 'expired_pass_users':expired_pass_users})
 
 def fp_get_creds(request):
     username = request.POST.get('curr_username')
