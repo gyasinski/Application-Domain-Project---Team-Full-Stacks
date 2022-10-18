@@ -15,24 +15,33 @@
         <div class="circle" id="profile_pic">
              <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
         </div>
-        <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
+        <label for="profile_pic" class="profile_pic_label">{{current_admin}}</label>
     </div>
 
     <div class="shape">
-        <form>
+        <form action="/users/administrator/edit_user/{{user.employee_id}}/send-edit-data">
             </br></br>
             <p2>Edit User</p2>
             </br></br>
-            <p3>--Username--</p3></br>
+            <p3>{{user}}</p3></br>
             </br>
-            <label for="fname" class="edit_user_label">First Name: </label><input type="text" id="fname"></br>
-            <label for="lname" class="edit_user_label">Last Name: </label><input type="text" id="lname"></br>
-            <label for="email" class="edit_user_label">Email: </label><input type="text" id="email"></br>
+            <label for="fname" class="edit_user_label">First Name: </label>
+                <input type="text" id="fname" name="fname" value="{{user.first_name}}"></br>
+
+            <label for="lname" class="edit_user_label">Last Name: </label>
+                <input type="text" id="lname" name="lname" value="{{user.last_name}}"></br>
+
+            <label for="email" class="edit_user_label">Email: </label>
+                <input type="text" id="email" name="email" value="{{user.email}}"></br>
+
             <label for="role" class="edit_user_label">Role:</label>
             <select name="role" id="role">
-            <option value="regular user">Accountant</option>
-            <option value="manager">Manager</option>
+                <option value="none" selected disabled hidden>{{user.get_role}}</option>
+                <option value="accountant">Accountant</option>
+                <option value="manager">Manager</option>
+                <option value="administrator">Administrator</option>
             </select>
+
             </br></br></br>
             <input type="submit" value="Update">
         </form>

@@ -45,10 +45,13 @@ def render_admin_page(request):
 
 def render_viewusers_page(request):
     users = User.objects.all()
-    return render(request, 'view_users.html', {'users': users})
+    current_admin = request.user
+    return render(request, 'view_users.html', {'users': users, 'current_admin': current_admin})
 
-def render_edituser_page(request):
-    return render(request, 'adminEditUser.html')
+def render_edituser_page(request, pk):
+    user = User.objects.get(employee_id=pk)
+    current_admin = request.user
+    return render(request, 'adminEditUser.html', {'user': user, 'current_admin': current_admin})
 
 def render_suspenduser_page(request):
     return render(request, 'adminSuspendUser.html')
@@ -57,7 +60,8 @@ def render_emailuser_page(request):
     return render(request, 'adminEmailUser.html')
 
 def render_accountant_page(request):
-    return render(request, 'accountantMenu.html')
+    current_admin = request.user
+    return render(request, 'accountantMenu.html', {'current_admin': current_admin})
 
 def render_manager_page(request):
     return render(request, 'managerMenu.html')
@@ -93,7 +97,7 @@ def render_expired_passwords_page(request):
 def fp_get_creds(request):
     username = request.POST.get('curr_username')
     email = request.POST.get('curr_email')
-    curr_user = verify_user_exists_via_email(username,email)
+    curr_user = verify_user_exists_via_email(username, email)
     if curr_user is None:
         return None
     else:
@@ -115,7 +119,7 @@ def login_user(request):
 
     current_user = authenticate(request, username=login_username, password=login_password)
     if current_user is not None:
-        login(request,current_user)
+        login(request, current_user)
     if current_user.has_perm(perm):
         return render(request, 'adminMenu.html')
     elif current_user.is_accountant:
@@ -231,6 +235,22 @@ def toggle_active_status(request, pk):
     user = User.objects.get(employee_id=pk)
     user.activate()
     user.save()
+    response = redirect('/users/administrator/view_all_users/')
+    return response
+
+def edit_user(request, pk):
+    user = User.objects.get(employee_id=pk)
+    user.first_name = request.GET.get('fname')
+    user.last_name = request.GET.get('lname')
+    user.email = request.GET.get('email')
+    user.set_role(request.GET.get('role'))
+    user.save()
+    response = redirect('/users/administrator/view_all_users/')
+    return response
+
+def email_user(request, pk):
+
+
     response = redirect('/users/administrator/view_all_users/')
     return response
 
