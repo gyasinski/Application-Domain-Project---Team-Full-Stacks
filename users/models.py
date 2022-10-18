@@ -56,9 +56,11 @@ class User(AbstractBaseUser):
     password_date_time      = models.DateTimeField(auto_now_add=True)
     date_of_birth           = models.DateField(null=True)
     is_active               = models.BooleanField(default=True)
-    is_admin                = models.BooleanField(default=False)
-    is_mgr                  = models.BooleanField(default=False)
-    is_accountant           = models.BooleanField(default=False)
+    is_suspended            = models.BooleanField(default=False)
+    role                    = models.CharField(max_length=50, default='Accountant')
+    # is_admin                = models.BooleanField(default=False)
+    # is_mgr                  = models.BooleanField(default=False)
+    # is_accountant           = models.BooleanField(default=False)
     is_superuser            = models.BooleanField(default=False)
     profile_image           = models.ImageField(null=True, blank=True, upload_to="images/")
 
@@ -68,36 +70,34 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = ['username']
 
     def has_perm(self, perm, obj=None):
-        return self.is_admin
+        # return self.is_admin
+        if self.role == 'Administrator':
+            return True
+        else:
+            return False
 
     def has_mgr_perms(self):
-        return self.is_mgr
+        # return self.is_mgr
+        if self.role == 'Manager':
+            return True
+        else:
+            return False
 
     def has_acct_perms(self):
-        return self.is_accountant
+        # return self.is_accountant
+        if self.role == 'Accountant':
+            return True
+        else:
+            return False
 
     def get_role(self):
-        if self.is_admin:
-            return 'Administrator'
-        elif self.is_mgr:
-            return 'Manager'
-        else:
-            return 'Accountant'
+        return self.role
 
     def set_role(self, r):
-        self.is_admin = False
-        self.is_mgr = False
-        self.is_accountant = False
-
-        if r == 'administrator':
-            self.is_admin = True
-        elif r == 'manager':
-            self.is_mgr = True
-        elif r == 'accountant':
-            self.is_accountant = True
+        if (r == 'Administrator') or (r == 'Manager') or (r == 'Accountant'):
+            self.role = r
         else:
-            print("Unexpected set role value. Defaulting account role to accountant.")
-            self.is_accountant = True
+            print("Unexpected set role value. Operation Ignored.")
 
     def get_username(self):
         return self.username
