@@ -198,12 +198,15 @@ def render_calendar_popup(request):
 class HomeSearchView(TemplateView):
     template_name = 'viewAccounts.html'
 
-class SearchResultsView(ListView):
-    model = Account
-    template_name = 'search_account_results.html'
-    def get_queryset(self):  # new
-        query = self.request.GET.get("q")
-        object_list = Account.objects.filter(
-            Q(name__icontains=query) | Q(state__icontains=query)
-        )
-        return object_list
+def search(request):
+
+    results = []
+    if request.method == "GET":
+        query = request.GET.get('search')
+        if query == '':
+
+            query = 'None'
+
+        results = Account.objects.filter(account_name__icontains=query)
+
+    return render(request, 'search_account_results.html', {'query': query, 'results': results})
