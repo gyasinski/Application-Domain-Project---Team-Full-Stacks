@@ -23,41 +23,42 @@
     </div>
     </div>
 
-    <!--- Calendar--> 
-    {{ c | safe }}
-    
- 
-</br></br></br></br></br></br>
-<div class="shape">
-</br></br></br>
-<input type="text" placeholder="Search..">
+    {% if query %}
+
+    <h2>
+
+    {% with results.count as total_results %}
+
+    Found {{ total_results }} result{{ total_results|pluralize }}
+
+    {% endwith %}
+
+    </h2>
+
+{% for c in results %}
+
+<a href="{{c.get_url}}"><h3>{{c.account_name}}</h3></a>
+
+<h3>{{c.account_name}}</h3>
+
+{% empty %}
+
+<h3>No results found.</h3>
+
+{% endfor %}
+
+{% endif %}
+
+ <form action="{% url 'viewAccounts' %}" class="form-inline" method="get">
+
+ <button type="submit" class="btn btn-primary btn-lg mb-2">Back</button>
+
+ </form>
 
 </div>
-<table id = "view_all_accounts" width="1200px">
-    <tr>
-      <th>Number</th>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Subtype</th>
-      <th>Balance</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
 
-    <!---Populate the table here :)---->
-    <tr>
-        <td>1010</td>
-        <td>Cash On Hand</td>
-        <td>Asset</td>
-        <td>Current Asset</td>
-        <td>$0.00</td>
-        <td>Activated</td>
-        <td>
-        <button class="btn"><i class="fa fa-edit"></i></button>
-        <button class="btn"><i class="fa fa-trash"></i></button></td>
-      </tr>   
-</table>
-
+</div>
 
 </body>
-</html>
+
+<html>

@@ -4,6 +4,7 @@ import random
 from django.http import HttpResponse, HttpResponseRedirect
 import datetime
 from django.contrib import messages
+from django.views.generic import TemplateView, ListView
 
 
 from django.http import HttpResponse
@@ -87,8 +88,12 @@ def delete_chart_of_accounts(request):
     messages.success(request, 'Chart of Accounts with account ID: ' + account_id + ' successfully deleted.')
     return render(request,'delete_coa.html')
 
+class HomeSearchView(TemplateView):
+    template_name = 'search_home.html'
 
-
+class SearchResultsView(ListView):
+    model = Account
+    template_name = 'search_results.html'
 
 
 

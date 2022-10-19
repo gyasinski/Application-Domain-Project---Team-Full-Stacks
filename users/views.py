@@ -2,6 +2,7 @@ from math import perm
 from urllib import request
 from django.shortcuts import render
 from django.http import HttpResponse
+from accounts.models import Account
 
 from users.models import User
 from django.contrib.auth import authenticate, login
@@ -23,8 +24,7 @@ from django.shortcuts import render
 import calendar 
 from calendar import HTMLCalendar
 
-
-
+from django.views.generic import TemplateView, ListView
 
 
 # Create your views here.
@@ -194,3 +194,16 @@ def render_calendar_popup(request):
         "c": c,
     }
     
+
+class HomeSearchView(TemplateView):
+    template_name = 'viewAccounts.html'
+
+class SearchResultsView(ListView):
+    model = Account
+    template_name = 'search_account_results.html'
+    def get_queryset(self):  # new
+        query = self.request.GET.get("q")
+        object_list = Account.objects.filter(
+            Q(name__icontains=query) | Q(state__icontains=query)
+        )
+        return object_list
