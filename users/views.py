@@ -24,7 +24,6 @@ from django.shortcuts import render
 import calendar 
 from calendar import HTMLCalendar
 
-from django.views.generic import TemplateView, ListView
 
 
 # Create your views here.
@@ -195,18 +194,3 @@ def render_calendar_popup(request):
     }
     
 
-class HomeSearchView(TemplateView):
-    template_name = 'viewAccounts.html'
-
-def search(request):
-
-    results = []
-    if request.method == "GET":
-        query = request.GET.get('search')
-        if query == '':
-
-            query = 'None'
-
-        results = Account.objects.filter(account_name__icontains=query)
-
-    return render(request, 'search_account_results.html', {'query': query, 'results': results})
