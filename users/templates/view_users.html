@@ -46,7 +46,7 @@
                         {% csrf_token %}
                         <input type="submit" value="Active: {{user.is_active}}">
                     </form>
-                    <form action="/users/administrator/suspend_user/">
+                    <form action="/users/administrator/suspend_user/{{user.employee_id}}">
                         <input type="submit" value="Suspend">
                     </form>
                     <form action="/users/administrator/email_user/">

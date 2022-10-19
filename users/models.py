@@ -2,6 +2,7 @@ from locale import normalize
 from tokenize import blank_re
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager, AbstractBaseUser
+import datetime
 
 
 
@@ -57,6 +58,7 @@ class User(AbstractBaseUser):
     date_of_birth           = models.DateField(null=True)
     is_active               = models.BooleanField(default=True)
     is_suspended            = models.BooleanField(default=False)
+    suspension_end_time     = models.DateTimeField(default=datetime.datetime.now())
     role                    = models.CharField(max_length=50, default='Accountant')
     # is_admin                = models.BooleanField(default=False)
     # is_mgr                  = models.BooleanField(default=False)
@@ -116,6 +118,22 @@ class User(AbstractBaseUser):
             self.is_active = False
         elif not self.is_active:
             self.is_active = True
+
+    def suspend(self, days, hours, mins):
+        if days == 0 and hours == 0 and mins == 0:
+            self.is_suspended = False
+            self.suspension_end_time = datetime.datetime.now()
+        else:
+            self.is_suspended = True
+            self.suspension_end_time = datetime.datetime.now() + \
+                                    datetime.timedelta(minutes=(days*1440 + hours*60 + mins))
+    def update_suspension(self):
+        if not self.is_suspended:
+            print("User not currently suspended")
+        else:
+            if datetime.datetime.now() >= self.suspension_end_time:
+                self.is_suspended = False
+                self.suspension_end_time = datetime.datetime.now()
 
     def get_pass_dt(self):
         return self.password_date_time

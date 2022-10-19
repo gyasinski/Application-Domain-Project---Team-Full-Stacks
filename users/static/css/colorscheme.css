@@ -105,6 +105,27 @@ input[type=date] {
     color: #99A799;
 }
 
+input[type=file] {
+    color: #FEF5ED;
+}
+
+input::file-selector-button {
+	background: #99A799;
+	color: #FEF5ED;
+	border: none;
+	border-radius: 10px;
+	transition-duration: 0.4s;
+	font-size: 15px;
+	font-weight: 700;
+	height: 20px;
+	width: 125px;
+}
+
+input::file-selector-button:hover {
+	background: #FEF5ED;
+	color: #99A799;
+}
+
 input[type=submit] {
 	background: #99A799;
 	color: #FEF5ED;

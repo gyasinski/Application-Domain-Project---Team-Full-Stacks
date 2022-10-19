@@ -15,18 +15,28 @@
         <div class="circle" id="profile_pic">
              <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
         </div>
-        <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
+        <label for="profile_pic" class="profile_pic_label">{{current_admin}}</label>
     </div>
 
     <div class="shape">
-        <form>
-            </br></br>
+        <form action="/users/administrator/suspend_user/{{user.employee_id}}/send-suspend-data">
+            {% csrf_token %}
+            </br>
             <p2>Suspend User</p2>
             </br></br>
-            <p3>--Username--</p3></br>
-            </br>
-            <label for="suspendstart" class="input_label">Start Date: </label><input type="date" id="suspendstart" name="start_of_suspension"></br>
-            <label for="suspendend" class="input_label">End Date: </label><input type="date" id="suspendend" name="end_of_suspension"></br>
+            <p3>{{user}}</p3>
+            </br></br>
+            <p2>Suspension Length</p2>
+            </br></br>
+            <label for="suspenddays" class="input_label">Days: </label>
+            <input type="number" id="suspenddays" name="suspenddays" style="width: 75px;" value="0" min="0"></br>
+
+            <label for="suspendhours" class="input_label">Hours: </label>
+            <input type="number" id="suspendhours" name="suspendhours" style="width: 75px;" value="0" min="0" max="23"></br>
+
+            <label for="suspendmins" class="input_label">Minutes: </label>
+            <input type="number" id="suspendmins" name="suspendmins" style="width: 75px;" value="1" min="0" max="59"></br>
+
             </br></br>
             <input type="submit" value="Suspend">
         </form>
