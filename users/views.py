@@ -97,7 +97,7 @@ def submit_request_for_new_account(request):
         send_mail(
             'New User Request',
             email_string,
-            'from@example.com',
+            'fullstacktestemail@gmail.com',
             [admin_email],
             fail_silently=False,
         )
@@ -253,8 +253,7 @@ def approved_user(request):
         )
         new_user.save()
         RequestedUser.objects.filter(request_id=request_id).delete()
-    except Exception as e:
-        print(e)
+    except:
         messages.error(request, 'Error: Could not approve this user. Please try again later.')
         return HttpResponseRedirect('/users/administrator/unapproved_users/')
 
@@ -340,7 +339,7 @@ def fp_get_creds(request):
         send_mail(
         'FullStacks Accounting Password',
         'Hello ' + curr_user.get_first_name() + '!' + ' This email is intended to help you remember your FullStacks Accounting Software password. If you did not request your password, please ignore this email and contact customer service. Otherwise, please see your current password below for future logins. \n Current Password: ' + curr_user.get_password(),
-        'from@example.com',
+        'fullstacktestemail@gmail.com',
         [email],
         fail_silently=False,
      )
