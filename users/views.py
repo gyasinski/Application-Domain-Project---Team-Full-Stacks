@@ -25,7 +25,7 @@ from django.contrib import messages
 
 
 from django.core.files.storage import FileSystemStorage
-
+from django.http import FileResponse, Http404
 
 
 
@@ -73,6 +73,9 @@ def render_unapproved_users_page(request):
 def render_viewaccounts_page(request):
     c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,1)
     return render(request, 'viewAccounts.html', {'c': c}) 
+
+def render_help_page(request):
+    return render(request, 'help.html')
 
 
 def fp_get_creds(request):
@@ -223,7 +226,7 @@ def toggle_active_status(request, pk):
     
 def render_calendar_popup(request):
 
-    c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,1)
+    c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,10)
 
     return render(request,'viewAccounts.html'), {
         "c": c,
