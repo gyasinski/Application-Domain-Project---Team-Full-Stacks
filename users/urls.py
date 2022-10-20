@@ -23,5 +23,5 @@ urlpatterns = [
     path('accountant/', views.render_accountant_page),
     path('manager/', views.render_manager_page),
     path('view_accounts/', views.render_viewaccounts_page),
-    path('help/', views.render_help_page), 
+
 ]

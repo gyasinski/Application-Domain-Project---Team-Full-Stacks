@@ -13,39 +13,30 @@
 </head>
 <body>
     
-<div class="navbar">
-    <a href="/users/administrator/"> 
+    <div class="navbar">
         <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
-    </a>
     <div class="profile_tab">
         <div class="circle" id="profile_pic">
              <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
         </div>
         <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
     </div>
-    <a href="/users/help/">
-        <h3 id ="help"><i class="fa fa-question fa-3x"></i></h3>
-    </a>
-</div>
-
+    </div>
 
     <!--- Calendar--> 
-<div class="table table2">
-    <h3 id="calendar" width = 1200px>
-        {{ c | safe }}
-    </h3>
-</div>
+    {{ c | safe }}
+    
+    
+   
 
-</br></br></br></br></br></br></br></br>
+
+</br></br></br></br></br></br>
 <div class="shape">
-</br>
-<a href="/users/administrator/"> 
-    <h3 class="back"><i class="fa fa-arrow-left fa-2x"> Go back</i></h3>
-</a></br>
+</br></br></br>
 <input type="text" placeholder="Search..">
+
 </div>
-<div class="table table1">
- <table id = "view_all_accounts" width = 1220px>
+<table id = "view_all_accounts" width="1200px">
     <tr>
       <th>Number</th>
       <th>Name</th>
@@ -65,16 +56,10 @@
         <td>$0.00</td>
         <td>Activated</td>
         <td>
-            <button class="btn"><i class="fa fa-edit"></i>
-                <span class = "tooltip"><b>Edit</b><br>Edit accounts</span>
-            </button>
-            <button class="btn"><i class="fa fa-trash"></i>
-                <span class = "tooltip"><b>Delete</b><br>Delete account</span>
-            </button>
-        </td>
-      </tr>  
-    </table> 
-</div>
+        <button class="btn"><i class="fa fa-edit"></i></button>
+        <button class="btn"><i class="fa fa-trash"></i></button></td>
+      </tr>   
+</table>
 
 
 </body>
