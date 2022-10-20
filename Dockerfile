@@ -18,6 +18,10 @@ RUN pip install Pillow
 
 RUN pip install pyodbc django-pyodbc-azure
 
+RUN pip install django-environ
+
+RUN pip install django-ses
+
 RUN pip install pipenv && pipenv install
 
 COPY . . 
