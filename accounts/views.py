@@ -5,12 +5,24 @@ from django.http import HttpResponse, HttpResponseRedirect
 import datetime
 from django.contrib import messages
 
+from calendar import HTMLCalendar
+import calendar 
+
+
+
 
 from django.http import HttpResponse
 # Create your views here.
 
 def render_create_chart_accts_page(request):
     return render(request, 'coa_main.html')
+
+def render_viewaccounts_page(request):
+    c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,1)
+    return render(request, 'viewAccounts.html', {'c': c})
+
+def search_account_results(request):
+    pass
 
 def render_delete_chart_accounts(request):
     return render(request, 'delete_coa.html')

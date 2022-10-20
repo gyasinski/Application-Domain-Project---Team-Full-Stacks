@@ -245,15 +245,16 @@ def approved_user(request):
             password_date_time=datetime.now(),
             date_of_birth=req_user.req_dob,
             is_active=True,
-            is_admin=False,
-            is_mgr=False,
-            is_accountant=True,  # default
+            is_suspended = False,
+            suspension_end_time = datetime.now(),
+            role = 'Accountant',
             is_superuser=False,
             profile_image=req_user.req_profile_image
         )
         new_user.save()
         RequestedUser.objects.filter(request_id=request_id).delete()
-    except:
+    except Exception as e:
+        print(e)
         messages.error(request, 'Error: Could not approve this user. Please try again later.')
         return HttpResponseRedirect('/users/administrator/unapproved_users/')
 
@@ -301,7 +302,7 @@ def login_user(request):
     current_user = authenticate(request, username=login_username, password=login_password)
     current_user.update_suspension()
     if current_user is not None:
-        if current_user.is_suspended():
+        if current_user.get_suspended_status():
             print("User is still currently suspended")
             response = redirect('/users/')
             return response
@@ -355,13 +356,6 @@ def verify_user_exists_via_email(username, email):
         print('User not found!')
         pass
 
-####################################
-#        View Accounts Page        #
-####################################
-
-def render_viewaccounts_page(request):
-    c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,1)
-    return render(request, 'viewAccounts.html', {'c': c})
 
 ####################################
 #     Render Exp. Password Page    #

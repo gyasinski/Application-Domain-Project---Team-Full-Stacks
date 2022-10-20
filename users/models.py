@@ -118,6 +118,9 @@ class User(AbstractBaseUser):
             self.is_active = False
         elif not self.is_active:
             self.is_active = True
+    
+    def get_suspended_status(self):
+        return self.is_suspended
 
     def suspend(self, days, hours, mins):
         if days == 0 and hours == 0 and mins == 0:

@@ -25,6 +25,5 @@ urlpatterns = [
     path('new_user_request/submit/', views.submit_request_for_new_account),
     path('accountant/', views.render_accountant_page),
     path('manager/', views.render_manager_page),
-    path('view_accounts/', views.render_viewaccounts_page),
 
 ]
