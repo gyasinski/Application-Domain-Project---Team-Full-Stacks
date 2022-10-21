@@ -12,4 +12,5 @@ class JournalEntry(models.Model):
     account_credit_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='account_credit_id')
     debit_amount = models.DecimalField(max_digits=19, decimal_places=10)
     credit_amount = models.DecimalField(max_digits=19, decimal_places=10)
+    is_approved = models.BooleanField(default=False)
 
