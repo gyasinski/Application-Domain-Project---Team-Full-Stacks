@@ -58,7 +58,7 @@ class User(AbstractBaseUser):
     date_of_birth           = models.DateField(null=True)
     is_active               = models.BooleanField(default=True)
     is_suspended            = models.BooleanField(default=False)
-    suspension_end_time     = models.DateTimeField(default=datetime.datetime.now())
+    suspension_end_time     = models.DateTimeField(auto_now_add=True)
     role                    = models.CharField(max_length=50, default='Accountant')
     # is_admin                = models.BooleanField(default=False)
     # is_mgr                  = models.BooleanField(default=False)
