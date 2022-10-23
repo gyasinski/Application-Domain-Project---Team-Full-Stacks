@@ -12,5 +12,11 @@ class JournalEntry(models.Model):
     account_credit_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='account_credit_id')
     debit_amount = models.DecimalField(max_digits=19, decimal_places=10)
     credit_amount = models.DecimalField(max_digits=19, decimal_places=10)
+    journal_comment = models.TextField(max_length=200)
     is_approved = models.BooleanField(default=False)
 
+
+class TransactionError(models.Model):
+    error_id = models.IntegerField(unique=True, primary_key=True)
+    error_date_time = models.DateTimeField(auto_now_add=True)
+    error_desc = models.CharField(max_length=50)
