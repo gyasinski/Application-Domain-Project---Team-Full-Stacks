@@ -310,7 +310,7 @@ def login_user(request):
 
     if current_user.has_perm(perm):
         response = redirect('/users/administrator')
-    elif current_user.is_accountant:
+    elif current_user.get_role() == 'Accountant':
         response = redirect('/users/accountant')
     else:
         response = redirect('/users/manager')

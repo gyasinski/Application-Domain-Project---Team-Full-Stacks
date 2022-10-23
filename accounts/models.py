@@ -99,6 +99,7 @@ class Account_Event_log(models.Model):
     user_source_id = models.ForeignKey('users.user', on_delete=models.CASCADE) #Shouldnt be able to edit this, so no deletion
     account_source_id = models.IntegerField()
     action_description = models.CharField(max_length=100)
+    event_date = models.DateTimeField(auto_now_add=True)
 
 
 

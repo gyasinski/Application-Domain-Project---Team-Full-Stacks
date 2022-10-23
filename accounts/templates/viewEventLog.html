@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href=""> <!--Need to add CSS stuff-->
+    <link rel="stylesheet" href="">
+    <meta charset="UTF-8">
+    <title>Full-Stacks: Charts of Accounts Event Log</title>
+</head>
+<body>
+    <h1>Hello, {{current_user.role}} {{current_user.last_name}}</h1>
+    <h2>From this page, you can view all event logs associated with Charts of Accounts.</h2>
+    <table id="view_expired_passwords" width="1350px">
+        <tr>
+            <th>Event ID</th>
+            <th>Event Description</th>
+            <th>Event Source ID</th>
+            <th>User Source ID</th>
+            <th>Event Date and Time</th>
+        </tr>
+        {% for event in events %}
+            <tr>
+                <td>{{event.event_id}}</td>
+                <td>{{event.action_description}}</td>
+                <td>{{event.account_source_id}}</td>
+                <td>{{event.user_source_id}}</td>
+                <td>{{event.event_date}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

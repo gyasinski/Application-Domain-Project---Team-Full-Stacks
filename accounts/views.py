@@ -17,6 +17,11 @@ from django.http import HttpResponse
 def render_create_chart_accts_page(request):
     return render(request, 'coa_main.html')
 
+def render_event_log(request):
+    events = Account_Event_log.objects.all()
+    current_user = request.user
+    return render(request, 'viewEventLog.html', {'events':events, 'current_user':current_user})
+
 def render_viewaccounts_page(request):
     c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,1)
     return render(request, 'viewAccounts.html', {'c': c})
