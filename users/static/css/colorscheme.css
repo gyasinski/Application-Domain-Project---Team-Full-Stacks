@@ -144,6 +144,24 @@ input[type=submit]:hover {
 	border: none;
 }
 
+.back_btn {
+	background: #99A799;
+	color: #FEF5ED;
+	font-size: 25px;
+	font-weight: 700;
+	height: 60px;
+	width: 125px;
+	border: none;
+	border-radius: 10px;
+	transition-duration: 0.4s;
+}
+
+.back_btn:hover {
+	background: #FEF5ED;
+	color: #99A799;
+	border: none;
+}
+
 input[type=button]:hover {
 	background: #FEF5ED;
 	color: #99A799;

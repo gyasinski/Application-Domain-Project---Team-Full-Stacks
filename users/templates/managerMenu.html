@@ -15,13 +15,15 @@
         <div class="circle" id="profile_pic">
              <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
         </div>
-        <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
+        <label for="profile_pic" class="profile_pic_label">{{current_admin}}</label>
     </div>
 
     <div class="shape">
         </br>
         <p2>Welcome, Manager</p2>
-        <p> This is a placeholder page for the manager main menu. </p>
+        <form action="/users/manager/view_accounts/">
+            <input type="submit" value="View Accounts">
+        </form>
         <form action="/users/">
             <input type="submit" value="Logout">
         </form>

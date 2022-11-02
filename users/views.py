@@ -30,6 +30,8 @@ import secrets
 from django.core.files.storage import FileSystemStorage
 from django.http import FileResponse, Http404
 
+from accounts.models import Account
+
 PASSWORD_EXPIRY_THIRTY_DAYS = 30
 
 # Create your views here.
@@ -212,11 +214,31 @@ def suspend_user(request, pk):
     response = redirect('/users/administrator/view_all_users/')
     return response
 
-def render_emailuser_page(request):
-    return render(request, 'adminEmailUser.html')
+def render_emailuser_page(request, pk):
+    user = User.objects.get(employee_id=pk)
+    current_admin = request.user
+    return render(request, 'adminEmailUser.html', {'user': user, 'current_admin': current_admin})
+
+def find_user_from_name(request, username):
+    user = User.objects.get(username=username)
+    temp_id = user.employee_id
+    response = redirect('/users/administrator/email_user/'+str(temp_id)+'/')
+    return response
 
 def email_user(request, pk):
+    user = User.objects.get(employee_id=pk)
 
+    subject_str = request.GET.get('emailsubject')
+    body_str = request.GET.get('emailbody')
+    user_email = user.get_email()
+
+    send_mail(
+        subject_str,
+        body_str,
+        'fullstacktestemail@gmail.com',
+        [user_email],
+        fail_silently=False,
+    )
 
     response = redirect('/users/administrator/view_all_users/')
     return response
@@ -280,12 +302,23 @@ def render_accountant_page(request):
     current_admin = request.user
     return render(request, 'accountantMenu.html', {'current_admin': current_admin})
 
+def render_accountant_view_accts_page(request):
+    current_admin = request.user
+    accounts = Account.objects.all()
+    return render(request, 'accountantViewAccounts.html', {'current_admin': current_admin, 'accounts': accounts})
+
 ####################################
 #           Manager Home           #
 ####################################
 
 def render_manager_page(request):
-    return render(request, 'managerMenu.html')
+    current_admin = request.user
+    return render(request, 'managerMenu.html', {'current_admin': current_admin})
+
+def render_manager_view_accts_page(request):
+    current_admin = request.user
+    accounts = Account.objects.all()
+    return render(request, 'accountantViewAccounts.html', {'current_admin': current_admin, 'accounts': accounts})
 
 ####################################
 #            Login Page            #

@@ -20,7 +20,7 @@
         <div class="circle" id="profile_pic">
              <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
         </div>
-        <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
+        <label for="profile_pic" class="profile_pic_label">{{current_admin}}</label>
     </div>
     <a href="/users/help/">
         <h3 id ="help"><i class="fa fa-question fa-3x"></i></h3>
@@ -37,11 +37,11 @@
 
 </br></br></br></br></br></br></br></br>
 <div class="shape">
-</br>
-<a href="/users/administrator/"> 
-    <h3 class="back"><i class="fa fa-arrow-left fa-2x"> Go back</i></h3>
-</a></br>
-<input type="text" placeholder="Search..">
+    <a href="/users/administrator/">
+        <h3 class="back"><i class="fa fa-arrow-left fa-2x"> Go back</i></h3>
+    </a>
+    </br>
+    <input type="text" placeholder="Search..">
 </div>
 <div class="table table1">
  <table id = "view_all_accounts" width = 1220px>
@@ -56,22 +56,27 @@
     </tr>
 
     <!---Populate the table here :)---->
-    <tr>
-        <td>1010</td>
-        <td>Cash On Hand</td>
-        <td>Asset</td>
-        <td>Current Asset</td>
-        <td>$0.00</td>
-        <td>Activated</td>
-        <td>
-            <button class="btn"><i class="fa fa-edit"></i>
-                <span class="tooltip"><b>Edit</b><br>Edit accounts</span>
-            </button>
-            <button class="btn"><i class="fa fa-trash"></i>
-                <span class="tooltip"><b>Delete</b><br>Delete account</span>
-            </button>
-        </td>
-      </tr>  
+    {% for account in accounts %}
+        <tr>
+            <td>{{account.account_id}}</td>
+            <td>{{account.account_name}}</td>
+            <td>{{account.account_category}}</td>
+            <td>{{account.account_sub_category}}</td>
+            <td>{{account.current_balance}}</td>
+            <td>Active: {{account.is_active}}</td>
+            <td>
+                <button class="btn"><i class="fa fa-edit"></i>
+                    <span class="tooltip"><b>Edit</b><br>Edit accounts</span>
+                </button>
+                <button class="btn"><i class="fa fa-trash"></i>
+                    <span class="tooltip"><b>Delete</b><br>Delete account</span>
+                </button>
+                <button class="btn" onclick="window.location.href='/users/administrator/email_user/find-user/{{account.user_id}}/';"><i class="fa fa-envelope"></i>
+                    <span class="tooltip"><b>Email</b><br>Email Associated User</span>
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
     </table> 
 </div>
 

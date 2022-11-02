@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/accountantViewAccounts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <meta charset="UTF-8">
+    <title>Full-Stacks: View Accounts</title>
+</head>
+<body>
+    <img src= "{% static 'images/slogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+
+    <div class="profile_tab">
+        <div class="circle" id="profile_pic">
+             <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+        </div>
+        <label for="profile_pic" class="profile_pic_label"> {{current_admin}} </label>
+    </div>
+
+    <div class="shape">
+        </br></br>
+        <form action="/users/accountant/">
+            <input type="submit" id="back" value="Go Back">
+        </form>
+    </div>
+    <table id="view_all_accounts" width="1100px">
+    <tr>
+      <th>Number</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Subtype</th>
+      <th>Balance</th>
+      <th>Status</th>
+    </tr>
+
+    {% for account in accounts %}
+        <tr>
+            <td>{{account.account_id}}</td>
+            <td>{{account.account_name}}</td>
+            <td>{{account.account_category}}</td>
+            <td>{{account.account_sub_category}}</td>
+            <td>{{account.current_balance}}</td>
+            <td>Active: {{account.is_active}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>
