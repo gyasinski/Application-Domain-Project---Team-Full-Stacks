@@ -23,19 +23,19 @@ input[id= back_manager] {
 }
 
 input[id=Submit] {
-	margin-left: 370px;
+	margin-left: 400px;
+	margin-top: 50px;
 }
 
 label {
-	display: inline-block;
 	text-align: left;
-    margin-left: 225px;
+    margin-left: 200px;
 }
 
 .container {
     background-color:#ADC2A9;
-    width: 750px;
-    height: 750px;
+    max-width: 35%;
+    max-height: 35%;
     border-radius: 30px;
 	margin: auto;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);

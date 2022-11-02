@@ -2,15 +2,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href=""> <!--Need to add CSS stuff-->
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{% static 'css/main_coa.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navigationbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- css added c: -->
     <meta charset="UTF-8">
     <title>Full-Stacks: Charts of Accounts Event Log</title>
 </head>
 <body>
-    <h1>Hello, {{current_user.role}} {{current_user.last_name}}</h1>
-    <h2>From this page, you can view all event logs associated with Charts of Accounts.</h2>
-    <table id="view_expired_passwords" width="1350px">
+<div class="wrapper"> 
+    <div class="navbar">
+        <a href="/users/manager/"> 
+            <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+        </a>
+    <div class="profile_tab">
+        <div class="circle" id="profile_pic">
+             <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+        </div>
+        <label for="profile_pic" class="profile_pic_label">{{current_manager}}</label>
+    </div>
+        <a href="{% static 'images/FULLSTACKS_Manual_t1.pdf#page=3' %}">
+            <h3 id ="help"><i class="fa fa-question fa-3x"></i></h3>
+        </a>
+    </div>
+    <h2 class ="header1">Hello, {{current_user.role}} {{current_user.last_name}}</h2>
+    <h2 class="header2">From this page, you can view all event logs associated with Charts of Accounts.</h2>
+
+        </br></br>
+    <table class="table" id="view_expired_passwords" width="1350px">
         <tr>
             <th>Event ID</th>
             <th>Event Description</th>
@@ -28,5 +47,7 @@
             </tr>
         {% endfor %}
     </table>
+</div>
+</div>
 </body>
 </html>

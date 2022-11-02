@@ -1,0 +1,40 @@
+#wrapper {
+    margin-left:auto;
+    margin-right:auto;
+    width:2000px;
+}
+
+.container {
+    background-color:#ADC2A9;
+    max-width: 35%;
+    max-height: 35%;
+    border-radius: 30px;
+	margin: auto;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+input[type=text] {
+	margin-left: 10px;
+	width: 450px;
+}
+
+input[id= back_admin] {
+	margin-left: 30px;
+    margin-right: 10px;
+}
+
+input[id=Submit] {
+	margin-left: 375px;
+}
+
+label {
+	text-align: left;
+    margin-left: 50px;
+}
+
+p2 {
+    margin-left: 350px;
+}
+p3 {
+    margin-left: 365px;
+}

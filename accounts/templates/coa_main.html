@@ -2,23 +2,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href=""> <!--Need to add CSS stuff-->
+    <link rel="stylesheet" href="{% static 'css/main_coa.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navigationbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- css added c: -->
     <link rel="stylesheet" href="">
     <meta charset="UTF-8">
     <title>Full-Stacks: CoA Creation</title>
 </head>
-<h1>Charts of Account Creation</h1>
 <body>
+<div class="wrapper">
+    <div class="navbar">
+        <a href="/users/manager/"> 
+            <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+        </a>
+    <div class="profile_tab">
+        <div class="circle" id="profile_pic">
+             <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+        </div>
+        <label for="profile_pic" class="profile_pic_label">{{current_manager}}</label>
+    </div>
+        <a href="{% static 'images/FULLSTACKS_Manual_t1.pdf#page=3' %}">
+            <h3 id ="help"><i class="fa fa-question fa-3x"></i></h3>
+        </a>
+    </div>
+
+</br></br></br>
+ <div class ="container">
+    <form action="/users/administrator/">
+    </br>
+        <input type="submit" value="Go Back" id="back_admin"> 
+        <p2>Charts of Account Creation</p2>
+    </br></br>
+    </form>
+
     <form action="/charts_accounts/post_account/" method="post">{% csrf_token %}
         </br>
         <label for="acct_name">Account Name: </label><input type="text" id="acct_name" name="acct_name"></br>
         <label for="acct_desc">Account Description: </label></br>
-        <textarea id="acct_description" name="acct_desc" rows="5" cols="50"></textarea>
+        <textarea id="acct_description" name="acct_desc" rows="5" cols="100"></textarea>
 
 
 
-
-        <p>Account Category:</p>
+    </br></br></br>
+        <p2 id="category">Account Category:</p2></br></br>
         <input type="radio" id="asset" name="acct_category" value="Asset">
         <label for="asset">Asset</label><br>
         <input type="radio" id="liability" name="acct_category" value="Liability">
@@ -32,8 +59,8 @@
         </br>
 
         <label for="acct_name">Account Sub-Category: </label><input type="text" id="acct_sc" name="acct_sc"></br>
-
-        <p>Credit or Debit:</p>
+    </br>
+        <p2 id="category">Credit or Debit:</p2></br>
         <input type="radio" id="credit" name="credit_or_debit" value="Credit">
         <label for="credit">Credit</label><br>
         <input type="radio" id="debit" name="credit_or_debit" value="Debit">
@@ -51,7 +78,7 @@
         <label for="credit_amount">Credit Amount: </label><input type="text" id="credit_amount" name="credit_amt"></br>
         <label for="balance">Balance: </label><input type="text" id="balance" name="acct_bal"></br>
 
-        <p>Order:</p>
+        <p2 id="category">Order:</p2><br>
         <input type="radio" id="cash" name="order" value="Cash">
         <label for="asset">Cash</label><br>
         <input type="radio" id="market_securities" name="order" value="Market Securities">
@@ -66,7 +93,7 @@
         <label for="goodwill">Goodwill</label><br>
         </br>
 
-        <p>Statement Type:</p>
+        <p2 id="category">Statement Type:</p2><br><br>
         <input type="radio" id="is" name="statement" value="Income Statement">
         <label for="is">Income Statement</label><br>
         <input type="radio" id="bs" name="statement" value="Balance Sheet">
@@ -78,14 +105,16 @@
 
 
         <label for="acct_comment">Comment(s): </label></br>
-        <textarea id="acct_comment" name="acct_comment" rows="5" cols="50"></textarea>
+        <textarea id="acct_comment" name="acct_comment" rows="5" cols="100"></textarea>
 
 
 
 
-        </br></br>
-        <input type="submit" value="Submit">
+      
+        <input type="submit" value="Submit" id="Submit">
+        </br></br></br>
     </form>
+</div>
 
     {% if messages %}
     <ul class="messages">
@@ -94,6 +123,7 @@
        {% endfor %}
    </ul>
    {% endif %}
+</div>
 </body>
 
 

@@ -1,0 +1,62 @@
+#wrapper {
+    margin-left:auto;
+    margin-right:auto;
+    width:2600px;
+}
+
+.container {
+    background-color:#ADC2A9;
+    max-width: 35%;
+    max-height: 35%;
+    border-radius: 30px;
+	margin: auto;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+
+html * {
+	font-family: "Calibri", sans-serif;
+}
+
+input[type=text] {
+	margin-left: 20px;
+	width: 450px;
+}
+
+input[id= back_admin] {
+	margin-left: 30px;
+    margin-right: 10px;
+}
+
+input[id=Submit] {
+	margin-left: 400px;
+	margin-top: 50px;
+}
+
+label {
+	text-align: left;
+    margin-left: 20px;
+}
+
+input[type=radio] {
+	margin-left: 150px;
+    margin-right: 0px;;
+}
+
+#category {
+	margin-left: 20px!important;
+}
+
+p2 {
+    margin-left: 100px;
+}
+
+textarea {
+    margin-left: 90px;
+
+}
+
+h1 {
+	color: #FEF5ED!important
+
+}

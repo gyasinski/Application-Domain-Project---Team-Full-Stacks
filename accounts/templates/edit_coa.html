@@ -2,8 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href=""> <!---- adding css stuff?-->
-    <link rel="stylesheet" href=""> <!---- adding css stuff here too-->
+    <link rel="stylesheet" href="{% static 'css/edit_coa.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navigationbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!--Need to add CSS stuff-->
+    <link rel="stylesheet" href="">
     <meta charset="UTF-8">
 
     <title>Full-Stacks: Edit CoA</title>
@@ -11,23 +14,30 @@
 
 
 <body>
-    <img src= "{% static 'images/slogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
-
-    <div class="profile_tab">
-        <div class="circle" id="profile_pic">
-             <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+    <div class="wrapper">
+        <div class="navbar">
+            <a href="/users/administrator/"> 
+                <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+            </a>
+        <div class="profile_tab">
+            <div class="circle" id="profile_pic">
+                 <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+            </div>
+            <label for="profile_pic" class="profile_pic_label">{{current_admin}}</label>
         </div>
-        <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
-    </div>
-
-    <div class="shape">
+            <a href="{% static 'images/FULLSTACKS_Manual_t1.pdf#page=3' %}">
+                <h3 id ="help"><i class="fa fa-question fa-3x"></i></h3>
+            </a>
+        </div>
+        <br><br> <br><br>  
+    <div class="container">
         <form>
 
             </br></br>
             <p2>Edit Account</p2>
             </br></br>
             <p3> Username </p3></br>
-            </br>
+            </br></br>
 
             <label for="account_id" class="edit_account_label">Account id: </label><input type="text" id="account_id"></br>
             <label for="account_name" class="edit_account_label">Account Name: </label><input type="text" id="account_name"></br>
@@ -37,14 +47,15 @@
 
         
             </br></br></br>
-            <input type="submit" value="Update">
+            <input type="submit" value="Update" id="Submit">
         </form>
         </br>
         <form action="/charts_accounts/view_accounts/">
 
-            <input type="submit" value="Cancel">
+            <input type="submit" value="Cancel" id="Submit"></br></br>
         </form>
         
+    </div>
     </div>
 </body>
 </html>
