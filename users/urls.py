@@ -19,11 +19,15 @@ urlpatterns = [
     path('administrator/activate_user/<str:pk>/', views.toggle_active_status),
     path('administrator/suspend_user/<str:pk>/', views.render_suspenduser_page),
     path('administrator/suspend_user/<str:pk>/send-suspend-data/', views.suspend_user),
-    path('administrator/email_user/', views.render_emailuser_page),
+    path('administrator/email_user/<str:pk>/', views.render_emailuser_page),
+    path('administrator/email_user/<str:pk>/send-email/', views.email_user),
+    path('administrator/email_user/find-user/<str:username>/', views.find_user_from_name),
     path('administrator/logout_user/', views.logout_user),
     path('new_user_request/', views.render_create_page),
     path('new_user_request/submit/', views.submit_request_for_new_account),
     path('accountant/', views.render_accountant_page),
+    path('accountant/view_accounts/', views.render_accountant_view_accts_page),
     path('manager/', views.render_manager_page),
-
+    path('manager/view_accounts/', views.render_manager_view_accts_page),
+    path('help/', views.render_help_page)
 ]

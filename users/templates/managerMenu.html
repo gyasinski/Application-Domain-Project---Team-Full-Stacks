@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{% static 'css/manager_Menu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/managerMenu.css' %}">
     <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
     <link rel="stylesheet" href="{% static 'css/navigationbar.css' %}">
     <meta charset="UTF-8">
@@ -16,13 +16,16 @@
         <div class="circle" id="profile_pic">
              <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
         </div>
-        <label for="profile_pic" class="profile_pic_label">{{current_manager}}</label>
+        <label for="profile_pic" class="profile_pic_label">{{current_admin}}</label>
     </div>
-    </div>
-</br></br></br></br>
+
+    <div class="shape">
         </br>
         <div class="container">
         <p2>Welcome, Manager</p2>
+        <form action="/users/manager/view_accounts/">
+            <input type="submit" value="View Accounts">
+        </form>
         <form action="/charts_accounts/view_event_log/" method="get">{% csrf_token %}
             <input type="submit" value="View Event Log for Accounts">
         </form>

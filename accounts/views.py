@@ -24,7 +24,9 @@ def render_event_log(request):
 
 def render_viewaccounts_page(request):
     c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,1)
-    return render(request, 'viewAccounts.html', {'c': c})
+    accounts = Account.objects.all()
+    current_admin = request.user
+    return render(request, 'viewAccounts.html', {'c': c, 'accounts': accounts, 'current_admin': current_admin})
 
 def search_account_results(request):
     pass
