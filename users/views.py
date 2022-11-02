@@ -28,7 +28,9 @@ import secrets
 
 
 from django.core.files.storage import FileSystemStorage
+from django.http import FileResponse, Http404
 
+from accounts.models import Account
 
 PASSWORD_EXPIRY_THIRTY_DAYS = 30
 
@@ -52,7 +54,7 @@ def submit_request_for_new_account(request):
     zip_code = request.POST.get('zip_code')
     country = request.POST.get('country')
     dob = request.POST.get('date_of_birth')
-    admin_user = request.POST.get('admin_user')
+    admin_user = User.objects.get(role="Administrator")
     try:
         fss = FileSystemStorage()
         profile_image_file = fss.save(request.FILES['p_image'].name, request.FILES['p_image'])
@@ -212,11 +214,31 @@ def suspend_user(request, pk):
     response = redirect('/users/administrator/view_all_users/')
     return response
 
-def render_emailuser_page(request):
-    return render(request, 'adminEmailUser.html')
+def render_emailuser_page(request, pk):
+    user = User.objects.get(employee_id=pk)
+    current_admin = request.user
+    return render(request, 'adminEmailUser.html', {'user': user, 'current_admin': current_admin})
+
+def find_user_from_name(request, username):
+    user = User.objects.get(username=username)
+    temp_id = user.employee_id
+    response = redirect('/users/administrator/email_user/'+str(temp_id)+'/')
+    return response
 
 def email_user(request, pk):
+    user = User.objects.get(employee_id=pk)
 
+    subject_str = request.GET.get('emailsubject')
+    body_str = request.GET.get('emailbody')
+    user_email = user.get_email()
+
+    send_mail(
+        subject_str,
+        body_str,
+        'fullstacktestemail@gmail.com',
+        [user_email],
+        fail_silently=False,
+    )
 
     response = redirect('/users/administrator/view_all_users/')
     return response
@@ -280,12 +302,23 @@ def render_accountant_page(request):
     current_admin = request.user
     return render(request, 'accountantMenu.html', {'current_admin': current_admin})
 
+def render_accountant_view_accts_page(request):
+    current_admin = request.user
+    accounts = Account.objects.all()
+    return render(request, 'accountantViewAccounts.html', {'current_admin': current_admin, 'accounts': accounts})
+
 ####################################
 #           Manager Home           #
 ####################################
 
 def render_manager_page(request):
-    return render(request, 'managerMenu.html')
+    current_admin = request.user
+    return render(request, 'managerMenu.html', {'current_admin': current_admin})
+
+def render_manager_view_accts_page(request):
+    current_admin = request.user
+    accounts = Account.objects.all()
+    return render(request, 'accountantViewAccounts.html', {'current_admin': current_admin, 'accounts': accounts})
 
 ####################################
 #            Login Page            #
@@ -299,21 +332,25 @@ def login_user(request):
     login_password = request.POST.get('user_password')
 
     current_user = authenticate(request, username=login_username, password=login_password)
-    current_user.update_suspension()
-    if current_user is not None:
+    if current_user is not None and \
+            (login_password == current_user.password) and \
+            current_user.is_active:
+        current_user.update_suspension()
         if current_user.get_suspended_status():
-            print("User is still currently suspended")
+            print(login_username + " is still currently suspended")
             response = redirect('/users/')
             return response
         else:
             login(request, current_user)
-
-    if current_user.has_perm(perm):
-        response = redirect('/users/administrator')
-    elif current_user.get_role() == 'Accountant':
-        response = redirect('/users/accountant')
+            if current_user.role == 'Administrator':
+                response = redirect('/users/administrator')
+            elif current_user.role == 'Manager':
+                response = redirect('/users/manager')
+            else:
+                response = redirect('/users/accountant')
     else:
-        response = redirect('/users/manager')
+        print('Wrong Username or Password.')
+        response = redirect('/users/')
 
     return response
 
@@ -343,7 +380,7 @@ def fp_get_creds(request):
         [email],
         fail_silently=False,
      )
-        response = redirect('/users/forgot-password')
+        response = redirect('/users/')
         return response
 
 def verify_user_exists_via_email(username, email):
@@ -373,6 +410,8 @@ def render_expired_passwords_page(request):
     print(expired_pass_users)
     return render(request, 'viewExpiredPasswords.html', {'current_admin':current_admin, 'expired_pass_users':expired_pass_users})
 
+def render_help_page(request):
+    return render(request, 'Help.html')
 ##################################################################
 #                    Unorganized Methods                         #
 ##################################################################
@@ -381,7 +420,7 @@ def render_expired_passwords_page(request):
 
 def render_calendar_popup(request):
 
-    c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,1)
+    c = calendar.HTMLCalendar(calendar.SUNDAY).formatmonth(2022,10)
 
     return render(request,'viewAccounts.html'), {
         "c": c,

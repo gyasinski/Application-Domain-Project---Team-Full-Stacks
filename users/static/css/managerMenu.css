@@ -1,9 +1,15 @@
 .shape {
-	height: 200px;
+	height: 340px;
 	width: 400px;
 	border-radius: 30px;
 	margin: auto;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 	text-align: center;
-	padding 10px;
+	padding: 10px;
+}
+
+input[type=submit] {
+	height: 100px !important;
+	width: 300px !important;
+	margin: 10px;
 }

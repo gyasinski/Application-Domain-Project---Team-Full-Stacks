@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/journalEntry.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navigationbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <title>Full-Stacks: Journal Entry</title>
+</head>
+<body>
+<div id="wrapper">
+    <div class="navbar">
+        <a href="/users/manager/"> 
+            <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+        </a>
+    <div class="profile_tab">
+        <div class="circle" id="profile_pic">
+             <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+        </div>
+        <label for="profile_pic" class="profile_pic_label">{{current_manager}}</label>
+    </div>
+        <a href="{% static 'images/FULLSTACKS_Manual_t1.pdf#page=3' %}">
+            <h3 id ="help"><i class="fa fa-question fa-3x"></i></h3>
+        </a>
+    </div>
+
+</br></br></br>
+
+<div class="container">
+</br>  
+<form action="/users/manager/">
+<input type="submit" value="Go Back" id="back_manager"> 
+<p2 class="p2">Journal Entry Form</p2>
+</form>
+</br></br></br>
+
+
+<!--Populate with existing accounts-->
+<form action="/journals_ledger/new_journal_entry_request/submit/" method="post" enctype="multipart/form-data">{% csrf_token %}
+<label for="jaccount">Select account for the entry:</label> 
+    <select name="entry_account" id = "jaccount">
+        {% for account in accounts %}
+        <option value="accounts">{{account.account_name}}</option>
+        {% endfor %}
+    </select></br>
+<label for="jdesscription"> Entry Description: </label>
+    <input type="text" id="jdescription" name="entry_description"></br>
+<label for="credit"> Credit Amount: </label>
+    <input type="text" id="credit" name="entry_credit"></br>
+<label for="debit"> Debit Amount: </label>
+    <input type="text" id="debit" name="entry_debit"></br>
+<label for="credit"> Credit Account ID: </label>
+    <input type="text" id="credit" name="credit_account_id"></br>
+<label for="credit"> Debit Account ID: </label>
+    <input type="text" id="debit" name="debit_account_id"></br>
+
+</br></br>
+<input type="submit" value="Submit" id="Submit">
+</form>
+</br></br>
+</div>
+
+{% if messages %}
+    <ul class="messages">
+       {% for message in messages %}
+       <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+       {% endfor %}
+   </ul>
+   {% endif %}
+
+</div>
+</body>

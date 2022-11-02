@@ -5,25 +5,35 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/managerMenu.css' %}">
     <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navigationbar.css' %}">
     <meta charset="UTF-8">
     <title>Full-Stacks: Accountant Menu</title>
 </head>
 <body>
-    <img src= "{% static 'images/slogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
-
+    <div class="navbar">
+        <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
     <div class="profile_tab">
         <div class="circle" id="profile_pic">
              <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
         </div>
-        <label for="profile_pic" class="profile_pic_label"> --Username-- </label>
+        <label for="profile_pic" class="profile_pic_label">{{current_admin}}</label>
     </div>
 
     <div class="shape">
         </br>
+        <div class="container">
         <p2>Welcome, Manager</p2>
-        <p> This is a placeholder page for the manager main menu. </p>
+        <form action="/users/manager/view_accounts/">
+            <input type="submit" value="View Accounts">
+        </form>
         <form action="/charts_accounts/view_event_log/" method="get">{% csrf_token %}
             <input type="submit" value="View Event Log for Accounts">
+        </form>
+        <form action="/journals_ledger/journal_entry/" method="get">{% csrf_token %}
+            <input type="submit" value="New Journal Entry">
+        </form>
+        <form action="/journals_ledger/manager/unapproved_entries/" method="get">{% csrf_token %}
+            <input type="submit" value="Approve/Reject Entries">
         </form>
         <form action="/users/">
             <input type="submit" value="Logout">
