@@ -112,8 +112,32 @@ def reject_journal_entry(request):
     messages.success(request, 'Journal successfully rejected.')
     return HttpResponseRedirect('/journals_ledger/manager/unapproved_entries/')
 
+# Karens Merge ##################################
 
+def render_approved_entries_page(request):
+    approved_entries = JournalEntry.objects.all()
+    current_admin = request.user
+    return render(request, 'approvedEntries.html', {'approved_users': approved_entries, 'current_admin':current_admin} )
 
+## rejected journal entries ##
+
+def render_rejected_entries_page(request):
+    rejected_entries = JournalEntry.objects.all()
+    current_admin = request.user
+    return render(request, 'rejectedEntries.html', {'rejected_users': rejected_entries, 'current_admin':current_admin} )
+
+## search venues ##
+
+def search_journals_page(request):
+    if request.method == "POST":
+        searched= request.POST('searched')
+    journals= JournalEntry.objects.filter(journal_entry_id__contains= searched)
+    journals= JournalEntry.objects.filter(debit_amount__contains= searched)
+    journals= JournalEntry.objects.filter(date_of_entry__contains= searched)
+
+    return render(request,'search_journals.html', {'searched': searched, 'journals': journals} )
+
+# end Karens merge ########################################################################
 def generate_journal_id():
     request_id = -2
     retry_count = 0
