@@ -41,34 +41,100 @@
 </br></br>
 
 <table id="view_unapproved_entries" width="1200px">
-<tr>
-    <th>Account</th>
-    <th>Description</th>
-    <th>Date</th>
-    <th>Credit</th>
-    <th>Debit</th>
-    <th>Balance</th>
-    <th>Approve or Reject</th>
-</tr>
+    <tr>
+        <th>Entry ID</th>
+        <th>User ID</th>
+        <th>Entry Description</th>
+        <th>Date of Entry</th>
+        <th>Debit Account</th>
+        <th>Credit Account</th>
+        <th>Amount Debited</th>
+        <th>Amount Credited</th>
+        <th>Pending Approval?</th>
+        <th>Approver ID</th>
+    </tr>
 
-<tr>
-    <td>{{unapproved_entry.req_entry_account}}</td>
-    <td>{{unapproved_entry.req_entry_description}}</td>
-    <td>{{unapproved_entry.req_date_of_entry}}</td>
-    <td>{{unapproved_entry.req_credit_amount}}</td>
-    <td>{{unapproved_entry.req_debit_amount}}</td>
-    <td>{{unapproved_entry.req_balance}}</td>
-    <td>
-        <button class="btn"><i class="fa fa-check"></i>
-            <span class="tooltip"><b>Approve</b><br>Approve the journal entry request</span>
-        </button>
-        <button class="btn"><i class="fa fa-trash"></i>
-            <span class="tooltip"><b>Reject</b><br>Reject the journal entry request</span>
-        </button>
-    </td>
-</tr>
+    {% for journal in journal_entries %}
+        <tr>
+            <td>{{journal.journal_entry_id}}</td>
+            <td>{{journal.user_submission_id}}</td>
+            <td>{{journal.initial_entry_description}}</td>
+            <td>{{journal.date_of_entry}}</td>
+            <td>{{journal.account_debit_id_id}}</td>
+            <td>{{journal.account_credit_id_id}}</td>
+            <td>{{journal.debit_amount}}</td>
+            <td>{{journal.credit_amount}}</td>
+            <td>{% if journal.is_approved %}
+                    Approved
+                    {% else %}
+                    Unapproved
+                {% endif %}
+            </td>
+            <td>
+                {% if journal.approver_id == Unapproved %}
+                    Unapproved
+                    {% else %}
+                    {{journal.approver_id}}
+                {% endif %}
+            </td>
+            <td>
+                {% if journal.is_approved == False %}
+                    <form action="/journals_ledger/new_journal_entry_request/approve/" method="post">{% csrf_token %}
+                        <input type="hidden" name="journal_id" value={{journal.journal_entry_id}}>
+                        <button class="btn"><i class="fa fa-check"></i>
+                            <span class="tooltip"><b>Approve</b><br>Approve the journal entry request</span>
+                        </button>
+                    </form>
+                    <form>
+                        <button class="btn" id="reject_button" type="button" data-toggle="modal"><i class="fa fa-trash"></i>
+                             {% with curr_journal_id=journal.journal_entry_id %}
+                                {{curr_journal_id}}
+                             {% endwith %}
+                            <span class="tooltip"><b>Reject</b><br>Reject the journal entry request</span>
+                        </button>
+                    </form>
+                    {% else %}
+
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
 </table>
 </div>
+
+
+
+
+<!-- Modal Section -->
+
+<div class="bg-modal">
+    {{curr_journal_id}}
+    <div class="modal-content">
+        <div class="close">+</div>
+        <form action="/journals_ledger/new_journal_entry_request/reject/" method="post">{% csrf_token %}
+            <input type="hidden" name="journal_id" value={{curr_journal_id}}>
+            <label for="rejection_comment">Reason for rejection: </label></br>
+            <textarea id="rejection" name="rejection_comment" rows="5" cols="50" placeholder="Please input your reason for rejecting this journal."></textarea></br>
+            
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+
+</div>
+
+<script>
+    document.getElementById('reject_button').addEventListener('click', 
+    function() {
+        document.querySelector('.bg-modal').style.display = 'flex';
+    });
+    
+    document.querySelector('.close').addEventListener('click',
+    function() {
+        document.querySelector('.bg-modal').style.display = 'none';
+    });
+</script>
+
 
 {% if messages %}
 <ul class="messages">
@@ -79,3 +145,4 @@
 {% endif %}
 
 </body>
+</html>

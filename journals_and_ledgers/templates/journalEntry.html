@@ -40,12 +40,6 @@
 
 <!--Populate with existing accounts-->
 <form action="/journals_ledger/new_journal_entry_request/submit/" method="post" enctype="multipart/form-data">{% csrf_token %}
-<label for="jaccount">Select account for the entry:</label> 
-    <select name="entry_account" id = "jaccount">
-        {% for account in accounts %}
-        <option value="accounts">{{account.account_name}}</option>
-        {% endfor %}
-    </select></br>
 <label for="jdesscription"> Entry Description: </label>
     <input type="text" id="jdescription" name="entry_description"></br>
 <label for="credit"> Credit Amount: </label>
