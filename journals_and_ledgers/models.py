@@ -19,4 +19,4 @@ class JournalEntry(models.Model):
 class TransactionError(models.Model):
     error_id = models.IntegerField(unique=True, primary_key=True)
     error_date_time = models.DateTimeField(auto_now_add=True)
-    error_desc = models.CharField(max_length=50)
+    error_desc = models.CharField(max_length=1000)

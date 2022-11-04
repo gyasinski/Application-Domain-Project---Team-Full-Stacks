@@ -1,7 +1,7 @@
 import random
 from django.shortcuts import render
 from accounts.models import Account
-from journals_and_ledgers.models import JournalEntry
+from journals_and_ledgers.models import JournalEntry, TransactionError
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from datetime import datetime
@@ -24,7 +24,7 @@ def submit_request_for_new_journal_entry(request):
     try:
         requested_journal_entry = JournalEntry (
             journal_entry_id = journal_entry_id,
-            account_debit_id =debit_account,
+            account_debit_id = debit_account_id,
             account_credit_id = credit_account,
             debit_amount = debit_amount,
             credit_amount =  credit_amount,
@@ -34,8 +34,14 @@ def submit_request_for_new_journal_entry(request):
         )
         requested_journal_entry.save()
     except Exception as e:
-        print(e)
+        transactError = TransactionError(
+        error_id = generate_transactionerror_id(),
+        error_date_time = datetime.now(),
+        error_desc = str(e)
+    )
+        transactError.save()
         messages.error(request, 'Error, could not send request at this time, Please try again later.')
+    
         return HttpResponseRedirect('/journals_ledger/journal_entry')
 
     messages.success(request, 'Success! Request sent with Request ID: ' + str(journal_entry_id) + '. ')
@@ -64,3 +70,18 @@ def generate_journal_id():
                     retry = False
         except:
             return request_id
+
+def generate_transactionerror_id():
+    error_id = -2
+    retry_count = 0
+    retry = True
+    error_id = random.randint(4000,4100)
+
+    while(retry):
+        try:
+            if TransactionError.objects.get(error_id=error_id):
+                retry_count += 1
+                if retry_count == 10:
+                    retry = False
+        except:
+            return error_id
