@@ -60,9 +60,6 @@ class User(AbstractBaseUser):
     is_suspended            = models.BooleanField(default=False)
     suspension_end_time     = models.DateTimeField(auto_now_add=True)
     role                    = models.CharField(max_length=50, default='Accountant')
-    # is_admin                = models.BooleanField(default=False)
-    # is_mgr                  = models.BooleanField(default=False)
-    # is_accountant           = models.BooleanField(default=False)
     is_superuser            = models.BooleanField(default=False)
     profile_image           = models.ImageField(null=True, blank=True)
 
