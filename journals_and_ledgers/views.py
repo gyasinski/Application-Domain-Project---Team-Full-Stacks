@@ -47,7 +47,30 @@ def render_unapproved_entries_page(request):
     current_admin = request.user
     return render(request, 'requestedEntries.html', {'unapproved_users': unapproved_entries, 'current_admin':current_admin} )
 
+## approved journal entries ##
 
+def render_approved_entries_page(request):
+    approved_entries = JournalEntry.objects.all()
+    current_admin = request.user
+    return render(request, 'approvedEntries.html', {'approved_users': approved_entries, 'current_admin':current_admin} )
+
+## rejected journal entries ##
+
+def render_rejected_entries_page(request):
+    rejected_entries = JournalEntry.objects.all()
+    current_admin = request.user
+    return render(request, 'rejectedEntries.html', {'rejected_users': rejected_entries, 'current_admin':current_admin} )
+
+## search venues ##
+
+def search_journals_page(request):
+    if request.method == "POST":
+        searched= request.POST('searched')
+    journals= JournalEntry.objects.filter(journal_entry_id__contains= searched)
+    journals= JournalEntry.objects.filter(debit_amount__contains= searched)
+    journals= JournalEntry.objects.filter(date_of_entry__contains= searched)
+
+    return render(request,'search_journals.html', {'searched': searched, 'journals': journals} )
 
 
 def generate_journal_id():
