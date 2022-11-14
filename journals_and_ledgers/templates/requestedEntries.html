@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <title>Full-Stacks: Manager Menu: Unapproved Entries</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
 </head>
 <body>
     
@@ -84,15 +86,32 @@
                         <button class="btn"><i class="fa fa-check"></i>
                             <span class="tooltip"><b>Approve</b><br>Approve the journal entry request</span>
                         </button>
+                        
                     </form>
-                    <form>
-                        <button class="btn" id="reject_button" type="button" data-toggle="modal"><i class="fa fa-trash"></i>
-                             {% with curr_journal_id=journal.journal_entry_id %}
-                                {{curr_journal_id}}
-                             {% endwith %}
+                    <form action="/journals_ledger/new_journal_entry_request/save_reject_id/" method="post" id="reject_form">{% csrf_token %}
+                        <input type="hidden" name="journal_id" value={{journal.journal_entry_id}}>
+                        <button class="btn" id="reject_button" type="submit" data-toggle="modal"><i class="fa fa-trash"></i>
                             <span class="tooltip"><b>Reject</b><br>Reject the journal entry request</span>
                         </button>
+                        
                     </form>
+                    <script type="text/javascript">
+                        $(document).on('submit','#reject-form',function(e){
+                            e.preventDefault();
+                            $.ajax({
+                                type:'POST',
+                                url:'/journals_ledger/new_journal_entry_request/save_reject_id/',
+                                data:
+                                {
+                                    journal_id:$("#journal_id").val(),
+                                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+                                },
+                                success:function(){
+                                      alert('Saved');
+                                        }
+                                })
+                            });
+                        </script>
                     {% else %}
 
                 {% endif %}
@@ -108,7 +127,6 @@
 <!-- Modal Section -->
 
 <div class="bg-modal">
-    {{curr_journal_id}}
     <div class="modal-content">
         <div class="close">+</div>
         <form action="/journals_ledger/new_journal_entry_request/reject/" method="post">{% csrf_token %}

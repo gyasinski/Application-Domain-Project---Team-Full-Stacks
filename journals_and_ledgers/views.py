@@ -3,8 +3,9 @@ from django.shortcuts import render
 from accounts.models import Account
 from journals_and_ledgers.models import JournalEntry, TransactionError
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from datetime import datetime
+import json
 # Create your views here.
 
 
@@ -92,6 +93,15 @@ def commit_journal_entry_approval(request):
 
     messages.success(request, 'Success! Journal has been approved and transactions have been completed.')
     return HttpResponseRedirect('/journals_ledger/manager/unapproved_entries/')
+
+
+def save_rejected_journal_entry_id(request):
+    print('Save the reject!')
+    result = request.POST.get('result')
+    print(json.dumps({'result': result}))
+    return HttpResponse(result)
+
+
 
 
 def reject_journal_entry(request):
