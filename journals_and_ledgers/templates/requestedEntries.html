@@ -66,10 +66,15 @@
             <td>{{journal.account_credit_id_id}}</td>
             <td>{{journal.debit_amount}}</td>
             <td>{{journal.credit_amount}}</td>
-            <td>{% if journal.is_approved %}
-                    Approved
-                    {% else %}
+            <td>{% if journal.is_approved == False and journal.is_rejected == False %}
                     Unapproved
+                    {% else %}
+                        {% if journal.is_rejected %}
+                            Rejected
+                        {% endif %}
+                        {% if journal.is_approved %}
+                            Approved
+                        {% endif %}
                 {% endif %}
             </td>
             <td>
@@ -80,7 +85,7 @@
                 {% endif %}
             </td>
             <td>
-                {% if journal.is_approved == False %}
+                {% if journal.is_approved == False and journal.is_rejected == False %}
                     <form action="/journals_ledger/new_journal_entry_request/approve/" method="post">{% csrf_token %}
                         <input type="hidden" name="journal_id" value={{journal.journal_entry_id}}>
                         <button class="btn"><i class="fa fa-check"></i>
@@ -88,15 +93,19 @@
                         </button>
                         
                     </form>
-                    <form action="/journals_ledger/new_journal_entry_request/save_reject_id/" method="post" id="reject_form">{% csrf_token %}
-                        <input type="hidden" name="journal_id" value={{journal.journal_entry_id}}>
+                    <form method="post" id="reject_form">{% csrf_token %}
+                        <input type="hidden" name="journal_id" value={{journal.journal_entry_id}} id="journal_id">
                         <button class="btn" id="reject_button" type="submit" data-toggle="modal"><i class="fa fa-trash"></i>
                             <span class="tooltip"><b>Reject</b><br>Reject the journal entry request</span>
                         </button>
                         
                     </form>
+
+                    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+                    
+
                     <script type="text/javascript">
-                        $(document).on('submit','#reject-form',function(e){
+                        $(document).on('submit','#reject_form',function(e){
                             e.preventDefault();
                             $.ajax({
                                 type:'POST',
@@ -106,9 +115,9 @@
                                     journal_id:$("#journal_id").val(),
                                     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
                                 },
-                                success:function(){
-                                      alert('Saved');
-                                        }
+                                success:function(){    
+                                    console.log('Saved');
+                                    },
                                 })
                             });
                         </script>

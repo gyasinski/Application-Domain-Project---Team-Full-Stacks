@@ -19,7 +19,9 @@ class JournalEntry(models.Model):
     credit_amount = models.DecimalField(max_digits=19, decimal_places=2)
     journal_comment = models.TextField(max_length=200)
     is_approved = models.BooleanField(default=False)
+    is_rejected = models.BooleanField(default=False)
     approver_id = models.CharField(default='Unapproved', max_length=50)
+    reject_comment = models.TextField(max_length=200, default="This journal entry has not been rejected yet or was approved.")
 
     def approve_journal(self):
         self.is_approved = True
@@ -27,6 +29,11 @@ class JournalEntry(models.Model):
     def set_approver_id(self, approver_id):
         self.approver_id = approver_id
 
+    def reject_journal(self):
+        self.is_rejected = True
+
+    def add_rejection_comment(self, reject_comment):
+        self.reject_comment = reject_comment
 
 class TransactionError(models.Model):
     error_id = models.IntegerField(unique=True, primary_key=True)

@@ -96,31 +96,36 @@ def commit_journal_entry_approval(request):
 
 
 def save_rejected_journal_entry_id(request):
-    print('Save the reject!')
-    result = request.POST.get('result')
-    print(json.dumps({'result': result}))
-    return HttpResponse(result)
-
-
+    request.session['curr_rejected_journal'] = request.POST.get('journal_id')
+    print(request.session.get('curr_rejected_journal'))
+    return HttpResponse(
+        request.session.get('curr_rejected_journal')
+    )
 
 
 def reject_journal_entry(request):
+    
     try:
-        journal_id = request.POST.get('journal_id')
-        JournalEntry.objects.filter(journal_entry_id=journal_id).delete()
+        curr_user = str(request.user)
+        curr_rejected_journal_id = request.session.get('curr_rejected_journal')
+        rej_comment = request.POST.get('rejection_comment')
+        curr_journal = JournalEntry.objects.get(journal_entry_id=curr_rejected_journal_id)
+        curr_journal.reject_journal()
+        curr_journal.set_approver_id(curr_user)
+        curr_journal.add_rejection_comment(rej_comment)
+        curr_journal.save()
     except Exception as e:
-        print(e)
-        transactError = TransactionError(
-        error_id = generate_transactionerror_id(),
-        error_date_time = datetime.now(),
-        error_desc = str(e)
-    )
-        transactError.save()
         messages.error(request, 'Error: Could not delete this journal. Please try again later.')
         return HttpResponseRedirect('/journals_ledger/manager/unapproved_entries/')
-
+    
     messages.success(request, 'Journal successfully rejected.')
-    return HttpResponseRedirect('/journals_ledger/manager/unapproved_entries/')
+
+    journal_entries = JournalEntry.objects.all()
+    curr_user = request.user
+    return render(request, 'requestedEntries.html', {'journal_entries': journal_entries, 'curr_user': curr_user} )
+    
+
+   
 
 # Karens Merge ##################################
 
