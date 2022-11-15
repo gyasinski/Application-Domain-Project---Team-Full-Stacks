@@ -1,2 +1,5 @@
 .idea
 .env
+**/__pycache__
+*.pyc
+fs_accounting_app_core/__pycache__/

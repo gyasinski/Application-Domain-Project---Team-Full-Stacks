@@ -1,3 +1,5 @@
 .idea
 assets
 .gitattributes
+**/__pycache__
+*.pyc
