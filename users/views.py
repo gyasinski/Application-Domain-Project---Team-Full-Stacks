@@ -318,7 +318,7 @@ def render_manager_page(request):
 def render_manager_view_accts_page(request):
     current_admin = request.user
     accounts = Account.objects.all()
-    return render(request, 'accountantViewAccounts.html', {'current_admin': current_admin, 'accounts': accounts})
+    return render(request, 'viewAccounts.html', {'current_admin': current_admin, 'accounts': accounts})
 
 ####################################
 #            Login Page            #

@@ -44,10 +44,10 @@ class Account(models.Model):
 
 
     account_sub_category = models.CharField(max_length=20)
-    initial_balance = models.DecimalField(max_digits=19, decimal_places=10)
-    debit_amount = models.DecimalField(max_digits=19, decimal_places=10)
-    credit_amount = models.DecimalField(max_digits=19, decimal_places=10)
-    current_balance = models.DecimalField(max_digits=19, decimal_places=10)
+    initial_balance = models.DecimalField(max_digits=19, decimal_places=2)
+    debit_amount = models.DecimalField(max_digits=19, decimal_places=2)
+    credit_amount = models.DecimalField(max_digits=19, decimal_places=2)
+    current_balance = models.DecimalField(max_digits=19, decimal_places=2)
     dt_acct_creation = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey('users.user',on_delete=models.CASCADE)
     account_comment = models.TextField(max_length=200)

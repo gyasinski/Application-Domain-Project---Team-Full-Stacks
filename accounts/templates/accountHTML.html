@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Full-Stacks: View An Account</title>
+</head>
+
+<h1>Welcome, {{user.username}}</h1>
+
+<body>
+
+    <h2>Account Information:</h2>
+
+    <h3>Account Name: {{account.account_name}}</h3>
+    <h3>Account ID: {{account.account_id}}</h3>
+    <h3>Account Primary Category: {{account.account_category}}</h3>
+    <h3>Account Sub-Category: {{account.account_sub_category}}</h3>
+    <h3>Account Order: {{account.order}}</h3>
+    <h3>Account Balance: {{account.current_balance}}</h3>
+    <h3>Account Active/Inactive: {{account.is_active}}</h3>
+    <h3>Account Description: {{account.account_desc}}</h3>
+    <h3>Account Statement Type: {{account.statement_type}}</h3>
+    <h3>Date/Time of Account Creation: {{account.dt_acct_creation}}</h3>
+
+    <h3>Date/Time of sheet generation: {{curr_date_time}}</h3>
+
+</body>
+
+
+
+
+</html>

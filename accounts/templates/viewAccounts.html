@@ -12,72 +12,75 @@
 </head>
 <body>
     
-<div class="navbar">
-    <a href="/users/administrator/">
-        <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
-    </a>
-    <div class="profile_tab">
-        <div class="circle" id="profile_pic">
-             <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+    <div class="navbar">
+        <a href="/users/administrator/">
+            <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+        </a>
+        <div class="profile_tab">
+            <div class="circle" id="profile_pic">
+                <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+            </div>
+            <label for="profile_pic" class="profile_pic_label">{{current_admin}}</label>
         </div>
-        <label for="profile_pic" class="profile_pic_label">{{current_admin}}</label>
+        <a href="/users/help/">
+            <h3 id ="help"><i class="fa fa-question fa-3x"></i></h3>
+        </a>
     </div>
-    <a href="/users/help/">
-        <h3 id ="help"><i class="fa fa-question fa-3x"></i></h3>
-    </a>
-</div>
 
-    <!--- Calendar--> 
-<div class="table table2">
-    <h3 id="calendar" width="1200px">
-        {{ c | safe }}
-    </h3>
-</div>
+        <!--- Calendar--> 
+    <div class="table table2">
+        <h3 id="calendar" width="1200px">
+            {{ c | safe }}
+        </h3>
+    </div>
 
 
-</br></br></br></br></br></br>
-<div class="shape">
-    <a href="/users/administrator/">
-        <h3 class="back"><i class="fa fa-arrow-left fa-2x"> Go back</i></h3>
-    </a>
-    </br>
-    <input type="text" placeholder="Search..">
-</div>
-<table id = "view_all_accounts" width="1200px">
-    <tr>
-      <th>Number</th>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Subtype</th>
-      <th>Balance</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-
-    <!---Populate the table here :)---->
-    {% for account in accounts %}
+    </br></br></br></br></br></br>
+    <div class="shape">
+        <a href="/users/administrator/">
+            <h3 class="back"><i class="fa fa-arrow-left fa-2x"> Go back</i></h3>
+        </a>
+        </br>
+        <input type="text" placeholder="Search..">
+    </div>
+    <table id = "view_all_accounts" width="1200px">
         <tr>
-            <td>{{account.account_id}}</td>
-            <td>{{account.account_name}}</td>
-            <td>{{account.account_category}}</td>
-            <td>{{account.account_sub_category}}</td>
-            <td>{{account.current_balance}}</td>
-            <td>Active: {{account.is_active}}</td>
-            <td>
-                <button class="btn"><i class="fa fa-edit"></i>
-                    <span class="tooltip"><b>Edit</b><br>Edit accounts</span>
-                </button>
-                <button class="btn"><i class="fa fa-trash"></i>
-                    <span class="tooltip"><b>Delete</b><br>Delete account</span>
-                </button>
-                <button class="btn" onclick="window.location.href='/users/administrator/email_user/find-user/{{account.user_id}}/';"><i class="fa fa-envelope"></i>
-                    <span class="tooltip"><b>Email</b><br>Email Associated User</span>
-                </button>
-            </td>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Subtype</th>
+        <th>Balance</th>
+        <th>Status</th>
+        <th>Action</th>
         </tr>
-    {% endfor %}
-    </table>
-</div>
+
+        <!---Populate the table here :)---->
+        {% for account in accounts %}
+            <tr>
+                <td><a href="/charts_accounts/account/{{account.account_id}}" style="color: #FF0000">{{account.account_id}}</td></a>
+                <td>{{account.account_name}}</td>
+                <td>{{account.account_category}}</td>
+                <td>{{account.account_sub_category}}</td>
+                <td>{{account.current_balance}}</td>
+                <td>Active: {{account.is_active}}</td>
+                <td>
+                    <button class="btn"><i class="fa fa-edit"></i>
+                        <span class="tooltip"><b>Edit</b><br>Edit accounts</span>
+                    </button>
+                    <button class="btn"><i class="fa fa-trash"></i>
+                        <span class="tooltip"><b>Delete</b><br>Delete account</span>
+                    </button>
+                    <button class="btn" onclick="window.location.href='/users/administrator/email_user/find-user/{{account.user_id}}/';"><i class="fa fa-envelope"></i>
+                        <span class="tooltip"><b>Email</b><br>Email Associated User</span>
+                    </button>
+                    <button class="btn"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                        <span class="tooltip"><b>Save</b><br>Save to PDF</span>
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
 
 
 </body>

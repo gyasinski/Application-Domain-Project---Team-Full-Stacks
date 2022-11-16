@@ -2,7 +2,10 @@ from django.shortcuts import render
 from accounts.models import Account, Account_Event_log
 import random
 from django.http import HttpResponse, HttpResponseRedirect
-import datetime
+from datetime import datetime
+from django.utils.timezone import now, localtime
+
+import pytz
 from django.contrib import messages
 
 from calendar import HTMLCalendar
@@ -148,9 +151,10 @@ def create_event_log(request, account_id, event_desc):
         messages.error(request, 'Error: Could not save this event log. Please try again.')
     
 
-
-
-
+def render_single_account(request, acct_id):
+    curr_date_time = datetime.now()
+    account = Account.objects.get(account_id=acct_id)
+    return render(request, 'accountHTML.html', {'account': account, 'curr_date_time': curr_date_time})
 
 
 
