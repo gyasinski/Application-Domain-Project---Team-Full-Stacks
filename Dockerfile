@@ -26,6 +26,8 @@ RUN pip install xhtml2pdf
 
 RUN pip install pytz
 
+RUN pip install xhtml2pdf
+
 RUN pip install pipenv && pipenv install
 
 COPY . . 

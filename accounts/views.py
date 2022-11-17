@@ -4,12 +4,18 @@ import random
 from django.http import HttpResponse, HttpResponseRedirect
 from datetime import datetime
 from django.utils.timezone import now, localtime
+from django.template.loader import get_template
+
 
 import pytz
 from django.contrib import messages
 
 from calendar import HTMLCalendar
 import calendar 
+
+from io import BytesIO
+
+from xhtml2pdf import pisa
 
 
 
@@ -157,4 +163,14 @@ def render_single_account(request, acct_id):
     return render(request, 'accountHTML.html', {'account': account, 'curr_date_time': curr_date_time})
 
 
-
+def render_to_pdf(request, acct_id):
+    account = Account.objects.get(account_id=acct_id)
+    curr_date_time = datetime.now()
+    context_dict = {'account': account, 'curr_date_time': curr_date_time}
+    template = get_template('accountHTML.html')
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None

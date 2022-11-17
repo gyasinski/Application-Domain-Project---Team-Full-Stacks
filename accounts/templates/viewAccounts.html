@@ -73,14 +73,34 @@
                     <button class="btn" onclick="window.location.href='/users/administrator/email_user/find-user/{{account.user_id}}/';"><i class="fa fa-envelope"></i>
                         <span class="tooltip"><b>Email</b><br>Email Associated User</span>
                     </button>
-                    <button class="btn"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                        <span class="tooltip"><b>Save</b><br>Save to PDF</span>
-                    </button>
+                    <form action="/charts_accounts/account/pdf/{{account.account_id}}/" method="post">{% csrf_token %}
+                        <button class="btn" type="submit"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            <span class="tooltip"><b>Save</b><br>Save to PDF</span>
+                        </button>
+                    </form>
                 </td>
             </tr>
         {% endfor %}
         </table>
     </div>
+
+
+
+
+    <!-- <script>
+
+        function helloWorld() { 
+            console.log('hello world');
+        }
+        
+    </script> -->
+
+
+
+
+
+
+
 
 
 </body>
