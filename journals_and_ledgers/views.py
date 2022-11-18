@@ -65,6 +65,15 @@ def render_unapproved_entries_page(request):
     curr_user = request.user
     return render(request, 'requestedEntries.html', {'journal_entries': journal_entries, 'curr_user': curr_user} )
 
+def render_approved_entries_page(request):
+    approved_entries = JournalEntry.objects.all()
+    curr_user = request.user
+    return render(request, 'approvedEntries.html', {'approved_entries': approved_entries, 'curr_user': curr_user})
+
+def render_rejected_entries_page(request):
+  rejected_entries = JournalEntry.objects.all()
+  curr_user = request.user
+  return render(request, 'rejectedEntries.html', {'rejected_users': rejected_entries, 'current_admin':curr_user} )
 
 
 def perform_transactions(debit_account, credit_account, journal):
@@ -91,6 +100,9 @@ def commit_journal_entry_approval(request):
         curr_journal.set_approver_id(curr_user)
         perform_transactions(curr_journal.account_credit_id, curr_journal.account_debit_id,curr_journal)
         curr_journal.save()
+        new_journal_entry_id = generate_journal_id()
+
+
     except Exception as e:
         transactError = TransactionError(
         error_id = generate_transactionerror_id(),
@@ -154,13 +166,19 @@ def render_rejected_entries_page(request):
 ## search venues ##
 
 def search_journals_page(request):
-    if request.method == "POST":
-        searched= request.POST('searched')
-    journals= JournalEntry.objects.filter(journal_entry_id__contains= searched)
-    journals= JournalEntry.objects.filter(debit_amount__contains= searched)
-    journals= JournalEntry.objects.filter(date_of_entry__contains= searched)
+   if request.method == "POST":
+    searched= request.POST['searched']
 
-    return render(request,'search_journals.html', {'searched': searched, 'journals': journals} )
+    searchedjournals = JournalEntry.objects.filter(journal_entry_id__icontains= searched)
+    searchedjournals = JournalEntry.objects.filter(debit_amount__icontains= searched)
+    searchedjournals = JournalEntry.objects.filter(credit_amount__icontains= searched)
+    searchedjournals = JournalEntry.objects.filter(date_of_entry__icontains= searched)
+
+    return render(request,
+         'search_journals.html', {'searched': searched,
+         'searchedjournals': searchedjournals})
+
+
 
 # end Karens merge ########################################################################
 def generate_journal_id():

@@ -36,10 +36,26 @@
 
 <table id="view_rejected_entries" width="1200px">
     <tr>
-        <th>Account</th>
-        <th>Description</th>
-        <th>Date</th>
-        <th>Credit</th>
-        <th>Debit</th>
-        <th>Balance</th>
+        <th>Entry ID</th>
+        <th>User ID</th>
+        <th>Entry Description</th>
+        <th>Date of Entry</th>
+        <th>Debit Account</th>
+        <th>Credit Account</th>
+        <th>Amount Debited</th>
+        <th>Amount Credited</th>
+        <th>Approver ID</th>
     </tr>
+
+    {% for rejected_entries in rejected_entries %}
+    <tr>
+     <td>{{rejected_entries.journal_entry_id}}</td>
+     <td>{{rejected_entries.user_submission_id}}</td>
+     <td>{{rejected_entries.initial_entry_description}}</td>
+     <td>{{rejected_entries.date_of_entry}}</td>
+     <td>{{rejected_entries.account_debit_id_id}}</td>
+     <td>{{rejected_entries.account_credit_id_id}}</td>
+     <td>{rejected_entries.debit_amount}}</td>
+     <td>{{rejected_entries.credit_amount}}</td>
+ </tr>
+ {% endfor %}

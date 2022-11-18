@@ -35,6 +35,7 @@
 
 <h2 class="header2"> Journal Searched: .</h2>
 
+<h2 class="header2"> You Searched For {{searched}} </h2>
 
 <table id="view_approved_entries" width="1200px">
     <tr>
@@ -45,3 +46,14 @@
         <th>Debit</th>
         <th>Balance</th>
     </tr>
+    {% for searchedjournal in journal_entries %}
+    <tr>
+        <td>{{searchedjournal.journal_entry_id}}</td>
+        <td>{{searchedjournal.user_submission_id}}</td>
+        <td>{{searchedjournal.initial_entry_description}}</td>
+        <td>{{searchedjournal.date_of_entry}}</td>
+        <td>{{searchedjournal.account_debit_id_id}}</td>
+        <td>{{searchedjournal.account_credit_id_id}}</td>
+        <td>{{searchedjournal.debit_amount}}</td>
+        <td>{{searchedjournal.credit_amount}}</td>
+{% endfor %}

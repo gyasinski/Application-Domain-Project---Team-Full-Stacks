@@ -57,12 +57,24 @@
 <h2 class="header2">From this page, you can approve or reject requests for a new Journal Entry.</h2>
 </br></br></br></br>
 
+
+<form class="d-flex" method="POST" action="{% url 'search_journals' %}">
+
+{% csrf_token %}
+
+<input class="form-control m-2" type = "search" placeholder="Search Journals" aria-label="Search"
+name="searched" >
+<button class=" btn btn-outline-secondary" type=" submit"> Submit </button>
+
+</form>
+
 <div class="container">
 </br>
 <a href="/users/manager/"> 
     <h3 class="back"><i class="fa fa-arrow-left fa-2x">  Go back</i></h3>
 </a>
 </br></br>
+
 
 <table id="view_unapproved_entries" width="1200px">
     <tr>
@@ -88,15 +100,10 @@
             <td>{{journal.account_credit_id_id}}</td>
             <td>{{journal.debit_amount}}</td>
             <td>{{journal.credit_amount}}</td>
-            <td>{% if journal.is_approved == False and journal.is_rejected == False %}
-                    Unapproved
+            <td>{% if journal.is_approved %}
+                    Approved
                     {% else %}
-                        {% if journal.is_rejected %}
-                            Rejected
-                        {% endif %}
-                        {% if journal.is_approved %}
-                            Approved
-                        {% endif %}
+                    Unapproved
                 {% endif %}
             </td>
             <td>
@@ -107,17 +114,18 @@
                 {% endif %}
             </td>
             <td>
-                {% if journal.is_approved == False and journal.is_rejected == False %}
+                {% if journal.is_approved == False %}
                     <form action="/journals_ledger/new_journal_entry_request/approve/" method="post">{% csrf_token %}
                         <input type="hidden" name="journal_id" value={{journal.journal_entry_id}}>
                         <button class="btn"><i class="fa fa-check"></i>
                             <span class="tooltip"><b>Approve</b><br>Approve the journal entry request</span>
                         </button>
-                        
                     </form>
-                    <form method="post" id="reject_form">{% csrf_token %}
-                        <input type="hidden" name="journal_id" value={{journal.journal_entry_id}} id="journal_id">
-                        <button class="btn" id="reject_button" type="submit" data-toggle="modal"><i class="fa fa-trash"></i>
+                    <form>
+                        <button class="btn" id="reject_button" type="button" data-toggle="modal"><i class="fa fa-trash"></i>
+                             {% with curr_journal_id=journal.journal_entry_id %}
+                                {{curr_journal_id}}
+                             {% endwith %}
                             <span class="tooltip"><b>Reject</b><br>Reject the journal entry request</span>
                         </button>
                         
@@ -158,6 +166,7 @@
 <!-- Modal Section -->
 
 <div class="bg-modal">
+    {{curr_journal_id}}
     <div class="modal-content">
         <div class="close">+</div>
         <form action="/journals_ledger/new_journal_entry_request/reject/" method="post">{% csrf_token %}
