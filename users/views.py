@@ -456,3 +456,8 @@ def generate_random_password():
         generated_password += secrets.choice(string.digits + special_characters + string.ascii_lowercase)
 
     return generated_password
+
+
+
+def render_homepage(request):
+    return render(request, 'index.html')
