@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
-    <title>Full-Stacks: Manager Menu: Approved Entries</title>
-    
+   
 </head>
 <body>
     
@@ -33,24 +32,38 @@
 
 <h1 class="header1">Hello, Manager {{current_manager.last_name}}</h1>
 
-<h2 class="header2"> Previously Approved Journal Entries.</h2>
+<h2 class="header2"> Approved Journal Entries.</h2>
 
 </br></br></br></br>
 
-<form class=" d-flex" method=" POST"
-action="{% url 'search_journals' %}"> 
 
  {% csrf_token %}
-<input type="form-control me-2" type = "search" placeholder="Search Journals" name="searched">
+<input type="text" type = "search" placeholder="Search Journals" name="searched">
 <button class=" btn btn-outline-secondary" type=" submit"> Submit </button>
 
 </form>
-<table id="view_approved_entries" width="1200px">
-    <tr>
-        <th>Account</th>
-        <th>Description</th>
-        <th>Date</th>
-        <th>Credit</th>
-        <th>Debit</th>
-        <th>Balance</th>
+    <table id="view_approved_entries" width="1200px">
+        <tr>
+            <th>Entry ID</th>
+            <th>User ID</th>
+            <th>Entry Description</th>
+            <th>Date of Entry</th>
+            <th>Debit Account</th>
+            <th>Credit Account</th>
+            <th>Amount Debited</th>
+            <th>Amount Credited</th>
+            <th>Approver ID</th>
+        </tr>
+ 
+       {% for approved_entries in approved_entries %}
+       <tr>
+        <td>{{approved_entries.journal_entry_id}}</td>
+        <td>{{approved_entries.user_submission_id}}</td>
+        <td>{{approved_entries.initial_entry_description}}</td>
+        <td>{{approved_entries.date_of_entry}}</td>
+        <td>{{approved_entries.account_debit_id_id}}</td>
+        <td>{{approved_entries.account_credit_id_id}}</td>
+        <td>{{approved_entries.debit_amount}}</td>
+        <td>{{approved_entries.credit_amount}}</td>
     </tr>
+    {% endfor %}

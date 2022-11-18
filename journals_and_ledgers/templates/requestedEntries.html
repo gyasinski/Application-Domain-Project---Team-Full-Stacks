@@ -33,12 +33,24 @@
 <h2 class="header2">From this page, you can approve or reject requests for a new Journal Entry.</h2>
 </br></br></br></br>
 
+
+<form class="d-flex" method="POST" action="{% url 'search_journals' %}">
+
+{% csrf_token %}
+ 
+<input class="form-control m-2" type = "search" placeholder="Search Journals" aria-label="Search"
+name="searched" >
+<button class=" btn btn-outline-secondary" type=" submit"> Submit </button>
+
+</form>
+
 <div class="container">
 </br>
 <a href="/users/manager/"> 
     <h3 class="back"><i class="fa fa-arrow-left fa-2x">  Go back</i></h3>
 </a>
 </br></br>
+
 
 <table id="view_unapproved_entries" width="1200px">
     <tr>
@@ -65,7 +77,7 @@
             <td>{{journal.debit_amount}}</td>
             <td>{{journal.credit_amount}}</td>
             <td>{% if journal.is_approved %}
-                    Approved
+                    Approved 
                     {% else %}
                     Unapproved
                 {% endif %}

@@ -35,6 +35,13 @@
         <form action="/journals_ledger/manager/unapproved_entries/" method="get">{% csrf_token %}
             <input type="submit" value="Approve/Reject Entries">
         </form>
+        </form>
+        <form action="/journals_ledger/manager/approved_journal_entry/" method="get">{% csrf_token %}
+        <input type="submit" value="Approved Entries">
+        </form>
+        <form action="/journals_ledger/manager/rejected_journal_entry/" method="get">{% csrf_token %}
+            <input type="submit" value="Rejected Entries">
+            </form>
         <form action="/users/">
             <input type="submit" value="Logout">
         </form>
