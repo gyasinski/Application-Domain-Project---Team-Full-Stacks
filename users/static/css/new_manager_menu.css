@@ -1,0 +1,46 @@
+#wrapper {
+    margin-left:auto;
+    margin-right:auto;
+    width:2600px;
+}
+
+.header1 {
+    text-align: center;
+    font-size: 40px;
+    margin-right: 20px;
+}
+
+.header2 {
+    color: #ADC2A9;
+    text-align: center;
+    margin-right: 20px;
+}
+
+h2 {
+    color: #ADC2A9;
+}
+
+.container{
+
+        display: inline-block;
+        text-align: center;
+        margin-left: 375px;
+        
+}
+
+.link{
+    text-decoration: none;
+    background-color: transparent;
+    color: #99A799;
+    text-align: center;
+    font-size: 35px;
+}
+
+.link:hover {
+
+    text-decoration: underline;
+}
+
+
+
+

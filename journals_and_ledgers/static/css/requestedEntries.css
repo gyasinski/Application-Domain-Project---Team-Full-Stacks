@@ -90,7 +90,13 @@ table {
   cursor: pointer;
 }
 
+#link 
+{background-color: transparent;}
 
+#link:hover {
+
+  background-color: transparent!important;
+}
 
 
 

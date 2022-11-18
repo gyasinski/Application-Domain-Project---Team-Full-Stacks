@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Ledger.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_navbar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <title>Full-Stacks: Accountant: Ledger</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class = "navbar">
+        <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+
+        <div class="dropdown">
+        <button class = "dropbtn"> Accounts</button>
+                <div class="dropdown-content">
+                    <a href="/users/manager/view_accounts/"> View Accounts </a>
+                      <a href="/charts_accounts/view_event_log/"> Event Log</a>
+                </div>
+        </div>
+        <div class="dropdown">
+            <button class = "dropbtn">Journals</button>
+                    <div class="dropdown-content">
+                        <a href="/journals_ledger/journal_entry/"> New Entry </a>
+                        <a href="/journals_ledger/manager/unapproved_entries/"> Approve/Reject Entries</a>
+                    </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="{% static 'images/FULLSTACKS_Manual_t1.pdf' %}" id = "help"> Help</a>
+        </div>
+            <div class="dropdown"  id="profile">
+            <div class="profile_tab">
+                <div class="circle" id="profile_pic">
+                     <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+                </div>
+                <label for="profile_pic" class="profile_pic_label"> {{current_manager}} </label>
+                <div class="dropdown-content">
+                    <a href="/users/"> Log Out </a>
+                </div>
+            </div>
+            </div>
+
+    </div>
+
+</br></br></br></br></br></br></br></br></br>
+
+<div class="container">
+</br>
+    <div class="options">
+        <a href="/users/accountant/"> 
+            <h3 class="back"><i class="fa fa-arrow-left fa-x">&ensp; Go back</i></h3>
+        </a>
+    </div>
+    <div class="options">
+         <h3><i class="fa fa-filter fa-x" title="Filter by date"></i> &ensp;Filter by date</h3>
+    </div>
+    <div class="options">
+        <h3><i class="fa fa-calendar fa-x"></i> &ensp;Select Dates </h3>
+        
+    </div>
+    <div class="options">
+        <h3><i class="fa fa-search fa-x"></i> <input type="text" placeholder="Search by account.."></h3> 
+    </div>
+
+
+</br></br>
+
+<table id="ledger" width="1200px">
+    <tr> 
+        <th>Date</th>
+        <th>Journal ID</th>
+        <th>Description</th>
+        <th>Debit ID</th>
+        <th>Credit ID</th>
+        <th>Balance</th>
+
+    </tr>
+
+    <tr> 
+        <td>11/18/2022</td>
+        <td>1234</td>
+        <td>assets</td>
+        <td>7896</td>
+        <td>6543</td>
+        <td>1000</td>
+    </tr>
+</table>
+</div>
+</body>
