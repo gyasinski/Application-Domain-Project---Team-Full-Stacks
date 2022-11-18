@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navigationbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/view_accounts.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
@@ -12,19 +12,39 @@
 </head>
 <body>
     
-    <div class="navbar">
-        <a href="/users/administrator/">
-            <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
-        </a>
-        <div class="profile_tab">
-            <div class="circle" id="profile_pic">
-                <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
-            </div>
-            <label for="profile_pic" class="profile_pic_label">{{current_admin}}</label>
+    <div class = "navbar">
+        <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+
+        <div class="dropdown">
+        <button class = "dropbtn"> Accounts</button>
+                <div class="dropdown-content">
+                    <a href="/users/manager/view_accounts/"> View Accounts </a>
+                      <a href="/charts_accounts/view_event_log/"> Event Log</a>
+                </div>
         </div>
-        <a href="/users/help/">
-            <h3 id ="help"><i class="fa fa-question fa-3x"></i></h3>
-        </a>
+        <div class="dropdown">
+            <button class = "dropbtn">Journals</button>
+                    <div class="dropdown-content">
+                        <a href="/journals_ledger/journal_entry/"> New Entry </a>
+                        <a href="/journals_ledger/manager/unapproved_entries/"> Approve/Reject Entries</a>
+                    </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="{% static 'images/FULLSTACKS_Manual_t1.pdf' %}" id = "help"> Help</a>
+        </div>
+            <div class="dropdown"  id="profile">
+            <div class="profile_tab">
+                <div class="circle" id="profile_pic">
+                     <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+                </div>
+                <label for="profile_pic" class="profile_pic_label"> {{current_manager}} </label>
+                <div class="dropdown-content">
+                    <a href="/users/"> Log Out </a>
+                </div>
+            </div>
+            </div>
+
     </div>
 
         <!--- Calendar--> 
@@ -37,12 +57,11 @@
 
     </br></br></br></br></br></br>
     <div class="shape">
-        <a href="/users/administrator/">
+        <a href="/users/manager/">
             <h3 class="back"><i class="fa fa-arrow-left fa-2x"> Go back</i></h3>
         </a>
         </br>
         <input type="text" placeholder="Search..">
-    </div>
     <table id = "view_all_accounts" width="1200px">
         <tr>
         <th>Number</th>
@@ -83,6 +102,7 @@
         {% endfor %}
         </table>
     </div>
+</div>
 
 
 </body>
