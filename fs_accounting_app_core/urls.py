@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from users.views import render_homepage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', render_homepage, name='home_page'),
     path('users/', include('users.urls')),
     path('charts_accounts/', include('accounts.urls')),
     path('journals_ledger/', include('journals_and_ledgers.urls')),
