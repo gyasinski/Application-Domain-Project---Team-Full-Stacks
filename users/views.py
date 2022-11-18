@@ -313,7 +313,7 @@ def render_accountant_view_accts_page(request):
 
 def render_manager_page(request):
     current_admin = request.user
-    return render(request, 'managerMenu.html', {'current_admin': current_admin})
+    return render(request, 'new_manager_menu.html', {'current_admin': current_admin})
 
 def render_manager_view_accts_page(request):
     current_admin = request.user
@@ -412,9 +412,11 @@ def render_expired_passwords_page(request):
 
 def render_help_page(request):
     return render(request, 'Help.html')
+
 ##################################################################
 #                    Unorganized Methods                         #
 ##################################################################
+
 
 #calendar
 

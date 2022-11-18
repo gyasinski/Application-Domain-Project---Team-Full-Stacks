@@ -28,11 +28,9 @@ def submit_request_for_new_journal_entry(request):
     if request.method == 'POST' and request.FILES['file']:
         file = request.FILES['file']
         fs = FileSystemStorage()
-        filename = fs.save(file.filename, file)
+        filename = fs.save(file.name, file)
         uploaded_file_url = fs.url(filename)
-        return render(request, 'journalEntry.html', {
-            'uploaded_file_url': uploaded_file_url
-        })
+
 
     try:
         requested_journal_entry = JournalEntry (
@@ -44,7 +42,7 @@ def submit_request_for_new_journal_entry(request):
             debit_amount = debit_amount,
             credit_amount =  credit_amount,
             date_of_entry = datetime.now(),
-            file = file,
+            file = uploaded_file_url,
         )
         requested_journal_entry.save()
     except Exception as e:
@@ -194,3 +192,9 @@ def generate_transactionerror_id():
                     retry = False
         except:
             return error_id
+
+
+### Ledger page for accountant
+def render_accountant_ledger(request):
+    curr_user = request.user
+    return render(request, 'Ledger.html', {'curr_user' : curr_user})
