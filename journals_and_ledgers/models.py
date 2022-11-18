@@ -21,6 +21,9 @@ class JournalEntry(models.Model):
     is_approved = models.BooleanField(default=False)
     approver_id = models.CharField(default='Unapproved', max_length=50)
 
+    #for file upload
+    file = models.FileField()
+
     def approve_journal(self):
         self.is_approved = True
 

@@ -5,6 +5,7 @@ from journals_and_ledgers.models import JournalEntry, TransactionError
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from datetime import datetime
+from django.core.files.storage import FileSystemStorage
 # Create your views here.
 
 
@@ -21,6 +22,16 @@ def submit_request_for_new_journal_entry(request):
     debit_account = Account.objects.get(account_id=debit_account_id)
     debit_amount = request.POST.get('entry_debit')
     credit_amount = request.POST.get('entry_credit')
+    
+    #to attach a file
+    if request.method == 'POST' and request.FILES['file']:
+        file = request.FILES['file']
+        fs = FileSystemStorage()
+        filename = fs.save(file.filename, file)
+        uploaded_file_url = fs.url(filename)
+        return render(request, 'journalEntry.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
 
     try:
         requested_journal_entry = JournalEntry (
@@ -32,6 +43,7 @@ def submit_request_for_new_journal_entry(request):
             debit_amount = debit_amount,
             credit_amount =  credit_amount,
             date_of_entry = datetime.now(),
+            file = file,
         )
         requested_journal_entry.save()
     except Exception as e:
