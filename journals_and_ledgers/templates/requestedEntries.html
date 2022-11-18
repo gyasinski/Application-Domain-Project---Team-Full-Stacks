@@ -100,10 +100,15 @@ name="searched" >
             <td>{{journal.account_credit_id_id}}</td>
             <td>{{journal.debit_amount}}</td>
             <td>{{journal.credit_amount}}</td>
-            <td>{% if journal.is_approved %}
-                    Approved
-                    {% else %}
+            <td>{% if journal.is_approved == False and journal.is_rejected == False %}
                     Unapproved
+                    {% else %}
+                        {% if journal.is_rejected %}
+                            Rejected
+                        {% endif %}
+                        {% if journal.is_approved %}
+                            Approved
+                        {% endif %}
                 {% endif %}
             </td>
             <td>
@@ -114,22 +119,22 @@ name="searched" >
                 {% endif %}
             </td>
             <td>
-                {% if journal.is_approved == False %}
+                {% if journal.is_approved == False and journal.is_rejected == False %}
                     <form action="/journals_ledger/new_journal_entry_request/approve/" method="post">{% csrf_token %}
                         <input type="hidden" name="journal_id" value={{journal.journal_entry_id}}>
                         <button class="btn"><i class="fa fa-check"></i>
                             <span class="tooltip"><b>Approve</b><br>Approve the journal entry request</span>
                         </button>
                     </form>
-                    <form>
-                        <button class="btn" id="reject_button" type="button" data-toggle="modal"><i class="fa fa-trash"></i>
-                             {% with curr_journal_id=journal.journal_entry_id %}
-                                {{curr_journal_id}}
-                             {% endwith %}
+                    <form method="post" id="reject_form">{% csrf_token %}
+                        <input type="hidden" name="journal_id" value={{journal.journal_entry_id}} id="journal_id">
+                        <button class="btn" id="reject_button" type="submit" data-toggle="modal"><i class="fa fa-trash"></i>
                             <span class="tooltip"><b>Reject</b><br>Reject the journal entry request</span>
                         </button>
                         
                     </form>
+            </td>
+
 
                     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
                     
