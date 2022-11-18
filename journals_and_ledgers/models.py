@@ -23,6 +23,9 @@ class JournalEntry(models.Model):
     approver_id = models.CharField(default='Unapproved', max_length=50)
     reject_comment = models.TextField(max_length=200, default="This journal entry has not been rejected yet or was approved.")
 
+    #for file upload
+    file = models.FileField()
+
     def approve_journal(self):
         self.is_approved = True
 
