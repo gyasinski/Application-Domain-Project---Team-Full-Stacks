@@ -154,7 +154,7 @@ def reject_journal_entry(request):
 def render_approved_entries_page(request):
     approved_entries = JournalEntry.objects.all()
     current_admin = request.user
-    return render(request, 'approvedEntries.html', {'approved_users': approved_entries, 'current_admin':current_admin} )
+    return render(request, 'approvedEntries.html', {'approved_entries': approved_entries, 'current_admin': current_admin})
 
 ## rejected journal entries ##
 
