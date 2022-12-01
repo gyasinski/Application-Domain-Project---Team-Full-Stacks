@@ -48,6 +48,7 @@
     </tr>
 
     {% for rejected_entries in rejected_entries %}
+
     <tr>
      <td>{{rejected_entries.journal_entry_id}}</td>
      <td>{{rejected_entries.user_submission_id}}</td>
@@ -55,7 +56,10 @@
      <td>{{rejected_entries.date_of_entry}}</td>
      <td>{{rejected_entries.account_debit_id_id}}</td>
      <td>{{rejected_entries.account_credit_id_id}}</td>
-     <td>{rejected_entries.debit_amount}}</td>
+     <td>{{rejected_entries.debit_amount}}</td>
      <td>{{rejected_entries.credit_amount}}</td>
  </tr>
  {% endfor %}
+</table>
+</body>
+</html>
