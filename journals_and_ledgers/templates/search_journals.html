@@ -32,28 +32,37 @@
 
 <h1 class="header1">Hello, Manager {{current_manager.last_name}}</h1>
 
-
-<h2 class="header2"> Journal Searched: .</h2>
+{% if searched%}
 
 <h2 class="header2"> You Searched For {{searched}} </h2>
 
 <table id="view_approved_entries" width="1200px">
     <tr>
-        <th>Account</th>
-        <th>Description</th>
-        <th>Date</th>
-        <th>Credit</th>
-        <th>Debit</th>
-        <th>Balance</th>
+        <th>Entry ID</th>
+        <th>User ID</th>
+        <th>Entry Description</th>
+        <th>Date of Entry</th>
+        <th>Debit Account</th>
+        <th>Credit Account</th>
+        <th>Amount Debited</th>
+        <th>Amount Credited</th>
+        <th>Approver ID</th>
     </tr>
-    {% for searchedjournal in journal_entries %}
-    <tr>
-        <td>{{searchedjournal.journal_entry_id}}</td>
-        <td>{{searchedjournal.user_submission_id}}</td>
-        <td>{{searchedjournal.initial_entry_description}}</td>
-        <td>{{searchedjournal.date_of_entry}}</td>
-        <td>{{searchedjournal.account_debit_id_id}}</td>
-        <td>{{searchedjournal.account_credit_id_id}}</td>
-        <td>{{searchedjournal.debit_amount}}</td>
-        <td>{{searchedjournal.credit_amount}}</td>
+
+    {% for journal in journal_entries %}
+        <tr>
+            <td>{{journal.journal_entry_id}}</td>
+            <td>{{journal.user_submission_id}}</td>
+            <td>{{journal.initial_entry_description}}</td>
+            <td>{{journal.date_of_entry}}</td>
+            <td>{{journal.account_debit_id_id}}</td>
+            <td>{{journal.account_credit_id_id}}</td>
+            <td>{{journal.debit_amount}}</td>
+            <td>{{journal.credit_amount}}</td>
 {% endfor %}
+
+{% else %}
+<h2 class="header2"> Nothing was searched </h2>
+{% endif %}
+</body>
+</html>

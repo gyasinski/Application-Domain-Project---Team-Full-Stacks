@@ -19,7 +19,6 @@ from xhtml2pdf import pisa
 
 
 
-
 from django.http import HttpResponse
 # Create your views here.
 
@@ -38,8 +37,11 @@ def render_viewaccounts_page(request):
     return render(request, 'viewAccounts.html', {'c': c, 'accounts': accounts, 'current_admin': current_admin})
 
 def search_account_results(request):
-    pass
+   if request.method == "POST":
+    searchedacc= request.POST['searched']
 
+
+    
 def render_delete_chart_accounts(request):
     return render(request, 'delete_coa.html')
 

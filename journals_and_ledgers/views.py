@@ -169,10 +169,10 @@ def search_journals_page(request):
    if request.method == "POST":
     searched= request.POST['searched']
 
-    searchedjournals = JournalEntry.objects.filter(journal_entry_id__icontains= searched)
-    searchedjournals = JournalEntry.objects.filter(debit_amount__icontains= searched)
-    searchedjournals = JournalEntry.objects.filter(credit_amount__icontains= searched)
-    searchedjournals = JournalEntry.objects.filter(date_of_entry__icontains= searched)
+    searchedjournals = JournalEntry.objects.filter(journal_entry_id__contains= searched)
+    searchedjournals = JournalEntry.objects.filter(debit_amount__contains= searched)
+    searchedjournals = JournalEntry.objects.filter(credit_amount__contains= searched)
+    searchedjournals = JournalEntry.objects.filter(date_of_entry__contains= searched)
 
     return render(request,
          'search_journals.html', {'searched': searched,
