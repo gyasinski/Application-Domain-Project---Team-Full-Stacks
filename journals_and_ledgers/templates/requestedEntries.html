@@ -15,14 +15,13 @@
 <body>
     
     <div class = "navbar">
-    <a id="link" href="/users/manager/">
         <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
-    </a>
+    
 
         <div class="dropdown">
         <button class = "dropbtn"> Accounts</button>
                 <div class="dropdown-content">
-                    <a href="/users/administrator/"> View Accounts </a>
+                    <a href="/users/manager/view_accounts/"> View Accounts </a>
                       <a href="/charts_accounts/view_event_log/"> Event Log</a>
                 </div>
         </div>
@@ -62,8 +61,7 @@
 
 {% csrf_token %}
 
-<input class="form-control m-2" type = "search" placeholder="Search Journals" aria-label="Search"
-name="searched" >
+<input class="form-control m-2" type = "search" placeholder="Search Journals" aria-label="Search">
 <button class=" btn btn-outline-secondary" type=" submit"> Submit </button>
 
 </form>

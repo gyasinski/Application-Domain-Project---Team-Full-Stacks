@@ -3,9 +3,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{% static 'css/accountantMenu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_homepages.css' %}">
     <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
     <link rel="stylesheet" href="{% static 'css/new_navbar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <meta charset="UTF-8">
     <title>Full-Stacks: Accountant Menu</title>
@@ -54,21 +55,29 @@
     </div>
 
 </br></br>
+</br></br> </br></br></br> 
+    <h1 class="header1"> Welcome back, Accountant</h1>
+    <h2 class="header2">Let's get started!</h2>
 
-    <div class="shape">
-        </br>
-        <p2>Welcome, Accountant</p2>
-        </br></br>
-        <form action="/users/accountant/view_accounts/">
-            <input type="submit" value="View Accounts">
-        </form>
-        <form action="/journals_ledger/journal_entry/" method="get">
-            <input type="submit" value="Submit Journal Request">
-        </form>
-        <form action="/users/">
-            <input type="submit" value="Logout">
-        </form>
+    </br></br></br></br> </br></br></br></br> </br></br></br></br> 
+    <div class="container">
+        <h1 class="menu1"><i class="fa fa-eye fa-3x"></i></h1>
+        <h1 class="menu1"> <a class="link" href="/journals_ledger/journal_entry/">View Ledger</a></h1>
+        <h2 class="menu1">Access the Ledger</h2>
     </div>
+
+    <div class="container">
+        <h1 class="menu">&emsp; &emsp; &emsp;&emsp; &emsp; <i class="fa fa-arrow-up fa-3x"></i></h1>
+        <h1> &emsp; &emsp; &emsp; &emsp; &emsp;<a class="link" href="/journals_ledger/manager/unapproved_entries/">Journal Request</a></h1>
+        <h2 class="menu2">  &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp; Request a new journal entry</h2>
+    </div>
+    <div class="container">
+        <h1 class="menu">&emsp; &emsp; &emsp;<i class="fa fa-book fa-3x"></i></h1>
+        <h1 class="menu">&emsp; &emsp; &emsp;<a class="link" href="/charts_accounts/view_event_log/">Event Log</a></h1>
+        <h2 class="menu">&emsp; &emsp; &emsp;&emsp; View the accounts event log</h2>
+    </div>
+
+    
     </br></br>
 </body>
 </html>

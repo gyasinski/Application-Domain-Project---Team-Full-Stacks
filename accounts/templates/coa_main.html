@@ -2,90 +2,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href=""> <!--Need to add CSS stuff-->
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/coa_creation.css' %}">
     <meta charset="UTF-8">
     <title>Full-Stacks: CoA Creation</title>
 </head>
-<h1>Charts of Account Creation</h1>
-<body>
-    <form action="/charts_accounts/post_account/" method="post">{% csrf_token %}
-        </br>
-        <label for="acct_name">Account Name: </label><input type="text" id="acct_name" name="acct_name"></br>
-        <label for="acct_desc">Account Description: </label></br>
-        <textarea id="acct_description" name="acct_desc" rows="5" cols="50"></textarea>
+<div class = "navbar">
+    <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
 
+    <div class="dropdown">
+        <button class = "dropbtn">Users</button>
+                <div class="dropdown-content">
+                    <a href="/users/administrator/view_all_users/"> View All Users </a>
+                    <a href="/users/administrator/unapproved_users/"> New User Request</a>
+                    <a href="/users/administrator/view_expired_passwords/"> View Expired Passwords</a>
 
+                </div>
+    </div>
+    <div class="dropdown">
+    <button class = "dropbtn"> Accounts</button>
+            <div class="dropdown-content">
+                <a href="/charts_accounts/view_accounts/"> View or Edit Accounts </a>
+                <a href="/charts_accounts/"> Create a Chart of Accounts</a>
+                <a href="/charts_accounts/delete_page/"> Delete a Chart of Accounts</a>
+                <a href="/charts_accounts/view_event_log/"> Event Log</a>
+            </div>
+    </div>
+    <div class="dropdown">
+        <button class = "dropbtn">Ledger</button>
+                <div class="dropdown-content">
+                    <a href="/journals_ledger/ledger/"> View Ledger </a>
+                </div>
+    </div>
 
-
-        <p>Account Category:</p>
-        <input type="radio" id="asset" name="acct_category" value="Asset">
-        <label for="asset">Asset</label><br>
-        <input type="radio" id="liability" name="acct_category" value="Liability">
-        <label for="liability">Liability</label><br>
-        <input type="radio" id="expenses" name="acct_category" value="Expenses">
-        <label for="expenses">Expenses</label><br>
-        <input type="radio" id="equity" name="acct_category" value="Equity">
-        <label for="equity">Equity</label><br>
-        <input type="radio" id="revenue" name="acct_category" value="Revenue">
-        <label for="revenue">Revenue</label><br>
-        </br>
-
-        <label for="acct_name">Account Sub-Category: </label><input type="text" id="acct_sc" name="acct_sc"></br>
-
-        <p>Credit or Debit:</p>
-        <input type="radio" id="credit" name="credit_or_debit" value="Credit">
-        <label for="credit">Credit</label><br>
-        <input type="radio" id="debit" name="credit_or_debit" value="Debit">
-        <label for="debit">Debit</label><br>
-
-        </br>
-
-
-
-
-
-        
-        <label for="init_balance">Initial Balance: </label><input type="text" id="init_balance" name="init_bal"></br>
-        <label for="debit_amount">Debit Amount: </label><input type="text" id="debit_amount" name="debit_amt"></br>
-        <label for="credit_amount">Credit Amount: </label><input type="text" id="credit_amount" name="credit_amt"></br>
-        <label for="balance">Balance: </label><input type="text" id="balance" name="acct_bal"></br>
-
-        <p>Order:</p>
-        <input type="radio" id="cash" name="order" value="Cash">
-        <label for="asset">Cash</label><br>
-        <input type="radio" id="market_securities" name="order" value="Market Securities">
-        <label for="market_securities">Market Securities</label><br>
-        <input type="radio" id="accounts_rec" name="order" value="Accounts Recievable">
-        <label for="accounts_rec">Accounts Recievable</label><br>
-        <input type="radio" id="inventory" name="order" value="Inventory">
-        <label for="inventory">Inventory</label><br>
-        <input type="radio" id="fixed_assets" name="order" value="Fixed Assets">
-        <label for="fixed_assets">Fixed Assets</label><br>
-        <input type="radio" id="goodwill" name="order" value="Goodwill">
-        <label for="goodwill">Goodwill</label><br>
-        </br>
-
-        <p>Statement Type:</p>
-        <input type="radio" id="is" name="statement" value="Income Statement">
-        <label for="is">Income Statement</label><br>
-        <input type="radio" id="bs" name="statement" value="Balance Sheet">
-        <label for="bs">Market Securities</label><br>
-        <input type="radio" id="res" name="statement" value="Retained Earnings Statement">
-        <label for="res">Retained Earnings Statement</label><br>
-
-        </br>
-
-
-        <label for="acct_comment">Comment(s): </label></br>
-        <textarea id="acct_comment" name="acct_comment" rows="5" cols="50"></textarea>
-
-
-
-
-        </br></br>
-        <input type="submit" value="Submit">
+    <div class="dropdown">
+        <a href="/users/help/" id = "help"> Help</a>
+    </div>
+        <div class="dropdown"  id="profile">
+        <div class="profile_tab">
+            <div class="circle" id="profile_pic">
+                 <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+            </div>
+            <label for="profile_pic" class="profile_pic_label"> {{current_administrator}} </label>
+            <div class="dropdown-content">
+                <a href="/users/administrator/logout_user/"> Log Out </a>
+            </div>
+        </div>
+        </div>
+</div>
+</br></br></br>
+<div class="shape">
+</br>
+    <form action="/users/administrator/">
+        <input type="submit" id="back" value="Go Back">
     </form>
+    <h1>Charts of Account Creation</h1>
+    <body>
+        <form action="/charts_accounts/post_account/" method="post">{% csrf_token %}
+        
+            <label for="acct_name" class="label1">Account Name: </label><input type="text" id="acct_name" name="acct_name"></br></br>
+            <label for="acct_desc" class="label1">Account Description: </label></br>
+            <textarea id="acct_description" name="acct_desc" rows="5" cols="50" class="label1"></textarea>
+
+
+            <h2 class="label1">Account Category:</h2>
+            <input type="radio" id="asset" name="acct_category" value="Asset" class="label1">
+            <label for="asset">Asset</label><br>
+            <input type="radio" id="liability" name="acct_category" value="Liability" class="label1">
+            <label for="liability">Liability</label><br>
+            <input type="radio" id="expenses" name="acct_category" value="Expenses" class="label1">
+            <label for="expenses">Expenses</label><br>
+            <input type="radio" id="equity" name="acct_category" value="Equity" class="label1">
+            <label for="equity">Equity</label><br>
+            <input type="radio" id="revenue" name="acct_category" value="Revenue" class="label1">
+            <label for="revenue">Revenue</label><br>
+            </br>
+
+            <label for="acct_name" class="label1">Account Sub-Category: </label><input type="text" id="acct_sc" name="acct_sc"></br>
+
+            <h2 class="label1">Credit or Debit:</h2>
+            <input type="radio" id="credit" name="credit_or_debit" value="Credit" class="label1">
+            <label for="credit">Credit</label><br>
+            <input type="radio" id="debit" name="credit_or_debit" value="Debit" class="label1">
+            <label for="debit">Debit</label><br>
+
+            </br>
+
+
+
+
+
+            
+            <label for="init_balance" class="label1">Initial Balance: </label><input type="text" id="init_balance" name="init_bal"></br>
+            <label for="debit_amount" class="label1">Debit Amount: </label><input type="text" id="debit_amount" name="debit_amt"></br>
+            <label for="credit_amount" class="label1">Credit Amount: </label><input type="text" id="credit_amount" name="credit_amt"></br>
+            <label for="balance" class="label1">Balance: </label><input type="text" id="balance" name="acct_bal"></br>
+
+            <h2 class="label1">Order:</h2>
+            <input type="radio" id="cash" name="order" value="Cash" class="label1">
+            <label for="asset">Cash</label><br>
+            <input type="radio" id="market_securities" name="order" value="Market Securities" class="label1">
+            <label for="market_securities">Market Securities</label><br>
+            <input type="radio" id="accounts_rec" name="order" value="Accounts Recievable" class="label1">
+            <label for="accounts_rec">Accounts Recievable</label><br>
+            <input type="radio" id="inventory" name="order" value="Inventory" class="label1">
+            <label for="inventory">Inventory</label><br>
+            <input type="radio" id="fixed_assets" name="order" value="Fixed Assets" class="label1">
+            <label for="fixed_assets">Fixed Assets</label><br>
+            <input type="radio" id="goodwill" name="order" value="Goodwill" class="label1">
+            <label for="goodwill">Goodwill</label><br>
+            </br>
+
+            <h2 class="label1">Statement Type:</h2>
+            <input type="radio" id="is" name="statement" value="Income Statement" class="label1">
+            <label for="is">Income Statement</label><br>
+            <input type="radio" id="bs" name="statement" value="Balance Sheet" class="label1">
+            <label for="bs">Market Securities</label><br>
+            <input type="radio" id="res" name="statement" value="Retained Earnings Statement" class="label1">
+            <label for="res">Retained Earnings Statement</label><br>
+
+            </br>
+
+
+            <label for="acct_comment" class="label1">Comment(s): </label></br>
+            <textarea id="acct_comment" name="acct_comment" rows="5" cols="50" class="label1"></textarea>
+
+            </br>
+            <input type="submit" value="Submit">
+        </form>
+</div>
 
     {% if messages %}
     <ul class="messages">

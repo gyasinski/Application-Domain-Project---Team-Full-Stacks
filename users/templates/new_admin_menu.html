@@ -1,24 +1,27 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_homepages.css' %}">
     <link rel="stylesheet" href="{% static 'css/new_navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/coa_delete.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
-    <title>Full-Stacks: CoA Deletion</title>
+    <title>Full-Stacks: Admin Menu</title>
 </head>
 <body>
+<div class="wrapper">
     <div class = "navbar">
         <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
-    
+
         <div class="dropdown">
             <button class = "dropbtn">Users</button>
                     <div class="dropdown-content">
                         <a href="/users/administrator/view_all_users/"> View All Users </a>
                         <a href="/users/administrator/unapproved_users/"> New User Request</a>
                         <a href="/users/administrator/view_expired_passwords/"> View Expired Passwords</a>
-    
+
                     </div>
         </div>
         <div class="dropdown">
@@ -36,7 +39,7 @@
                         <a href="/journals_ledger/ledger/"> View Ledger </a>
                     </div>
         </div>
-    
+
         <div class="dropdown">
             <a href="/users/help/" id = "help"> Help</a>
         </div>
@@ -52,26 +55,34 @@
             </div>
             </div>
     </div>
-</br></br></br></br></br></br>
-    <div class="shape">
-    </br></br>
-        <form action="/users/administrator/">
-            <input type="submit" id="back" value="Go Back">
-        </form>
-    </br></br></br></br></br></br></br>
-    <form action="/charts_accounts/delete_page/delete/" method="post">{% csrf_token %}
-        <label for="username" class="label1">Please enter the account ID of the Chart of Accounts to be deleted: </label></br></br>
-        <input type="text" id="delete" name="account_id" class="label2"></br></br></br></br>
-        <input type="submit" value="Submit">
-    </form>
-    </div>
 
-    {% if messages %}
-     <ul class="messages">
-        {% for message in messages %}
-        <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+    </br></br> </br></br></br> 
+        <h1 class="header1"> Welcome back, Administrator</h1>
+        <h2 class="header2">Let's get started!</h2>
+
+    </br></br></br></br> </br></br></br></br> </br></br>
     
+  
+        <div class="container">
+            <h1 class="menu1"><i class="fa fa-users fa-3x"></i></h1>
+            <h1 class="menu1"> <a class="link" href="/users/administrator/view_all_users/">View Users</a></h1>
+            <h2 class="menu1">View and edit users</h2>
+        </div>
+
+        <div class="container">
+            <h1 class="menu">&emsp; &emsp; &emsp;&emsp; &emsp; <i class="fa fa-book fa-3x"></i></h1>
+            <h1> &emsp; &emsp; &emsp; &emsp; &emsp;<a class="link" href="/charts_accounts/view_accounts/">View Accounts</a></h1>
+            <h2 class="menu2">  &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp; View and edit accounts</h2>
+        </div>
+        <div class="container">
+            <h1 class="menu"><i class="fa fa-id-card fa-3x"></i></h1>
+            <h1 class="menu"><a class="link" href="/journals_ledger/manager/unapproved_entries/">Check User Requests</a></h1>
+            <h2 class="menu">View current user requests, accept or reject them</h2>
+        </div>
+        
+    
+
+
+
+</div>
 </body>

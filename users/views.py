@@ -170,7 +170,7 @@ def verify_password(password):
 
 def render_admin_page(request):
     current_admin = request.user
-    return render(request, 'adminMenu.html', {'current_admin': current_admin})
+    return render(request, 'new_admin_menu.html', {'current_admin': current_admin})
 
 def render_viewusers_page(request):
     users = User.objects.all()

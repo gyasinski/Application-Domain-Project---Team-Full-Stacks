@@ -7,6 +7,7 @@ from django.utils.timezone import now, localtime
 from django.template.loader import get_template
 
 
+
 import pytz
 from django.contrib import messages
 
@@ -174,3 +175,7 @@ def render_to_pdf(request, acct_id):
     if not pdf.err:
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return None
+
+
+
+

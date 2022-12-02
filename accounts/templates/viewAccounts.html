@@ -8,44 +8,115 @@
     <link rel="stylesheet" href="{% static 'css/view_accounts.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
-    <title>Full-Stacks: Admin Menu</title>
+    <title>Full-Stacks: View Accounts</title>
 </head>
 <body>
-    
+<div class = wrapper> 
     <div class = "navbar">
         <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
-
-        <div class="dropdown">
-        <button class = "dropbtn"> Accounts</button>
-                <div class="dropdown-content">
-                    <a href="/users/manager/view_accounts/"> View Accounts </a>
-                      <a href="/charts_accounts/view_event_log/"> Event Log</a>
+    
+        {% if user.role == 'Manager' %}
+            <div class="dropdown">
+                <button class = "dropbtn"> Accounts</button>
+                        <div class="dropdown-content">
+                            <a href="/users/manager/view_accounts/"> View Accounts </a>
+                            <a href="/charts_accounts/view_event_log/"> Event Log</a>
+                        </div>
                 </div>
-        </div>
-        <div class="dropdown">
-            <button class = "dropbtn">Journals</button>
+                <div class="dropdown">
+                    <button class = "dropbtn">Journals</button>
+                            <div class="dropdown-content">
+                                <a href="/journals_ledger/journal_entry/"> New Entry </a>
+                                <a href="/journals_ledger/manager/unapproved_entries/"> Approve/Reject Entries</a>
+                                <a href="/journals_ledger/manager/rejected_journal_entry/"> Rejected Entries</a>
+                                <a href="/journals_ledger/manager/approved_journal_entry/"> Approved Entries</a>
+    
+                            </div>
+                </div>
+                <div class="dropdown">
+                    <button class = "dropbtn">Ledger</button>
+                            <div class="dropdown-content">
+                                <a href="/journals_ledger/ledger/"> View Ledger </a>
+                            </div>
+                </div>
+    
+        {% elif user.role == 'Administrator' %}
+    
+            <div class="dropdown">
+                <button class = "dropbtn">Users</button>
+                        <div class="dropdown-content">
+                            <a href="/users/administrator/view_all_users/"> View All Users </a>
+                            <a href="/users/administrator/unapproved_users/"> New User Request</a>
+                            <a href="/users/administrator/view_expired_passwords/"> View Expired Passwords</a>
+    
+                        </div>
+            </div>
+            <div class="dropdown">
+            <button class = "dropbtn"> Accounts</button>
                     <div class="dropdown-content">
-                        <a href="/journals_ledger/journal_entry/"> New Entry </a>
-                        <a href="/journals_ledger/manager/unapproved_entries/"> Approve/Reject Entries</a>
+                        <a href="/charts_accounts/view_accounts/"> View or Edit Accounts </a>
+                        <a href="/charts_accounts/"> Create a Chart of Accounts</a>
+                        <a href="/charts_accounts/delete_page/"> Delete a Chart of Accounts</a>
+                        <a href="/charts_accounts/view_event_log/"> Event Log</a>
                     </div>
-        </div>
-
+            </div>
+            <div class="dropdown">
+                <button class = "dropbtn">Ledger</button>
+                        <div class="dropdown-content">
+                            <a href="/journals_ledger/ledger/"> View Ledger </a>
+                        </div>
+            </div>
+    
+        {% else %}
         <div class="dropdown">
-            <a href="{% static 'images/FULLSTACKS_Manual_t1.pdf' %}" id = "help"> Help</a>
+            <button class = "dropbtn"> Accounts</button>
+                    <div class="dropdown-content">
+                        <a href="/users/manager/view_accounts/"> View Accounts </a>
+                          <a href="/charts_accounts/view_event_log/"> Event Log</a>
+                    </div>
+            </div>
+            <div class="dropdown">
+                <button class = "dropbtn">Journals</button>
+                        <div class="dropdown-content">
+                            <a href="/journals_ledger/journal_entry/"> Submit Journal Request </a>
+    
+                        </div>
+            </div>
+    
+            <div class="dropdown">
+                <button class = "dropbtn">Ledger</button>
+                        <div class="dropdown-content">
+                            <a href="/journals_ledger/ledger/"> View Ledger </a>
+    
+                        </div>
+            </div>
+    
+        {% endif %}
+    
+        <div class="dropdown">
+            <a href="/users/help/" id = "help"> Help</a>
         </div>
             <div class="dropdown"  id="profile">
             <div class="profile_tab">
                 <div class="circle" id="profile_pic">
                      <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
                 </div>
+            {% if user.role == 'Manager' %}
                 <label for="profile_pic" class="profile_pic_label"> {{current_manager}} </label>
-                <div class="dropdown-content">
+            {% elif user.role == 'Administrator' %}
+                <label for="profile_pic" class="profile_pic_label"> {{current_admin}} </label>
+            {% else %}
+                <label for="profile_pic" class="profile_pic_label"> {{current_accountant}} </label>
+            {% endif %}
+    
+            <div class="dropdown-content">
                     <a href="/users/"> Log Out </a>
-                </div>
             </div>
-            </div>
-
+        </div>
+    
     </div>
+    </div>
+
 
         <!--- Calendar--> 
     <div class="table table2">
@@ -57,11 +128,21 @@
 
     </br></br></br></br></br></br>
     <div class="shape">
-        <a href="/users/manager/">
-            <h3 class="back"><i class="fa fa-arrow-left fa-2x"> Go back</i></h3>
-        </a>
-        </br>
-        <input type="text" placeholder="Search..">
+    </br></br>
+    {% if user.role == 'Manager' %}
+        <form action="/users/manager/">
+            <input type="submit" id="back" value="Go Back">
+        </form>
+    {% elif user.role == 'administrator' %}
+        <form action="/users/administrator/">
+            <input type="submit" id="back" value="Go Back">
+        </form>
+    {% else %}
+            <form action="/users/accountant/">                                                                                                                               
+                <input type="submit" id="back" value="Go Back">
+            </form>
+    {% endif %}
+        <input type="text" placeholder="Search.."></br>
     <table id = "view_all_accounts" width="1200px">
         <tr>
         <th>Number</th>
@@ -76,16 +157,18 @@
         <!---Populate the table here :)---->
         {% for account in accounts %}
             <tr>
-                <td><a href="/charts_accounts/account/{{account.account_id}}" style="color: #FF0000">{{account.account_id}}</td></a>
+                <td><a href="/charts_accounts/account/{{account.account_id}}" style="color: #ADC2A9">{{account.account_id}}</td></a>
                 <td>{{account.account_name}}</td>
                 <td>{{account.account_category}}</td>
                 <td>{{account.account_sub_category}}</td>
                 <td>{{account.current_balance}}</td>
                 <td>Active: {{account.is_active}}</td>
                 <td>
+                <a href="/charts_accounts/administrator/edit_account/">
                     <button class="btn"><i class="fa fa-edit"></i>
                         <span class="tooltip"><b>Edit</b><br>Edit accounts</span>
                     </button>
+                </a>
                     <button class="btn"><i class="fa fa-trash"></i>
                         <span class="tooltip"><b>Delete</b><br>Delete account</span>
                     </button>
@@ -103,7 +186,8 @@
         </table>
     </div>
 </div>
+</div>
 
-
+</div>
 </body>
 </html>

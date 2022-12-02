@@ -1,0 +1,209 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/help.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_navbar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <title>Full-Stacks: Manager Menu</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class = "navbar">
+            <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+        
+            {% if user.role == 'Manager' %}
+                <div class="dropdown">
+                    <button class = "dropbtn"> Accounts</button>
+                            <div class="dropdown-content">
+                                <a href="/users/manager/view_accounts/"> View Accounts </a>
+                                <a href="/charts_accounts/view_event_log/"> Event Log</a>
+                            </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class = "dropbtn">Journals</button>
+                                <div class="dropdown-content">
+                                    <a href="/journals_ledger/journal_entry/"> New Entry </a>
+                                    <a href="/journals_ledger/manager/unapproved_entries/"> Approve/Reject Entries</a>
+                                    <a href="/journals_ledger/manager/rejected_journal_entry/"> Rejected Entries</a>
+                                    <a href="/journals_ledger/manager/approved_journal_entry/"> Approved Entries</a>
+        
+                                </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class = "dropbtn">Ledger</button>
+                                <div class="dropdown-content">
+                                    <a href="/journals_ledger/ledger/"> View Ledger </a>
+                                </div>
+                    </div>
+        
+            {% elif user.role == 'Administrator' %}
+        
+                <div class="dropdown">
+                    <button class = "dropbtn">Users</button>
+                            <div class="dropdown-content">
+                                <a href="/users/administrator/view_all_users/"> View All Users </a>
+                                <a href="/users/administrator/unapproved_users/"> New User Request</a>
+                                <a href="/users/administrator/view_expired_passwords/"> View Expired Passwords</a>
+        
+                            </div>
+                </div>
+                <div class="dropdown">
+                <button class = "dropbtn"> Accounts</button>
+                        <div class="dropdown-content">
+                            <a href="/charts_accounts/view_accounts/"> View or Edit Accounts </a>
+                            <a href="/charts_accounts/"> Create a Chart of Accounts</a>
+                            <a href="/charts_accounts/delete_page/"> Delete a Chart of Accounts</a>
+                            <a href="/charts_accounts/view_event_log/"> Event Log</a>
+                        </div>
+                </div>
+                <div class="dropdown">
+                    <button class = "dropbtn">Ledger</button>
+                            <div class="dropdown-content">
+                                <a href="/journals_ledger/ledger/"> View Ledger </a>
+                            </div>
+                </div>
+        
+            {% else %}
+            <div class="dropdown">
+                <button class = "dropbtn"> Accounts</button>
+                        <div class="dropdown-content">
+                            <a href="/users/manager/view_accounts/"> View Accounts </a>
+                              <a href="/charts_accounts/view_event_log/"> Event Log</a>
+                        </div>
+                </div>
+                <div class="dropdown">
+                    <button class = "dropbtn">Journals</button>
+                            <div class="dropdown-content">
+                                <a href="/journals_ledger/journal_entry/"> Submit Journal Request </a>
+        
+                            </div>
+                </div>
+        
+                <div class="dropdown">
+                    <button class = "dropbtn">Ledger</button>
+                            <div class="dropdown-content">
+                                <a href="/journals_ledger/ledger/"> View Ledger </a>
+        
+                            </div>
+                </div>
+        
+            {% endif %}
+        
+            <div class="dropdown">
+                <a href="/users/help/" id = "help"> Help</a>
+            </div>
+                <div class="dropdown"  id="profile">
+                <div class="profile_tab">
+                    <div class="circle" id="profile_pic">
+                         <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+                    </div>
+                {% if user.role == 'Manager' %}
+                    <label for="profile_pic" class="profile_pic_label"> {{current_manager}} </label>
+                {% elif user.role == 'Administrator' %}
+                    <label for="profile_pic" class="profile_pic_label"> {{current_admin}} </label>
+                {% else %}
+                    <label for="profile_pic" class="profile_pic_label"> {{current_accountant}} </label>
+                {% endif %}
+        
+                <div class="dropdown-content">
+                        <a href="/users/"> Log Out </a>
+                </div>
+            </div>
+        
+        </div>
+        </div>
+
+
+</br></br></br></br></br></br></br></br></br></br>
+
+
+<h1 class="header1">Welcome to the help page!</h1>
+<h2>Here you will find assistance to navigate the Full-Stacks pages! </h2></br></br>
+
+<div class="shape">
+</br></br>
+    <h1><a href="#acctMenu" class="links">Acccountant Menu</a></h1>
+    <h1><a href="#adminMenu" class="links">Administrator Menu</a></h1>
+    <h1><a href="#AdminViewUsers" class="links">Admin View Users</a></h1>
+    <h1><a href="#adminViewAccounts" class="links">Admin View Accounts</a></h1>
+    <h1><a href="#managerMenu" class="links">Manager Menu</a></h1>
+    <h1><a href="#viewUsers" class="links">View Users</a></h1>
+
+</div>
+
+
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+
+<h1 id="acctMenu" class="headers"> Accountant Menu </h1>
+<img src = "{% static 'images/screenshots/accountantMenu.png' %}" class="images"></br></br>
+<h2 class="paragraph">1. This is your navigation bar. You can access all features form there.</h2>
+<h2 class="paragraph">2. This is area displays your profile picture and username. You can logout from there by clicking on it.</h2>
+<h2 class="paragraph">3. These are your quick access buttons. Clicking on them will grant you access to frequently used functions.</h2></br>
+
+
+<h1 id="adminMenu" class="headers"> Administrator Menu </h1>
+<img src = "{% static 'images/screenshots/adminMenu.png' %}" class="images"></br></br>
+<h2 class="paragraph">1. This is your navigation bar. You can access all features form there.</h2>
+<h2 class="paragraph">2. This is area displays your profile picture and username. You can logout from there by clicking on it.</h2>
+<h2 class="paragraph">3. These are your quick access buttons. Clicking on them will grant you access to frequently used functions.</h2></br>
+
+<h1 id="adminViewUsers" class="headers">Admin View Users </h1>
+<img src = "{% static 'images/screenshots/viewUsers.png' %}" class="images"></br></br>
+<h2 class="paragraph">1. This is your navigation bar. You can access all features form there.</h2>
+<h2 class="paragraph">2. This is area displays your profile picture and username. You can logout from there by clicking on it.</h2>
+<h2 class="paragraph">3. These columns show all users' information </h2>
+<h2 class="paragraph">4. These buttons allowed to edit, activate/deactivate, suspend, or email the user chosen.</h2></br>
+
+
+
+<h1 id="adminViewAccounts" class="headers"> Admin View Accounts </h1>
+<img src = "{% static 'images/screenshots/AdminViewAccounts.png' %}" class="images"></br></br>
+<h2 class="paragraph">1. This is your navigation bar. You can access all features form there.</h2>
+<h2 class="paragraph">2. This is area displays your profile picture and username. You can logout from there by clicking on it.</h2>
+<h2 class="paragraph">3. These columns show all accounts' information </h2>
+<h2 class="paragraph">4. These buttons allowed to edit, delete, suspend, email the user associated with the account chosen, 
+    or downbload a pdf with the account information.</h2></br>
+
+
+<h1 id="managerMenu" class="headers"> Manager Menu </h1>
+<img src = "{% static 'images/screenshots/managerPage.png' %}" class="images"></br></br>
+<h2 class="paragraph">1. This is your navigation bar. You can access all features form there.</h2>
+<h2 class="paragraph">2. This is area displays your profile picture and username. You can logout from there by clicking on it.</h2>
+<h2 class="paragraph">3. These are your quick access buttons. Clicking on them will grant you access to frequently used functions.</h2></br>
+
+
+<h1 id="viewUsers" class="headers"> View Users </h1>
+<img src = "{% static 'images/screenshots/viewUsers.png' %}" class="images"></br></br>
+<h2 class="paragraph">1. This is your navigation bar. You can access all features form there.</h2>
+<h2 class="paragraph">2. This is area displays your profile picture and username. You can logout from there by clicking on it.</h2>
+<h2 class="paragraph">3. These columns show all accounts' information </h2>
+<h2 class="paragraph">4. These buttons allowed to edit, delete, suspend, email the user associated with the account chosen, 
+    or downbload a pdf with the account information.</h2></br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+
+
