@@ -73,7 +73,7 @@ def render_approved_entries_page(request):
 def render_rejected_entries_page(request):
   rejected_entries = JournalEntry.objects.all()
   curr_user = request.user
-  return render(request, 'rejectedEntries.html', {'rejected_users': rejected_entries, 'current_admin':curr_user} )
+  return render(request, 'rejectedEntries.html', {'rejected_entries': rejected_entries, 'current_admin':curr_user} )
 
 
 def perform_transactions(debit_account, credit_account, journal):

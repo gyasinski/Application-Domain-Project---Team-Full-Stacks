@@ -240,7 +240,7 @@ def email_user(request, pk):
         fail_silently=False,
     )
 
-    response = redirect('/users/administrator/view_all_users/')
+    response = redirect(request.GET.get('next'))
     return response
 
 def render_unapproved_users_page(request):

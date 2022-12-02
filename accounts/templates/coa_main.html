@@ -2,91 +2,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href=""> <!--Need to add CSS stuff-->
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/coa_main.css' %}">
     <meta charset="UTF-8">
     <title>Full-Stacks: CoA Creation</title>
 </head>
-<h1>Charts of Account Creation</h1>
 <body>
-    <form action="/charts_accounts/post_account/" method="post">{% csrf_token %}
-        </br>
-        <label for="acct_name">Account Name: </label><input type="text" id="acct_name" name="acct_name"></br>
-        <label for="acct_desc">Account Description: </label></br>
-        <textarea id="acct_description" name="acct_desc" rows="5" cols="50"></textarea>
+    <div class = "navbar">
+        <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
 
+        <div class="dropdown">
+            <button class = "dropbtn"> Accounts</button>
+            <div class="dropdown-content">
+                <a href="/users/administrator/"> View Accounts </a>
+                <a href="/charts_accounts/view_event_log/"> Event Log</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class = "dropbtn">Journals</button>
+            <div class="dropdown-content">
+                <a href="/journals_ledger/journal_entry/"> New Entry </a>
+                <a href="/journals_ledger/manager/unapproved_entries/"> Approve/Reject Entries</a>
+            </div>
+        </div>
 
+        <div class="dropdown">
+            <a href="{% static 'images/FULLSTACKS_Manual_t1.pdf#page=3' %}" id = "help"> Help</a>
+        </div>
+        <div class="dropdown"  id="profile">
+            <div class="profile_tab">
+                <div class="circle" id="profile_pic">
+                     <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+                </div>
 
+                <label for="profile_pic" class="profile_pic_label"> {{current_manager}} </label>
 
-        <p>Account Category:</p>
-        <input type="radio" id="asset" name="acct_category" value="Asset">
-        <label for="asset">Asset</label><br>
-        <input type="radio" id="liability" name="acct_category" value="Liability">
-        <label for="liability">Liability</label><br>
-        <input type="radio" id="expenses" name="acct_category" value="Expenses">
-        <label for="expenses">Expenses</label><br>
-        <input type="radio" id="equity" name="acct_category" value="Equity">
-        <label for="equity">Equity</label><br>
-        <input type="radio" id="revenue" name="acct_category" value="Revenue">
-        <label for="revenue">Revenue</label><br>
-        </br>
+                <div class="dropdown-content">
+                    <a href="/users/"> Log Out </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <label for="acct_name">Account Sub-Category: </label><input type="text" id="acct_sc" name="acct_sc"></br>
+    <h1>Charts of Account Creation</h1>
 
-        <p>Credit or Debit:</p>
-        <input type="radio" id="credit" name="credit_or_debit" value="Credit">
-        <label for="credit">Credit</label><br>
-        <input type="radio" id="debit" name="credit_or_debit" value="Debit">
-        <label for="debit">Debit</label><br>
-
-        </br>
-
-
-
-
-
-        
-        <label for="init_balance">Initial Balance: </label><input type="text" id="init_balance" name="init_bal"></br>
-        <label for="debit_amount">Debit Amount: </label><input type="text" id="debit_amount" name="debit_amt"></br>
-        <label for="credit_amount">Credit Amount: </label><input type="text" id="credit_amount" name="credit_amt"></br>
-        <label for="balance">Balance: </label><input type="text" id="balance" name="acct_bal"></br>
-
-        <p>Order:</p>
-        <input type="radio" id="cash" name="order" value="Cash">
-        <label for="asset">Cash</label><br>
-        <input type="radio" id="market_securities" name="order" value="Market Securities">
-        <label for="market_securities">Market Securities</label><br>
-        <input type="radio" id="accounts_rec" name="order" value="Accounts Recievable">
-        <label for="accounts_rec">Accounts Recievable</label><br>
-        <input type="radio" id="inventory" name="order" value="Inventory">
-        <label for="inventory">Inventory</label><br>
-        <input type="radio" id="fixed_assets" name="order" value="Fixed Assets">
-        <label for="fixed_assets">Fixed Assets</label><br>
-        <input type="radio" id="goodwill" name="order" value="Goodwill">
-        <label for="goodwill">Goodwill</label><br>
-        </br>
-
-        <p>Statement Type:</p>
-        <input type="radio" id="is" name="statement" value="Income Statement">
-        <label for="is">Income Statement</label><br>
-        <input type="radio" id="bs" name="statement" value="Balance Sheet">
-        <label for="bs">Market Securities</label><br>
-        <input type="radio" id="res" name="statement" value="Retained Earnings Statement">
-        <label for="res">Retained Earnings Statement</label><br>
-
-        </br>
-
-
-        <label for="acct_comment">Comment(s): </label></br>
-        <textarea id="acct_comment" name="acct_comment" rows="5" cols="50"></textarea>
-
-
-
-
+    <div class="shape">
+        <button class="back_btn" onclick="history.back()">Go Back</button>
         </br></br>
-        <input type="submit" value="Submit">
-    </form>
+        <form action="/charts_accounts/post_account/" method="post">{% csrf_token %}
+            </br>
+            <label for="acct_name">Account Name: </label><input type="text" id="acct_name" name="acct_name"></br>
+            <label for="acct_desc">Account Description: </label></br>
+            <textarea id="acct_desc" name="acct_desc" rows="5" cols="50"></textarea>
 
+
+
+
+            <p>Account Category:</p>
+            <input type="radio" id="asset" name="acct_category" value="Asset">
+            <label for="asset">Asset</label><br>
+            <input type="radio" id="liability" name="acct_category" value="Liability">
+            <label for="liability">Liability</label><br>
+            <input type="radio" id="expenses" name="acct_category" value="Expenses">
+            <label for="expenses">Expenses</label><br>
+            <input type="radio" id="equity" name="acct_category" value="Equity">
+            <label for="equity">Equity</label><br>
+            <input type="radio" id="revenue" name="acct_category" value="Revenue">
+            <label for="revenue">Revenue</label><br>
+            </br>
+
+            <label for="acct_name">Account Sub-Category: </label><input type="text" id="acct_sc" name="acct_sc"></br>
+
+            <p>Credit or Debit:</p>
+            <input type="radio" id="credit" name="credit_or_debit" value="Credit">
+            <label for="credit">Credit</label><br>
+            <input type="radio" id="debit" name="credit_or_debit" value="Debit">
+            <label for="debit">Debit</label><br>
+
+            </br>
+
+
+
+
+
+
+            <label for="init_balance">Initial Balance: </label><input type="text" id="init_balance" name="init_bal"></br>
+            <label for="debit_amount">Debit Amount: </label><input type="text" id="debit_amount" name="debit_amt"></br>
+            <label for="credit_amount">Credit Amount: </label><input type="text" id="credit_amount" name="credit_amt"></br>
+            <label for="balance">Balance: </label><input type="text" id="balance" name="acct_bal"></br>
+
+            <p>Order:</p>
+            <input type="radio" id="cash" name="order" value="Cash">
+            <label for="asset">Cash</label><br>
+            <input type="radio" id="market_securities" name="order" value="Market Securities">
+            <label for="market_securities">Market Securities</label><br>
+            <input type="radio" id="accounts_rec" name="order" value="Accounts Recievable">
+            <label for="accounts_rec">Accounts Recievable</label><br>
+            <input type="radio" id="inventory" name="order" value="Inventory">
+            <label for="inventory">Inventory</label><br>
+            <input type="radio" id="fixed_assets" name="order" value="Fixed Assets">
+            <label for="fixed_assets">Fixed Assets</label><br>
+            <input type="radio" id="goodwill" name="order" value="Goodwill">
+            <label for="goodwill">Goodwill</label><br>
+            </br>
+
+            <p>Statement Type:</p>
+            <input type="radio" id="is" name="statement" value="Income Statement">
+            <label for="is">Income Statement</label><br>
+            <input type="radio" id="bs" name="statement" value="Balance Sheet">
+            <label for="bs">Market Securities</label><br>
+            <input type="radio" id="res" name="statement" value="Retained Earnings Statement">
+            <label for="res">Retained Earnings Statement</label><br>
+
+            </br>
+
+
+            <label for="acct_comment">Comment(s): </label></br>
+            <textarea id="acct_comment" name="acct_comment" rows="5" cols="50"></textarea>
+
+
+
+
+            </br></br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
     {% if messages %}
     <ul class="messages">
        {% for message in messages %}

@@ -11,81 +11,78 @@
     <title>Full-Stacks: Journal Entry</title>
 </head>
 <body>
-<div id="wrapper">
     <div class = "navbar">
         <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
 
         <div class="dropdown">
-        <button class = "dropbtn"> Accounts</button>
-                <div class="dropdown-content">
-                    <a href="/users/administrator/"> View Accounts </a>
-                      <a href="/charts_accounts/view_event_log/"> Event Log</a>
-                </div>
+            <button class = "dropbtn"> Accounts</button>
+            <div class="dropdown-content">
+                <a href="/users/administrator/"> View Accounts </a>
+                <a href="/charts_accounts/view_event_log/"> Event Log</a>
+            </div>
         </div>
         <div class="dropdown">
             <button class = "dropbtn">Journals</button>
-                    <div class="dropdown-content">
-                        <a href="/journals_ledger/journal_entry/"> New Entry </a>
-                        <a href="/journals_ledger/manager/unapproved_entries/"> Approve/Reject Entries</a>
-                    </div>
+            <div class="dropdown-content">
+                <a href="/journals_ledger/journal_entry/"> New Entry </a>
+                <a href="/journals_ledger/manager/unapproved_entries/"> Approve/Reject Entries</a>
+            </div>
         </div>
 
         <div class="dropdown">
             <a href="{% static 'images/FULLSTACKS_Manual_t1.pdf#page=3' %}" id = "help"> Help</a>
         </div>
-            <div class="dropdown"  id="profile">
+        <div class="dropdown"  id="profile">
             <div class="profile_tab">
                 <div class="circle" id="profile_pic">
                      <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
                 </div>
+
                 <label for="profile_pic" class="profile_pic_label"> {{current_manager}} </label>
+
                 <div class="dropdown-content">
                     <a href="/users/"> Log Out </a>
                 </div>
             </div>
-            </div>
-
+        </div>
     </div>
 
-</br></br></br>
+    </br></br></br>
 
-<div class="container">
-</br>  
-<form action="/users/manager/">
-<input type="submit" value="Go Back" id="back_manager"> 
-<p2 class="p2">Journal Entry Form</p2>
-</form>
-</br></br></br>
+    <div class="container">
+        </br>
+        <button class="back_btn" onclick="history.back()">Go Back</button>
+        <p2 class="p2">Journal Entry Form</p2>
+        </br></br></br>
 
 
 <!--Populate with existing accounts-->
-<form action="/journals_ledger/new_journal_entry_request/submit/" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <label for="jdescription"> Entry Description: </label>
-        <input type="text" id="jdescription" name="entry_description"></br>
-    <label for="credit"> Credit Amount: </label>
-        <input type="text" id="credit" name="entry_credit"></br>
-    <label for="debit"> Debit Amount: </label>
-        <input type="text" id="debit" name="entry_debit"></br>
-    <label for="credit"> Credit Account ID: </label>
-        <input type="text" id="credit" name="credit_account_id"></br>
-    <label for="credit"> Debit Account ID: </label>
-        <input type="text" id="debit" name="debit_account_id"></br>
-    <label for="field"> Attach file: </label>
-        <input type="file" name="file">
+        <form action="/journals_ledger/new_journal_entry_request/submit/" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <label for="jdescription"> Entry Description: </label>
+                <input type="text" id="jdescription" name="entry_description"></br>
+            <label for="credit"> Credit Amount: </label>
+                <input type="text" id="credit" name="entry_credit"></br>
+            <label for="debit"> Debit Amount: </label>
+                <input type="text" id="debit" name="entry_debit"></br>
+            <label for="credit_account_id"> Credit Account ID: </label>
+                <input type="text" id="credit_account_id" name="credit_account_id"></br>
+            <label for="debit_account_id"> Debit Account ID: </label>
+                <input type="text" id="debit_account_id" name="debit_account_id"></br>
+            <label for="file" class="file_label"> Attach file: </label>
+                <input type="file" name="file" id="file">
 
-    </br></br>
-    <input type="submit" value="Submit" id="Submit">
-</form>
-</br></br>
-</div>
+        </br></br>
+        <input type="submit" value="Submit" id="Submit">
+        </form>
+        </br></br>
+    </div>
 
-{% if messages %}
+    {% if messages %}
     <ul class="messages">
        {% for message in messages %}
        <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
        {% endfor %}
-   </ul>
+    </ul>
    {% endif %}
 
-</div>
 </body>

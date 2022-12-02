@@ -34,6 +34,10 @@ input[type=file] {
 	margin-left: 0px;
 }
 
+input[type=button] {
+	margin-left: 0px;
+}
+
 .file_label {
 	margin-left: 82px;
 }

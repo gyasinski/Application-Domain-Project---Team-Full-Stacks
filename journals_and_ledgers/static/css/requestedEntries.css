@@ -22,6 +22,10 @@ table {
   
   }
 
+.back_btn {
+    margin-left: 100px;
+}
+
 .container {
     background-color:#ADC2A9;
     width: 1200px;

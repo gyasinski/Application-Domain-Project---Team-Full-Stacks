@@ -23,22 +23,42 @@ input[id= back_manager] {
 }
 
 input[id=Submit] {
-	margin-left: 370px;
+	margin-left: 0px;
+}
+
+.back_btn {
+	margin-left: 10px;
+	margin-right: 100px;
+}
+
+p2 {
+	margin-right: 225px;
 }
 
 label {
 	display: inline-block;
 	text-align: left;
-    margin-left: 225px;
+    width: 300px;
+}
+
+.file_label {
+	margin-left: 59px;
 }
 
 .container {
     background-color:#ADC2A9;
     width: 750px;
-    height: 750px;
+    height: 550px;
     border-radius: 30px;
 	margin: auto;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	text-align: center;
 }
+
+.circle {
+	float: right;
+}
+
+
 
 

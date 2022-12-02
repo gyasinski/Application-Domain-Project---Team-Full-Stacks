@@ -28,12 +28,14 @@ class JournalEntry(models.Model):
 
     def approve_journal(self):
         self.is_approved = True
+        self.is_rejected = False
 
     def set_approver_id(self, approver_id):
         self.approver_id = approver_id
 
     def reject_journal(self):
         self.is_rejected = True
+        self.is_approved = False
 
     def add_rejection_comment(self, reject_comment):
         self.reject_comment = reject_comment

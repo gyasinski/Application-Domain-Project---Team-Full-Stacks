@@ -77,18 +77,25 @@
         <th>Description</th>
         <th>Debit ID</th>
         <th>Credit ID</th>
-        <th>Balance</th>
+        <th>Debit Amount</th>
+        <th>Credit Amount</th>
 
     </tr>
-
+    {% for entry in ledger %}
+    <!----Dynamically filter later---->
+    {% if entry.is_approved and not entry.is_rejected %}
     <tr> 
-        <td>11/18/2022</td>
-        <td>1234</td>
-        <td>assets</td>
-        <td>7896</td>
-        <td>6543</td>
-        <td>1000</td>
+        <td>{{entry.date_of_entry}}</td>
+        <td>{{entry.journal_entry_id}}</td>
+        <td>{{entry.initial_entry_description}}</td>
+        <td>{{entry.account_debit_id}}</td>
+        <td>{{entry.account_credit_id}}</td>
+        <td>{{entry.debit_amount}}</td>
+        <td>{{entry.credit_amount}}</td>
     </tr>
+    {% endif %}
+
+    {% endfor %}
 </table>
 </div>
 </body>

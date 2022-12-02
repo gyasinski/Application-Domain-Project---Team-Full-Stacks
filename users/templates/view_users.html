@@ -4,19 +4,51 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{% static 'css/colorscheme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/view_users.css' %}">
     <meta charset="UTF-8">
     <title>Full-Stacks: View All Users</title>
 </head>
 <body>
-    <img src= "{% static 'images/slogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
+    <div class = "navbar">
+        <img src= "{% static 'images/navbarlogo.png' %}" class="logo" alt =" < $ > Full-Stacks">
 
-    <div class="profile_tab">
-        <div class="circle" id="profile_pic">
-             <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+        <div class="dropdown">
+            <button class = "dropbtn"> Accounts</button>
+            <div class="dropdown-content">
+                <a href="/users/administrator/"> View Accounts </a>
+                <a href="/charts_accounts/view_event_log/"> Event Log</a>
+            </div>
         </div>
-        <label for="profile_pic" class="profile_pic_label"> {{current_admin}} </label>
-    </div>
+        <div class="dropdown">
+            <button class = "dropbtn">Journals</button>
+            <div class="dropdown-content">
+                <a href="/journals_ledger/journal_entry/"> New Entry </a>
+                <a href="/journals_ledger/manager/unapproved_entries/"> Approve/Reject Entries</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="{% static 'images/FULLSTACKS_Manual_t1.pdf#page=3' %}" id = "help"> Help</a>
+        </div>
+        <div class="dropdown"  id="profile">
+            <div class="profile_tab">
+                <div class="circle" id="profile_pic">
+                     <img src= "{% static 'images/velociraptor.png' %}" class="profile_picture" alt ="..Load Image..">
+                </div>
+
+                <label for="profile_pic" class="profile_pic_label"> {{current_manager}} </label>
+
+                <div class="dropdown-content">
+                    <a href="/users/"> Log Out </a>
+                </div>
+            </div>
+        </div>
+   </div>
+
+    </br></br></br>
+    <h1> View All Users</h1>
+    </br></br></br>
 
     <div class="shape">
         </br></br>
